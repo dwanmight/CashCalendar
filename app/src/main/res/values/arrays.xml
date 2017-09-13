@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pay_categories">
+        <item>Продукты</item>
+        <item>Развлечения</item>
+    </string-array>
+</resources>

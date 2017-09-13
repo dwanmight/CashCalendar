@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">CashCalendar</string>
+
+    <string name="navigation_drawer_open">Открыть боковое меню</string>
+    <string name="navigation_drawer_close">Закрыть боковое меню</string>
+
+    <string name="action_settings">Настройки</string>
+
+
+    <!--Categories-->
+    <string name="db_categories_necessarily">"Обязательные расходы"</string>
+    <string name="db_categories_products">"Продукты"</string>
+    <string name="db_categories_auto">"Автомобиль"</string>
+    <string name="db_categories_entertainment">"Развлечения"</string>
+    <string name="db_categories_self">"Забота о себе"</string>
+    <string name="db_categories_home">"Товары для дома"</string>
+
+    <!--Subcategories necessarily-->
+    <string name="db_categories_necessarily_credit">"Кредит"</string>
+    <string name="db_categories_necessarily_rent">"Квартплата"</string>
+    <string name="db_categories_necessarily_internet">"Интернет"</string>
+    <string name="db_categories_necessarily_communication">"Связь"</string>
+
+    <!--Subcategories products-->
+    <string name="db_categories_products_meal_fish">"Мясо, рыба"</string>
+    <string name="db_categories_products_veg_fruits">"Овощи, фрукты"</string>
+    <string name="db_categories_products_milk">"Молочная продукция"</string>
+    <string name="db_categories_products_sweet">"Сладкое"</string>
+    <string name="db_categories_products_drinks">"Напитки"</string>
+    <string name="db_categories_products_rest">"Остальное"</string>
+
+    <!--Subcategories auto-->
+    <string name="db_categories_auto_fuel">"Топливо"</string>
+    <string name="db_categories_auto_repair">"Ремонт"</string>
+    <string name="db_categories_auto_wash">"Мойка"</string>
+    <string name="db_categories_auto_insurance">"Страховка"</string>
+    <string name="db_categories_auto_tax_penalty">"Налоги, штрафы"</string>
+
+    <!--Subcategories entertainment-->
+    <string name="db_categories_entertainment_rest">"Ресторан"</string>
+    <string name="db_categories_entertainment_pizza">"Пицца"</string>
+    <string name="db_categories_entertainment_sushi">"Суши"</string>
+    <string name="db_categories_entertainment_films">"Кино"</string>
+    <string name="db_categories_entertainment_coffee">"Кофейня"</string>
+
+    <!--Subcategories self-->
+    <string name="db_categories_self_salon">"Салон красоты"</string>
+    <string name="db_categories_self_clothes">"Одежда"</string>
+    <string name="db_categories_self_aid">"Медицина"</string>
+    <string name="db_categories_self_cosmetics">"Косметика"</string>
+
+    <!--Subcategories home-->
+    <string name="db_categories_home_household">"Бытовая химия"</string>
+    <string name="db_categories_home_furniture">"Мебель"</string>
+    <string name="db_categories_home_technology">"Техника"</string>
+    <string name="db_categories_home_animals">"Животные"</string>
+    <string name="db_categories_home_repair">"Ремонт"</string>
+
+    <string name="action_save">Сохранить</string>
+    <string name="user_surname">Фамилия</string>
+    <string name="user_name">Имя</string>
+    <string name="user_nickname">Никнейм</string>
+    <string name="list_holder_paycounter_text">Список затрат пуст</string>
+    <string name="title_category">Категория</string>
+    <string name="title_subcategory">Подкатегория</string>
+    <string name="hint_detail_description" font="14sp">Введите описание</string>
+    <string name="title_date">Дата</string>
+    <string name="title_cost">Стоимость</string>
+    <string name="detail_set_payed_text">Указать сумму</string>
+    <string name="detail_date_now_text">Сейчас</string>
+    <string name="title_description">Описание</string>
+
+</resources>
