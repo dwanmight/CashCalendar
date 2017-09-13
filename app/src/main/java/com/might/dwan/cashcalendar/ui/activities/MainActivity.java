@@ -11,15 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.ui.fragments.CounterListFragment;
 
 public class MainActivity extends BaseFragmentActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-
-    private TextView mTitleTv;
 
     @Override Fragment createFragment() {
         return new CounterListFragment();
@@ -29,11 +26,10 @@ public class MainActivity extends BaseFragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
+        toolbar.setTitle(getResources().getString(R.string.app_name));
         setSupportActionBar(toolbar);
 
-        mTitleTv = (TextView) toolbar.findViewById(R.id.toolbar_title_tv);
-
+        setTitle(getResources().getString(R.string.app_name));
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -114,10 +110,5 @@ public class MainActivity extends BaseFragmentActivity
     private void startUpdateProfile() {
         Intent startUpdateIntent = new Intent(this, UpdateProfileActivity.class);
         startActivity(startUpdateIntent);
-    }
-
-    public void setTitle(String title){
-        if(title==null)return;
-        mTitleTv.setText(title);
     }
 }

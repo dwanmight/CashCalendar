@@ -1,5 +1,6 @@
 package com.might.dwan.cashcalendar.ui.adapter;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.data.models.PayCounterModel;
+import com.might.dwan.cashcalendar.ui.interfaces.OnItemPickListener;
 import com.might.dwan.cashcalendar.utils.DateUtils;
 
 import java.util.ArrayList;
@@ -19,11 +21,17 @@ import java.util.ArrayList;
 public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<PayCounterModel> mList;
 
+    private OnItemPickListener<PayCounterModel> mOnItemPickListener;
+
     private final int TYPE_PLACE_HOLDER = 0;
     private final int TYPE_ITEM = 1;
 
     public PayCounterAdapter(ArrayList<PayCounterModel> list) {
         mList = list;
+    }
+
+    public void setOnItemPickListener(OnItemPickListener<PayCounterModel> onItemPickListener) {
+        mOnItemPickListener = onItemPickListener;
     }
 
     @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -59,7 +67,8 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    static class PayCounterHolder extends RecyclerView.ViewHolder {
+    public class PayCounterHolder extends RecyclerView.ViewHolder {
+        private ConstraintLayout mConstraintLayout;
         private TextView category_tv;
         private TextView subcategory_tv;
         private TextView pay_tv;
@@ -67,6 +76,7 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public PayCounterHolder(View v) {
             super(v);
+            mConstraintLayout = (ConstraintLayout) v;
             category_tv = (TextView) v.findViewById(R.id.list_item_paycounter_category_tv);
             subcategory_tv = (TextView) v.findViewById(R.id.list_item_paycounter_subcategory_tv);
             pay_tv = (TextView) v.findViewById(R.id.list_item_paycounter_pay_tv);
@@ -79,6 +89,17 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             setSubcategory("" + item.getSubcategory_text());
             setPay(item.getCount_pay());
             setDate(item.getTimestamp());
+            setListeners(item);
+        }
+
+        private void setListeners(final PayCounterModel item) {
+            mConstraintLayout.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    if (mOnItemPickListener != null) {
+                        mOnItemPickListener.onItemClicked(item);
+                    }
+                }
+            });
         }
 
         private void clearData() {

@@ -15,6 +15,9 @@ import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.data.db.db_models.PayCounterDB;
 import com.might.dwan.cashcalendar.data.models.PayCounterModel;
 import com.might.dwan.cashcalendar.ui.adapter.PayCounterAdapter;
+import com.might.dwan.cashcalendar.ui.adapter.decoration.SpaceDecoration;
+import com.might.dwan.cashcalendar.ui.interfaces.OnItemPickListener;
+import com.might.dwan.cashcalendar.utils.DisplayUtils;
 import com.might.dwan.cashcalendar.utils.IntentUtils;
 
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ import java.util.ArrayList;
  * Created by Might on 25.08.2017.
  */
 
-public class CounterListFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class CounterListFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, OnItemPickListener<PayCounterModel> {
     private RecyclerView mRecyclerView;
     private FloatingActionButton mFab;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -49,6 +52,7 @@ public class CounterListFragment extends Fragment implements View.OnClickListene
         mList = new ArrayList<>();
         mAdapter = new PayCounterAdapter(mList);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new SpaceDecoration(DisplayUtils.pxToDp(getActivity(), 16)));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
@@ -69,6 +73,7 @@ public class CounterListFragment extends Fragment implements View.OnClickListene
     private void setListeners() {
         mFab.setOnClickListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        mAdapter.setOnItemPickListener(this);
     }
 
     @Override public void onClick(View v) {
@@ -88,5 +93,11 @@ public class CounterListFragment extends Fragment implements View.OnClickListene
         mAdapter.notifyDataSetChanged();
         loadData(null);
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override public void onItemClicked(PayCounterModel item) {
+        if (item != null) {
+            IntentUtils.startDetailPay(getActivity(), DetailPayFragment.MODE_DETAIL, item);
+        }
     }
 }
