@@ -18,16 +18,12 @@ import static android.content.ContentValues.TAG;
  */
 
 public class PayCounterDB {
-    private Context mContext;
 
-    public PayCounterDB(Context context) {
-        mContext = context;
+    public PayCounterDB() {
+
     }
 
-    public PayCounterModel getPayItem(String item_id) {
-        DBHelper dbHelper = new DBHelper(mContext);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
+    public PayCounterModel getPayItem(SQLiteDatabase db, String item_id) {
         Cursor c = db.query(DBHelper.TABLE_USER_PAY
                 , null
                 , DBHelper.COLUMN_USER_PAY_ITEM_ID + " = ?"
@@ -57,11 +53,9 @@ public class PayCounterDB {
         }
     }
 
-    public long insert(PayCounterModel model) {
+    public long insert(SQLiteDatabase db, PayCounterModel model) {
         long res = -1;
         if (model == null) return res;
-        DBHelper dbHelper = new DBHelper(mContext);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(DBHelper.COLUMN_USER_PAY_USER_ID, model.getUser_id());
         cv.put(DBHelper.COLUMN_USER_PAY_ITEM_ID, model.getPay_item_id());
@@ -79,11 +73,9 @@ public class PayCounterDB {
         return res;
     }
 
-    public long update(PayCounterModel model) {
+    public long update(SQLiteDatabase db, PayCounterModel model) {
         long res = -1;
         if (model == null) return res;
-        DBHelper dbHelper = new DBHelper(mContext);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(DBHelper.COLUMN_USER_PAY_USER_ID, model.getUser_id());
         cv.put(DBHelper.COLUMN_USER_PAY_ITEM_ID, model.getPay_item_id());
@@ -101,18 +93,16 @@ public class PayCounterDB {
         return res;
     }
 
-    public ArrayList<PayCounterModel> load() throws Exception {
-        return load(-1, null);
+    public ArrayList<PayCounterModel> load(SQLiteDatabase db) throws Exception {
+        return load(db, -1, null);
     }
 
-    public ArrayList<PayCounterModel> load(int limit) throws Exception {
-        return load(limit, null);
+    public ArrayList<PayCounterModel> load(SQLiteDatabase db, int limit) throws Exception {
+        return load(db, limit, null);
     }
 
-    public ArrayList<PayCounterModel> load(int limit, String timestamp) throws Exception {
+    public ArrayList<PayCounterModel> load(SQLiteDatabase db, int limit, String timestamp) throws Exception {
         ArrayList<PayCounterModel> dataList = new ArrayList<>();
-        DBHelper dbHelper = new DBHelper(mContext);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor c = null;
         try {
             if (timestamp == null || timestamp.equals("")) {

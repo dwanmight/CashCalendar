@@ -14,16 +14,12 @@ import java.util.ArrayList;
  */
 
 public class SubcategoryDB {
-    private Context mContext;
 
-    public SubcategoryDB(Context context) {
-        mContext = context;
+    public SubcategoryDB(){
     }
 
-    public ArrayList<NameIdModel> getSubCategories(int category_id) {
+    public ArrayList<NameIdModel> getSubCategories(SQLiteDatabase db, int category_id) {
         ArrayList<NameIdModel> data = new ArrayList<>();
-        DBHelper dbHelper = new DBHelper(mContext);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         Cursor c = db.query(DBHelper.TABLE_SUBCATEGORIES
                 , null

@@ -1,6 +1,5 @@
 package com.might.dwan.cashcalendar.data.db.db_models;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -14,16 +13,12 @@ import java.util.ArrayList;
  */
 
 public class CategoryDB {
-    private Context mContext;
 
-    public CategoryDB(Context context) {
-        mContext = context;
+    public CategoryDB() {
     }
 
-    public ArrayList<NameIdModel> getCategories() {
+    public ArrayList<NameIdModel> getCategories(SQLiteDatabase db) {
         ArrayList<NameIdModel> data = new ArrayList<>();
-        DBHelper dbHelper = new DBHelper(mContext);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         Cursor c = db.query(DBHelper.TABLE_CATEGORIES
                 , null

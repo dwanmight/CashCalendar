@@ -14,16 +14,13 @@ import com.might.dwan.cashcalendar.data.models.UserModel;
  */
 
 public class UsersInfoDB {
-    private Context mContext;
 
-    public UsersInfoDB(Context context) {
-        mContext = context;
+    public UsersInfoDB() {
+
     }
 
-    public void addUser(String nickname, String name, String surname) {
-        if (mContext == null) return;
-        DBHelper dbHelper = new DBHelper(mContext);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public void addUser(SQLiteDatabase db,String nickname, String name, String surname) {
+        if (db == null) return;
 
         Cursor c = db.query(DBHelper.TABLE_USERS_INFO
                 , new String[]{DBHelper.COLUMN_USERS_INFO_NICKNAME}
@@ -45,13 +42,10 @@ public class UsersInfoDB {
         db.close();
     }
 
-    public UserModel getUser(String nickname) {
+    public UserModel getUser(SQLiteDatabase db,String nickname) {
         Log.i("TAGTAG", "getUser: " + nickname);
         UserModel user = new UserModel("", "", "");
         if (nickname == null || nickname.equals("")) return user;
-
-        DBHelper dbHelper = new DBHelper(mContext);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         Cursor c = db.query(DBHelper.TABLE_USERS_INFO
                 , new String[]{DBHelper.COLUMN_USERS_INFO_NICKNAME, DBHelper.COLUMN_USERS_INFO_NAME, DBHelper.COLUMN_USERS_INFO_SURNAME}
