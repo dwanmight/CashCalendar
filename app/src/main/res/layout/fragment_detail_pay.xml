@@ -11,11 +11,11 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:titleTextColor="@color/colorWhite"
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:titleTextColor="@color/colorWhite">
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
@@ -26,7 +26,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="32dp"
             android:orientation="vertical">
             <TextView android:id="@+id/textView"
                       android:layout_width="wrap_content"
@@ -41,6 +40,7 @@
                          android:layout_height="wrap_content"
                          android:layout_marginLeft="16dp"
                          android:layout_marginRight="16dp"
+                         android:paddingLeft="8dp"
                          android:layout_marginTop="8dp"
 
                          android:background="@drawable/bg_rect_stroke_grey_corner_5">
@@ -62,10 +62,11 @@
             <FrameLayout android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:layout_marginLeft="16dp"
-
                          android:layout_marginRight="16dp"
+
                          android:layout_marginTop="8dp"
-                         android:background="@drawable/bg_rect_stroke_grey_corner_5">
+                         android:background="@drawable/bg_rect_stroke_grey_corner_5"
+                         android:paddingLeft="8dp">
                 <Spinner android:id="@+id/subcategory_spinner"
                          android:layout_width="match_parent"
                          android:layout_height="48dp"
@@ -89,11 +90,11 @@
                       android:hint="@string/hint_detail_description"
                       android:minHeight="48dp"
                       android:paddingBottom="8dp"
-                      android:textColorHint="@color/colorGrey"
                       android:paddingLeft="16dp"
                       android:paddingRight="16dp"
                       android:paddingTop="8dp"
                       android:textColor="@color/colorGrey"
+                      android:textColorHint="@color/colorGrey"
                       android:textSize="14sp"/>
             <TextView
                 android:id="@+id/textView7"
@@ -113,9 +114,9 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_rect_stroke_grey_corner_5"
                 android:padding="16dp"
-                android:textSize="14sp"
                 android:text="@string/detail_date_now_text"
-                android:textColor="@color/colorGrey"/>
+                android:textColor="@color/colorGrey"
+                android:textSize="14sp"/>
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
@@ -133,13 +134,13 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_rect_stroke_grey_corner_5"
+                android:hint="@string/detail_set_payed_text"
                 android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
                 android:padding="16dp"
-                android:textSize="14sp"
+                android:textColor="@color/colorGrey"
                 android:textColorHint="@color/colorGrey"
-                android:hint="@string/detail_set_payed_text"
-                android:textColor="@color/colorGrey"/>
+                android:textSize="14sp"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
