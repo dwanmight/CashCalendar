@@ -1,6 +1,7 @@
 package com.might.dwan.cashcalendar.ui.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -18,10 +19,13 @@ import com.might.dwan.cashcalendar.data.models.PayCounterModel;
 import com.might.dwan.cashcalendar.ui.adapter.PayCounterAdapter;
 import com.might.dwan.cashcalendar.ui.adapter.decoration.SpaceDecoration;
 import com.might.dwan.cashcalendar.ui.interfaces.OnItemPickListener;
+import com.might.dwan.cashcalendar.utils.ConstantManager;
 import com.might.dwan.cashcalendar.utils.DisplayUtils;
 import com.might.dwan.cashcalendar.utils.IntentUtils;
 
 import java.util.ArrayList;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Might on 25.08.2017.
@@ -99,6 +103,22 @@ public class CounterListFragment extends Fragment implements View.OnClickListene
     @Override public void onItemClicked(PayCounterModel item) {
         if (item != null) {
             IntentUtils.startDetailPay(getActivity(), DetailPayFragment.MODE_DETAIL, item);
+        }
+    }
+
+    @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case ConstantManager.REQUEST_ACTIVITY_DETAIL:
+                getResultDetail(resultCode, data);
+                break;
+        }
+    }
+
+    private void getResultDetail(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            mList.clear();
+            loadData(null);
         }
     }
 }

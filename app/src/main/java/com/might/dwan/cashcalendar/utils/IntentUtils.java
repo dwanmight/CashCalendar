@@ -2,6 +2,7 @@ package com.might.dwan.cashcalendar.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 
 import com.might.dwan.cashcalendar.data.models.PayCounterModel;
 import com.might.dwan.cashcalendar.ui.activities.DetailPayActivity;
@@ -16,6 +17,6 @@ public class IntentUtils {
         Intent i = new Intent(context, DetailPayActivity.class);
         i.putExtra(ConstantManager.EXTRA_MODE, mode);
         i.putExtra(ConstantManager.EXTRA_ITEM, item);
-        context.startActivity(i);
+        ((AppCompatActivity) context).startActivityForResult(i, ConstantManager.REQUEST_ACTIVITY_DETAIL);
     }
 }

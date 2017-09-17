@@ -243,8 +243,8 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
             } else {
                 updateItem();
             }
-
-            getActivity().onBackPressed();
+            getActivity().setResult(RESULT_OK);
+            getActivity().finish();
         }
     }
 

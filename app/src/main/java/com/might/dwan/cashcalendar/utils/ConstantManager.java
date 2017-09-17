@@ -15,5 +15,7 @@ public interface ConstantManager {
     String EXTRA_STAMP = "EXTRA_STAMP";
 
     //REQUEST CODES
-    int REQUEST_DATE_DIALOG=10;
+    int REQUEST_DATE_DIALOG = 10;
+
+    int REQUEST_ACTIVITY_DETAIL = 20;
 }
