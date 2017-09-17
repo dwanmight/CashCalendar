@@ -52,7 +52,7 @@ public class CounterListFragment extends Fragment implements View.OnClickListene
         mList = new ArrayList<>();
         mAdapter = new PayCounterAdapter(mList);
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.addItemDecoration(new SpaceDecoration(DisplayUtils.pxToDp(getActivity(), 16)));
+        mRecyclerView.addItemDecoration(new SpaceDecoration(DisplayUtils.pxToDp(getActivity(), 32)));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 

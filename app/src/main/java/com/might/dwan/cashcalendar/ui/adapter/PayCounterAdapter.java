@@ -1,6 +1,7 @@
 package com.might.dwan.cashcalendar.ui.adapter;
 
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,7 +69,7 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public class PayCounterHolder extends RecyclerView.ViewHolder {
-        private ConstraintLayout mConstraintLayout;
+        private CardView card_view;
         private TextView category_tv;
         private TextView subcategory_tv;
         private TextView pay_tv;
@@ -76,7 +77,7 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public PayCounterHolder(View v) {
             super(v);
-            mConstraintLayout = (ConstraintLayout) v;
+            card_view = (CardView) v;
             category_tv = (TextView) v.findViewById(R.id.list_item_paycounter_category_tv);
             subcategory_tv = (TextView) v.findViewById(R.id.list_item_paycounter_subcategory_tv);
             pay_tv = (TextView) v.findViewById(R.id.list_item_paycounter_pay_tv);
@@ -93,7 +94,7 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         private void setListeners(final PayCounterModel item) {
-            mConstraintLayout.setOnClickListener(new View.OnClickListener() {
+            card_view.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     if (mOnItemPickListener != null) {
                         mOnItemPickListener.onItemClicked(item);

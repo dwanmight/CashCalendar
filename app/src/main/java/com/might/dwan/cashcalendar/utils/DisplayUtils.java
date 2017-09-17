@@ -11,6 +11,6 @@ public class DisplayUtils {
 
     public static int pxToDp(Context context, int px) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return Math.round(px / (displayMetrics.densityDpi/ DisplayMetrics.DENSITY_DEFAULT));
     }
 }
