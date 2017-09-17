@@ -64,6 +64,7 @@
     <string name="title_category">Категория</string>
     <string name="title_subcategory">Подкатегория</string>
     <string name="hint_detail_description" font="14sp">Введите описание</string>
+    <string name="hint_detail_description_empty" font="14sp">Описание отсутствует</string>
     <string name="title_date">Дата</string>
     <string name="title_cost">Стоимость</string>
     <string name="detail_set_payed_text">Указать сумму</string>
