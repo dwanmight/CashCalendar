@@ -18,21 +18,21 @@ import static android.app.Activity.RESULT_OK;
  */
 
 public class DatePickerDialog extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
-    private long mTimeStamp;
+    private String mTimeStamp;
 
-    public static DatePickerDialog newInstance(long stamp) {
+    public static DatePickerDialog newInstance(String stamp) {
         Bundle args = new Bundle();
-        args.putLong(ConstantManager.EXTRA_STAMP, stamp);
+        args.putString(ConstantManager.EXTRA_STAMP, stamp);
         DatePickerDialog dialog = new DatePickerDialog();
         dialog.setArguments(args);
         return dialog;
     }
 
     @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mTimeStamp = getArguments().getLong(ConstantManager.EXTRA_STAMP);
-        if (mTimeStamp == 0) mTimeStamp = System.currentTimeMillis();
+        mTimeStamp = getArguments().getString(ConstantManager.EXTRA_STAMP);
+        if (mTimeStamp == null) mTimeStamp = String.valueOf(System.currentTimeMillis());
         Calendar timeCalendar = Calendar.getInstance();
-        timeCalendar.setTimeInMillis(mTimeStamp);
+        timeCalendar.setTimeInMillis(Long.parseLong(mTimeStamp));
         return new android.app.DatePickerDialog(getActivity(), this, timeCalendar.get(Calendar.YEAR)
                 , timeCalendar.get(Calendar.MONTH)
                 , timeCalendar.get(Calendar.DAY_OF_MONTH));
