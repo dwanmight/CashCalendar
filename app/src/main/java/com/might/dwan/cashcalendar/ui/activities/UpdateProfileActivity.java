@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.might.dwan.cashcalendar.R;
+import com.might.dwan.cashcalendar.data.db.DBManager;
 import com.might.dwan.cashcalendar.data.db.db_models.UsersInfoDB;
 import com.might.dwan.cashcalendar.data.manager.PreferencesManager;
 import com.might.dwan.cashcalendar.data.models.UserModel;
@@ -30,22 +31,26 @@ public class UpdateProfileActivity extends BaseActivity {
     }
 
     private void setupViews() {
-        UsersInfoDB usersInfoDB = new UsersInfoDB(this);
-        UserModel user = usersInfoDB.getUser(PreferencesManager.get(this).getPreferences().getNickname());
+        try {
+            UsersInfoDB usersInfoDB = new UsersInfoDB();
+            UserModel user = usersInfoDB.getUser(DBManager.get(this).getWritableDatabase(), PreferencesManager.get(this).getPreferences().getNickname());
 
-        String user_nickname = user.getNickname();
-        String user_name = user.getName();
-        String user_surname = user.getSurname();
-        if (user_nickname != null && !user_nickname.trim().equals("")) {
-            mNickNameEt.setText(user_nickname);
-        }
+            String user_nickname = user.getNickname();
+            String user_name = user.getName();
+            String user_surname = user.getSurname();
+            if (user_nickname != null && !user_nickname.trim().equals("")) {
+                mNickNameEt.setText(user_nickname);
+            }
 
-        if (user_name != null && !user_name.trim().equals("")) {
-            mNameEt.setText(user_name);
-        }
+            if (user_name != null && !user_name.trim().equals("")) {
+                mNameEt.setText(user_name);
+            }
 
-        if (user_surname != null && !user_surname.trim().equals("")) {
-            mSurnameEt.setText(user_surname);
+            if (user_surname != null && !user_surname.trim().equals("")) {
+                mSurnameEt.setText(user_surname);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -85,10 +90,14 @@ public class UpdateProfileActivity extends BaseActivity {
     }
 
     private void updateProfile() {
-        UsersInfoDB usersInfoDB = new UsersInfoDB(this);
-        usersInfoDB.addUser(getTextFromEt(mNickNameEt), getTextFromEt(mNameEt), getTextFromEt(mSurnameEt));
-        PreferencesManager.get(this).getPreferences().saveNickname(mNickNameEt.getText().toString().trim());
-        finish();
+        try {
+            UsersInfoDB usersInfoDB = new UsersInfoDB();
+            usersInfoDB.addUser(DBManager.get(this).getReadableDatabase(), getTextFromEt(mNickNameEt), getTextFromEt(mNameEt), getTextFromEt(mSurnameEt));
+            PreferencesManager.get(this).getPreferences().saveNickname(mNickNameEt.getText().toString().trim());
+            finish();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private String getTextFromEt(EditText editText) {

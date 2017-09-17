@@ -1,7 +1,6 @@
 package com.might.dwan.cashcalendar.data.db.db_models;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -19,7 +18,7 @@ public class UsersInfoDB {
 
     }
 
-    public void addUser(SQLiteDatabase db,String nickname, String name, String surname) {
+    public void addUser(SQLiteDatabase db, String nickname, String name, String surname) throws Exception {
         if (db == null) return;
 
         Cursor c = db.query(DBHelper.TABLE_USERS_INFO
@@ -42,7 +41,7 @@ public class UsersInfoDB {
         db.close();
     }
 
-    public UserModel getUser(SQLiteDatabase db,String nickname) {
+    public UserModel getUser(SQLiteDatabase db, String nickname) throws Exception {
         Log.i("TAGTAG", "getUser: " + nickname);
         UserModel user = new UserModel("", "", "");
         if (nickname == null || nickname.equals("")) return user;

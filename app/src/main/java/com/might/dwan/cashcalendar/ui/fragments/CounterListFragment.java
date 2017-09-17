@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.might.dwan.cashcalendar.R;
+import com.might.dwan.cashcalendar.data.db.DBManager;
 import com.might.dwan.cashcalendar.data.db.db_models.PayCounterDB;
 import com.might.dwan.cashcalendar.data.models.PayCounterModel;
 import com.might.dwan.cashcalendar.ui.adapter.PayCounterAdapter;
@@ -58,7 +59,7 @@ public class CounterListFragment extends Fragment implements View.OnClickListene
 
     private void loadData(String last_id) {
         try {
-            mList.addAll(new PayCounterDB(getActivity().getBaseContext()).load(20, last_id));
+            mList.addAll(new PayCounterDB().load(DBManager.get(getActivity()).getReadableDatabase(), 20, last_id));
             mAdapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();

@@ -17,7 +17,7 @@ public class CategoryDB {
     public CategoryDB() {
     }
 
-    public ArrayList<NameIdModel> getCategories(SQLiteDatabase db) {
+    public ArrayList<NameIdModel> getCategories(SQLiteDatabase db)throws Exception {
         ArrayList<NameIdModel> data = new ArrayList<>();
 
         Cursor c = db.query(DBHelper.TABLE_CATEGORIES

@@ -23,7 +23,7 @@ public class PayCounterDB {
 
     }
 
-    public PayCounterModel getPayItem(SQLiteDatabase db, String item_id) {
+    public PayCounterModel getPayItem(SQLiteDatabase db, String item_id)throws Exception {
         Cursor c = db.query(DBHelper.TABLE_USER_PAY
                 , null
                 , DBHelper.COLUMN_USER_PAY_ITEM_ID + " = ?"
@@ -53,7 +53,7 @@ public class PayCounterDB {
         }
     }
 
-    public long insert(SQLiteDatabase db, PayCounterModel model) {
+    public long insert(SQLiteDatabase db, PayCounterModel model)throws Exception {
         long res = -1;
         if (model == null) return res;
         ContentValues cv = new ContentValues();
@@ -73,7 +73,7 @@ public class PayCounterDB {
         return res;
     }
 
-    public long update(SQLiteDatabase db, PayCounterModel model) {
+    public long update(SQLiteDatabase db, PayCounterModel model)throws Exception {
         long res = -1;
         if (model == null) return res;
         ContentValues cv = new ContentValues();
@@ -139,7 +139,7 @@ public class PayCounterDB {
         return dataList;
     }
 
-    private Cursor getCursorFromFirst(SQLiteDatabase db, int limit) {
+    private Cursor getCursorFromFirst(SQLiteDatabase db, int limit)throws Exception {
         Cursor c = db.query(DBHelper.TABLE_USER_PAY
                 , null
                 , null
@@ -151,7 +151,7 @@ public class PayCounterDB {
         return c;
     }
 
-    private Cursor getCursorFromLast(SQLiteDatabase db, String timestamp, int limit) {
+    private Cursor getCursorFromLast(SQLiteDatabase db, String timestamp, int limit)throws Exception {
         Cursor c = db.query(DBHelper.TABLE_USER_PAY
                 , null
                 , DBHelper.COLUMN_USER_PAY_DATE + " > ?"

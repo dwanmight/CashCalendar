@@ -18,10 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.might.dwan.cashcalendar.R;
+import com.might.dwan.cashcalendar.data.db.DBManager;
 import com.might.dwan.cashcalendar.data.db.db_models.CategoryDB;
 import com.might.dwan.cashcalendar.data.db.db_models.PayCounterDB;
 import com.might.dwan.cashcalendar.data.db.db_models.SubcategoryDB;
-import com.might.dwan.cashcalendar.data.manager.PreferencesManager;
 import com.might.dwan.cashcalendar.data.models.PayCounterModel;
 import com.might.dwan.cashcalendar.ui.DatePickerDialog;
 import com.might.dwan.cashcalendar.ui.adapter.SpinnerAdapter;
@@ -49,18 +49,22 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
 
     private DatePickerDialog mDatePickerDialog;
 
-    private int mCategoryId = 1;
-    private int mSubCategoryId;
-    private String mCategoryText;
-    private String mSubcategoryText;
-    private long mTimeStamp;
+//    private int mCategoryId = 1;
+//    private int mSubCategoryId;
+//    private String mCategoryText;
+//    private String mSubcategoryText;
+//    private long mTimeStamp;
+
+    private int mCurrMode;
+    private PayCounterModel mPayCounterModel;
 
     private AdapterView.OnItemSelectedListener mCategorySelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             changeViewColor(view);
-            mCategoryId = mCategoryAdapter.getId(position);
+            mPayCounterModel.setCategory(mCategoryAdapter.getId(position));
+            mPayCounterModel.setCategory_text(mCategoryList.get(position).getName());
+
             loadSubcategories();
-            mCategoryText = mCategoryList.get(position).getName();
         }
 
         @Override public void onNothingSelected(AdapterView<?> parent) {
@@ -70,8 +74,8 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
     private AdapterView.OnItemSelectedListener mSubCategorySelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             changeViewColor(view);
-            mSubCategoryId = mSubcategorySpinner.getSelectedItemPosition();
-            mSubcategoryText = mSubcategoryList.get(position).getName();
+            mPayCounterModel.setSubcategory(mSubcategorySpinner.getSelectedItemPosition());
+            mPayCounterModel.setSubcategory_text(mSubcategoryList.get(position).getName());
         }
 
         @Override public void onNothingSelected(AdapterView<?> parent) {
@@ -95,33 +99,35 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
         return fragment;
     }
 
-    @Nullable @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    @Nullable
+    @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_detail_pay, container, false);
         restoreData(savedInstanceState);
         initViews(v);
-        setupData();
         setupAdapters();
         loadCategories();
         loadSubcategories();
+        setupMode();
         return v;
-    }
-
-    private void loadCategories() {
-        mCategoryList.clear();
-        mCategoryList.add(new NameIdModel("Ничего не выбрано", 0));
-        mCategoryList.addAll(new CategoryDB(getActivity()).getCategories());
-        mCategoryAdapter.notifyDataSetChanged();
-    }
-
-    private void loadSubcategories() {
-        mSubcategoryList.clear();
-        mSubcategoryList.add(new NameIdModel("Ничего не выбрано", 0));
-        mSubcategoryList.addAll(new SubcategoryDB(getActivity()).getSubCategories(mCategoryId));
-        mSubcategoryAdapter.notifyDataSetChanged();
     }
 
     private void restoreData(Bundle savedInstanceState) {
         // TODO: 27.08.2017
+        if (savedInstanceState == null) {
+            mCurrMode = getArguments().getInt(ConstantManager.EXTRA_MODE);
+            if (mCurrMode == MODE_NEW) {
+                mPayCounterModel = new PayCounterModel();
+            } else {
+                mPayCounterModel = (PayCounterModel) getArguments().getSerializable(ConstantManager.EXTRA_ITEM);
+            }
+        } else {
+            mCurrMode = savedInstanceState.getInt(ConstantManager.EXTRA_MODE);
+            if (mCurrMode == MODE_NEW) {
+                mPayCounterModel = new PayCounterModel();
+            } else {
+                mPayCounterModel = (PayCounterModel) savedInstanceState.getSerializable(ConstantManager.EXTRA_ITEM);
+            }
+        }
     }
 
     private void initViews(View v) {
@@ -137,9 +143,6 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
         toolbar.setTitle("Добавить запись");
     }
 
-    private void setupData() {
-    }
-
     private void setupAdapters() {
         mCategoryList = new ArrayList<>();
         mSubcategoryList = new ArrayList<>();
@@ -151,6 +154,57 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
 
         mCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSubcategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    }
+
+    private void loadCategories() {
+        try {
+            mCategoryList.clear();
+            addEmptyItemToList(mCategoryList);
+            mCategoryList.addAll(new CategoryDB().getCategories(DBManager.get(getActivity()).getReadableDatabase()));
+            mCategoryAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadSubcategories() {
+        try {
+            mSubcategoryList.clear();
+            addEmptyItemToList(mSubcategoryList);
+            mSubcategoryList.addAll(new SubcategoryDB().getSubCategories(DBManager.get(getActivity()).getReadableDatabase()
+                    , mPayCounterModel.getCategory()));
+            mSubcategoryAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addEmptyItemToList(ArrayList<NameIdModel> list) {
+        if (list == null) return;
+        list.add(new NameIdModel("Ничего не выбрано", 0));
+
+    }
+
+
+    private void setupMode() {
+        try {
+            if (mCurrMode == MODE_DETAIL) {
+                mCategorySpinner.setSelection(mPayCounterModel.getCategory());
+                mDescriptionEt.setText(mPayCounterModel.getDescription());
+
+                mPayEt.setText(mPayCounterModel.getCount_pay());
+                mPayEt.setHint(getResources().getString(R.string.hint_detail_description_empty));
+
+                mDateTv.setText(DateUtils.stampToYMDHMS(Long.parseLong(mPayCounterModel.getTimestamp())));
+
+                loadSubcategories();
+                mSubcategorySpinner.setSelection(mPayCounterModel.getSubcategory());
+            } else {
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override public void onStart() {
@@ -184,7 +238,7 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
 
     private void save() {
         if (isDataValid()) {
-            if (getArguments().getInt(ConstantManager.EXTRA_MODE) == MODE_NEW) {
+            if (mCurrMode == MODE_NEW) {
                 saveToDB();
             } else {
                 updateItem();
@@ -215,29 +269,41 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void saveToDB() {
-        PayCounterModel model = new PayCounterModel(PreferencesManager.get(getActivity()).getPreferences().getNickname()
-                , mCategorySpinner.getSelectedItemPosition()
-                , mCategoryText
-                , mSubcategorySpinner.getSelectedItemPosition()
-                , mSubcategoryText
-                , mDescriptionEt.getText().toString().trim()
-                , mPayEt.getText().toString().trim()
-                , String.valueOf(System.currentTimeMillis()));
-        PayCounterDB payCounterDB = new PayCounterDB(getActivity());
-        payCounterDB.insert(model);
+        try {
+            mPayCounterModel.setDescription(mDescriptionEt.getText().toString().trim());
+            mPayCounterModel.setCount_pay(mPayEt.getText().toString().trim());
+            PayCounterDB payCounterDB = new PayCounterDB();
+            payCounterDB.insert(DBManager.get(getActivity()).getReadableDatabase(), mPayCounterModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        PayCounterModel model = new PayCounterModel(PreferencesManager.get(getActivity()).getPreferences().getNickname()
+//                , mCategorySpinner.getSelectedItemPosition()
+//                , mCategoryText
+//                , mSubcategorySpinner.getSelectedItemPosition()
+//                , mSubcategoryText
+//                , mDescriptionEt.getText().toString().trim()
+//                , mPayEt.getText().toString().trim()
+//                , String.valueOf(System.currentTimeMillis()));
     }
 
     private void updateItem() {
-        PayCounterModel model = new PayCounterModel(PreferencesManager.get(getActivity()).getPreferences().getNickname()
-                , mCategorySpinner.getSelectedItemPosition()
-                , mCategoryText
-                , mSubcategorySpinner.getSelectedItemPosition()
-                , mSubcategoryText
-                , mDescriptionEt.getText().toString().trim()
-                , mPayEt.getText().toString()
-                , String.valueOf(System.currentTimeMillis()));
-        PayCounterDB payCounterDB = new PayCounterDB(getActivity());
-        payCounterDB.update(model);
+//        PayCounterModel model = new PayCounterModel(PreferencesManager.get(getActivity()).getPreferences().getNickname()
+//                , mCategorySpinner.getSelectedItemPosition()
+//                , mCategoryText
+//                , mSubcategorySpinner.getSelectedItemPosition()
+//                , mSubcategoryText
+//                , mDescriptionEt.getText().toString().trim()
+//                , mPayEt.getText().toString()
+//                , String.valueOf(System.currentTimeMillis()));
+        try {
+            mPayCounterModel.setDescription(mDescriptionEt.getText().toString().trim());
+            mPayCounterModel.setCount_pay(mPayEt.getText().toString());
+            PayCounterDB payCounterDB = new PayCounterDB();
+            payCounterDB.update(DBManager.get(getActivity()).getReadableDatabase(), mPayCounterModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override public void onClick(View v) {
@@ -249,7 +315,7 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void showDatePickDialog() {
-        mDatePickerDialog = DatePickerDialog.newInstance(mTimeStamp);
+        mDatePickerDialog = DatePickerDialog.newInstance(mPayCounterModel.getTimestamp());
         mDatePickerDialog.setTargetFragment(this, ConstantManager.REQUEST_DATE_DIALOG);
         mDatePickerDialog.show(getFragmentManager(), "DatePickerDialog");
     }
@@ -265,13 +331,18 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
 
     private void getResultDialogDate(int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            mTimeStamp = data.getLongExtra(ConstantManager.EXTRA_STAMP, 0);
+            mPayCounterModel.setTimestamp(String.valueOf(data.getLongExtra(ConstantManager.EXTRA_STAMP, 0)));
             updateDateView();
         }
     }
 
     private void updateDateView() {
-        if (mTimeStamp == 0) return;
-        mDateTv.setText(DateUtils.stampToYMD(mTimeStamp));
+        if (mPayCounterModel.getTimestamp() == null) return;
+        mDateTv.setText(DateUtils.stampToYMD(Long.parseLong(mPayCounterModel.getTimestamp())));
+    }
+
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(ConstantManager.EXTRA_MODE, mCurrMode);
     }
 }

@@ -18,7 +18,7 @@ public class SubcategoryDB {
     public SubcategoryDB(){
     }
 
-    public ArrayList<NameIdModel> getSubCategories(SQLiteDatabase db, int category_id) {
+    public ArrayList<NameIdModel> getSubCategories(SQLiteDatabase db, int category_id)throws Exception {
         ArrayList<NameIdModel> data = new ArrayList<>();
 
         Cursor c = db.query(DBHelper.TABLE_SUBCATEGORIES
