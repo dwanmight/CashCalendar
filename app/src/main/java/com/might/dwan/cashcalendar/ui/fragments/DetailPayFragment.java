@@ -264,10 +264,6 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
         return true;
     }
 
-    private void showToast(String mes) {
-        Toast.makeText(getActivity(), mes, Toast.LENGTH_SHORT).show();
-    }
-
     private void saveToDB() {
         try {
             mPayCounterModel.setDescription(mDescriptionEt.getText().toString().trim());

@@ -86,6 +86,8 @@
                       android:layout_marginLeft="16dp"
                       android:layout_marginRight="16dp"
                       android:layout_marginTop="8dp"
+                      android:maxLines="6"
+                      android:scrollbars="vertical"
                       android:background="@drawable/bg_rect_stroke_grey_corner_5"
                       android:hint="@string/hint_detail_description"
                       android:minHeight="48dp"

@@ -18,4 +18,5 @@ public interface ConstantManager {
     int REQUEST_DATE_DIALOG = 10;
 
     int REQUEST_ACTIVITY_DETAIL = 20;
+    int REQUEST_GALLERY_PICK = 21;
 }

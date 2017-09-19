@@ -70,5 +70,12 @@
     <string name="detail_set_payed_text">Указать сумму</string>
     <string name="detail_date_now_text">Сейчас</string>
     <string name="title_description">Описание</string>
+    <string name="title_profile">Мой профиль</string>
+    <string name="profile_enter_nickname">Введите никнейм</string>
+    <string name="profile_enter_name">Введите имя</string>
+    <string name="profile_enter_surname">Введите фамилию</string>
+    <string name="camera">Камера</string>
+    <string name="galery">Галерея</string>
+    <string name="action_cancel">Отмена</string>
 
 </resources>
