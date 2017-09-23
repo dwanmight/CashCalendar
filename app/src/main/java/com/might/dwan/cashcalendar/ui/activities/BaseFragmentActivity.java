@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.might.dwan.cashcalendar.R;
+import com.might.dwan.cashcalendar.utils.ConstantManager;
 
 /**
  * Created by Might on 25.08.2017.
@@ -39,7 +41,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override public void onBackPressed() {
@@ -54,7 +56,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     }
 
     @Override public boolean onOptionsItemSelected(MenuItem item) {
-        return false;
+       return false;
     }
 
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {

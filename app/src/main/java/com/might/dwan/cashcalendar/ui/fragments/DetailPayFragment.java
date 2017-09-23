@@ -3,6 +3,7 @@ package com.might.dwan.cashcalendar.ui.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -15,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.data.db.DBManager;
@@ -48,12 +48,6 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
     private ArrayList<NameIdModel> mCategoryList, mSubcategoryList;
 
     private DatePickerDialog mDatePickerDialog;
-
-//    private int mCategoryId = 1;
-//    private int mSubCategoryId;
-//    private String mCategoryText;
-//    private String mSubcategoryText;
-//    private long mTimeStamp;
 
     private int mCurrMode;
     private PayCounterModel mPayCounterModel;
@@ -140,6 +134,17 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
+        try {
+            ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            if (supportActionBar != null) {
+                supportActionBar.setDisplayHomeAsUpEnabled(true);
+                supportActionBar.setHomeButtonEnabled(true);
+                supportActionBar.setIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         toolbar.setTitle("Добавить запись");
     }
 
@@ -185,7 +190,6 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
 
     }
 
-
     private void setupMode() {
         try {
             if (mCurrMode == MODE_DETAIL) {
@@ -227,13 +231,8 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
             case R.id.toolbar_done:
                 save();
                 return true;
-
-            case android.R.id.home:
-                getActivity().onBackPressed();
-                return true;
-            default:
-                return false;
         }
+        return false;
     }
 
     private void save() {

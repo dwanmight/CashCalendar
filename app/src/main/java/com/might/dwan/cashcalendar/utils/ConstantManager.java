@@ -6,6 +6,8 @@ package com.might.dwan.cashcalendar.utils;
 
 public interface ConstantManager {
 
+    String TAG="CASH_CALENDAR_APP";
+
     //Preferences
     String PREF_NICKNAME = "paycounter_nickname";
 

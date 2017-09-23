@@ -22,6 +22,7 @@
         <activity android:name="com.might.dwan.cashcalendar.ui.activities.DetailPayActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name="com.might.dwan.cashcalendar.ui.activities.UpdateProfileActivity"
+                  android:parentActivityName=".ui.activities.MainActivity"
                   android:screenOrientation="portrait"/>
     </application>
 

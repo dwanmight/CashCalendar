@@ -13,7 +13,6 @@
             android:layout_height="match_parent"
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:titleTextColor="@color/colorWhite">
         </android.support.v7.widget.Toolbar>

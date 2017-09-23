@@ -20,5 +20,4 @@ public class PayCounterApp extends Application {
     public static SharedPreferences getSharedPreferences() {
         return sPreferenceManager;
     }
-
 }
