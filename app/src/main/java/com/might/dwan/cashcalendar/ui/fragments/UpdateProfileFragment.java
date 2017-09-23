@@ -150,6 +150,9 @@ public class UpdateProfileFragment extends BaseFragment implements View.OnClickL
             case ConstantManager.REQUEST_GALLERY_PICK:
                 getResultPickGallery(resultCode, data);
                 break;
+            case ConstantManager.REQUEST_CAMERA:
+                getResultCamera(resultCode, data);
+                break;
         }
     }
 
@@ -157,6 +160,14 @@ public class UpdateProfileFragment extends BaseFragment implements View.OnClickL
         if (resultCode == Activity.RESULT_OK) {
             if (data == null) return;
             mAvatarImg.setImageURI(data.getData());
+        }
+    }
+
+    private void getResultCamera(int resultCode, Intent data) {
+        if(resultCode==Activity.RESULT_OK){
+            if(data!=null){
+
+            }
         }
     }
 }

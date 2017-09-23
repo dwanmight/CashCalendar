@@ -21,4 +21,5 @@ public interface ConstantManager {
 
     int REQUEST_ACTIVITY_DETAIL = 20;
     int REQUEST_GALLERY_PICK = 21;
+    int REQUEST_CAMERA=22;
 }

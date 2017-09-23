@@ -4,11 +4,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.utils.ConstantManager;
+import com.might.dwan.cashcalendar.utils.FileUtils;
+import com.might.dwan.cashcalendar.utils.IntentUtils;
 
 /**
  * Created by Might on 19.09.2017.
@@ -29,7 +32,7 @@ public class PhotoDialog extends DialogFragment implements Dialog.OnClickListene
     @Override public void onClick(DialogInterface dialog, int which) {
         switch (which) {
             case CAMERA:
-
+                capture();
                 break;
             case GALLERY:
                 pickFromGallery();
@@ -43,9 +46,18 @@ public class PhotoDialog extends DialogFragment implements Dialog.OnClickListene
     }
 
     private void pickFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        getActivity().startActivityForResult(intent, ConstantManager.REQUEST_GALLERY_PICK);
+        IntentUtils.pickPhotoFromGallery(getActivity());
+    }
+
+    private void capture() {
+        FileUtils fileUtils = new FileUtils(getActivity().getBaseContext());
+        String path = fileUtils.createCameraFile();
+        if (path != null) {
+            Log.i(ConstantManager.TAG, "capture: "+path);
+            IntentUtils.goCapture(getActivity(), path);
+        } else {
+            Toast.makeText(getActivity(), "Error on create file for camera", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void sendResult(int which) {

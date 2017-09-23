@@ -2,6 +2,8 @@ package com.might.dwan.cashcalendar.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 
 import com.might.dwan.cashcalendar.data.models.PayCounterModel;
@@ -18,5 +20,17 @@ public class IntentUtils {
         i.putExtra(ConstantManager.EXTRA_MODE, mode);
         i.putExtra(ConstantManager.EXTRA_ITEM, item);
         ((AppCompatActivity) context).startActivityForResult(i, ConstantManager.REQUEST_ACTIVITY_DETAIL);
+    }
+
+    public static void goCapture(Context context, String output) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.parse(output));
+        ((AppCompatActivity) context).startActivityForResult(intent, ConstantManager.REQUEST_CAMERA);
+    }
+
+    public static void pickPhotoFromGallery(Context context) {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        ((AppCompatActivity) context).startActivityForResult(intent, ConstantManager.REQUEST_GALLERY_PICK);
     }
 }
