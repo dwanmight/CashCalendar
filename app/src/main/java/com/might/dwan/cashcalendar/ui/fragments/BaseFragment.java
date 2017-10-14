@@ -3,6 +3,8 @@ package com.might.dwan.cashcalendar.ui.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 /**
@@ -19,5 +21,10 @@ public class BaseFragment extends Fragment {
 
     public void showToast(String mess) {
         Toast.makeText(getActivity(), mess, Toast.LENGTH_SHORT).show();
+    }
+
+    public void setToolbar(Toolbar toolbar){
+        if(toolbar==null)return;
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
     }
 }
