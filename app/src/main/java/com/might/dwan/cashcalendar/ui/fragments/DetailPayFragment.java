@@ -3,8 +3,6 @@ package com.might.dwan.cashcalendar.ui.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,6 +42,8 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
     private Spinner mCategorySpinner, mSubcategorySpinner;
     private EditText mDescriptionEt, mPayEt;
     private TextView mDateTv;
+    private Toolbar mToolbar;
+
     private SpinnerAdapter mCategoryAdapter, mSubcategoryAdapter;
     private ArrayList<NameIdModel> mCategoryList, mSubcategoryList;
 
@@ -131,22 +131,8 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
         mDateTv = (TextView) v.findViewById(R.id.detail_date_tv);
         mPayEt = (EditText) v.findViewById(R.id.detail_pay_et);
 
-        Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
-        toolbar.setTitle("Добавить запись");
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
-        try {
-            ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            if (supportActionBar != null) {
-//                supportActionBar.setDisplayHomeAsUpEnabled(true);
-//                supportActionBar.setHomeButtonEnabled(true);
-//                supportActionBar.setIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
-//                supportActionBar.setTitle("Добавить запись");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mToolbar = (Toolbar) v.findViewById(R.id.toolbar);
+        setToolbar(mToolbar);
     }
 
     private void setupAdapters() {
@@ -193,7 +179,10 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
 
     private void setupMode() {
         try {
+            mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+
             if (mCurrMode == MODE_DETAIL) {
+                mToolbar.setTitle(R.string.title_edit);
                 mCategorySpinner.setSelection(mPayCounterModel.getCategory());
                 mDescriptionEt.setText(mPayCounterModel.getDescription());
 
@@ -205,7 +194,7 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
                 loadSubcategories();
                 mSubcategorySpinner.setSelection(mPayCounterModel.getSubcategory());
             } else {
-
+                mToolbar.setTitle(R.string.title_add_note);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -214,13 +203,23 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
 
     @Override public void onStart() {
         super.onStart();
-        setListeners();
+        setListeners(true);
     }
 
-    private void setListeners() {
-        mDateTv.setOnClickListener(this);
-        mCategorySpinner.setOnItemSelectedListener(mCategorySelectedListener);
-        mSubcategorySpinner.setOnItemSelectedListener(mSubCategorySelectedListener);
+    private void setListeners(boolean enable) {
+        if(enable){
+            mDateTv.setOnClickListener(this);
+            mCategorySpinner.setOnItemSelectedListener(mCategorySelectedListener);
+            mSubcategorySpinner.setOnItemSelectedListener(mSubCategorySelectedListener);
+        }else {
+            mDateTv.setOnClickListener(null);
+            mCategorySpinner.setOnItemSelectedListener(null);
+            mSubcategorySpinner.setOnItemSelectedListener(null);
+        }
+    }
+
+    @Override public void onStop() {
+        super.onStop();
     }
 
     @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -233,7 +232,7 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
                 save();
                 return true;
             case android.R.id.home:
-                    getActivity().onBackPressed();
+                getActivity().onBackPressed();
                 return true;
         }
         return false;
