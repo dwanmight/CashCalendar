@@ -132,20 +132,21 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
         mPayEt = (EditText) v.findViewById(R.id.detail_pay_et);
 
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
+        toolbar.setTitle("Добавить запись");
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         try {
             ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
             if (supportActionBar != null) {
-                supportActionBar.setDisplayHomeAsUpEnabled(true);
-                supportActionBar.setHomeButtonEnabled(true);
-                supportActionBar.setIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
+//                supportActionBar.setDisplayHomeAsUpEnabled(true);
+//                supportActionBar.setHomeButtonEnabled(true);
+//                supportActionBar.setIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
+//                supportActionBar.setTitle("Добавить запись");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        toolbar.setTitle("Добавить запись");
     }
 
     private void setupAdapters() {
@@ -230,6 +231,9 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
         switch (item.getItemId()) {
             case R.id.toolbar_done:
                 save();
+                return true;
+            case android.R.id.home:
+                    getActivity().onBackPressed();
                 return true;
         }
         return false;

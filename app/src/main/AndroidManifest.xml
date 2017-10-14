@@ -2,8 +2,8 @@
 <manifest package="com.might.dwan.cashcalendar"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-                     android:maxSdkVersion="18"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
@@ -27,6 +27,7 @@
                   android:screenOrientation="portrait"/>
         <activity android:name="com.might.dwan.cashcalendar.ui.activities.UpdateProfileActivity"
                   android:parentActivityName=".ui.activities.MainActivity"
+                  android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
                   android:screenOrientation="portrait"/>
 
         <provider
