@@ -18,7 +18,7 @@ import android.widget.ImageView;
 
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.data.db.DBManager;
-import com.might.dwan.cashcalendar.data.db.db_models.UsersInfoDB;
+import com.might.dwan.cashcalendar.data.db.db_writer.UsersInfoDB;
 import com.might.dwan.cashcalendar.data.manager.PreferencesManager;
 import com.might.dwan.cashcalendar.data.models.UserModel;
 import com.might.dwan.cashcalendar.ui.dialogs.PhotoDialog;

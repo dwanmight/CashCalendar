@@ -1,4 +1,4 @@
-package com.might.dwan.cashcalendar.data.db.db_models;
+package com.might.dwan.cashcalendar.data.db.db_writer;
 
 import android.content.ContentValues;
 import android.database.Cursor;

@@ -1,7 +1,6 @@
-package com.might.dwan.cashcalendar.data.db.db_models;
+package com.might.dwan.cashcalendar.data.db.db_writer;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;

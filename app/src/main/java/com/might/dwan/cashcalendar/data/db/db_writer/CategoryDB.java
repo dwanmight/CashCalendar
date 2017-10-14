@@ -1,6 +1,5 @@
-package com.might.dwan.cashcalendar.data.db.db_models;
+package com.might.dwan.cashcalendar.data.db.db_writer;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -13,18 +12,18 @@ import java.util.ArrayList;
  * Created by Might on 02.09.2017.
  */
 
-public class SubcategoryDB {
+public class CategoryDB {
 
-    public SubcategoryDB(){
+    public CategoryDB() {
     }
 
-    public ArrayList<NameIdModel> getSubCategories(SQLiteDatabase db, int category_id)throws Exception {
+    public ArrayList<NameIdModel> getCategories(SQLiteDatabase db)throws Exception {
         ArrayList<NameIdModel> data = new ArrayList<>();
 
-        Cursor c = db.query(DBHelper.TABLE_SUBCATEGORIES
+        Cursor c = db.query(DBHelper.TABLE_CATEGORIES
                 , null
-                , DBHelper.COLUMN_SUBCATEGORIES_CATEGORY_ID + " = ?"
-                , new String[]{String.valueOf(category_id)}
+                , null
+                , null
                 , null
                 , null
                 , null);
@@ -32,8 +31,8 @@ public class SubcategoryDB {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
                 NameIdModel item = new NameIdModel();
-                item.setId(c.getInt(c.getColumnIndex(DBHelper.COLUMN_SUBCATEGORIES_ID)));
-                item.setName(c.getString(c.getColumnIndex(DBHelper.COLUMN_SUBCATEGORIES_CATEGORY_TITLE)));
+                item.setId(c.getInt(c.getColumnIndex(DBHelper.COLUMN_CATEGORIES_ID)));
+                item.setName(c.getString(c.getColumnIndex(DBHelper.COLUMN_CATEGORIES_TITLE)));
                 data.add(item);
                 c.moveToNext();
             }

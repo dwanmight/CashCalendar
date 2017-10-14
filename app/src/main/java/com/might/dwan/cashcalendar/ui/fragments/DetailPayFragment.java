@@ -17,9 +17,9 @@ import android.widget.TextView;
 
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.data.db.DBManager;
-import com.might.dwan.cashcalendar.data.db.db_models.CategoryDB;
-import com.might.dwan.cashcalendar.data.db.db_models.PayCounterDB;
-import com.might.dwan.cashcalendar.data.db.db_models.SubcategoryDB;
+import com.might.dwan.cashcalendar.data.db.db_writer.CategoryDB;
+import com.might.dwan.cashcalendar.data.db.db_writer.PayCounterDB;
+import com.might.dwan.cashcalendar.data.db.db_writer.SubcategoryDB;
 import com.might.dwan.cashcalendar.data.models.PayCounterModel;
 import com.might.dwan.cashcalendar.ui.DatePickerDialog;
 import com.might.dwan.cashcalendar.ui.adapter.SpinnerAdapter;
