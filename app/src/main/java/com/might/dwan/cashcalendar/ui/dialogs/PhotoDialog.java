@@ -9,6 +9,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.might.dwan.cashcalendar.R;
+import com.might.dwan.cashcalendar.data.manager.PermissionManager;
+import com.might.dwan.cashcalendar.data.manager.PreferencesManager;
 import com.might.dwan.cashcalendar.utils.ConstantManager;
 import com.might.dwan.cashcalendar.utils.FileUtils;
 import com.might.dwan.cashcalendar.utils.IntentUtils;
@@ -50,13 +52,19 @@ public class PhotoDialog extends DialogFragment implements Dialog.OnClickListene
     }
 
     private void capture() {
-        FileUtils fileUtils = new FileUtils(getActivity().getBaseContext());
-        String path = fileUtils.createCameraFile();
-        if (path != null) {
-            Log.i(ConstantManager.TAG, "capture: "+path);
-            IntentUtils.goCapture(getActivity(), path);
-        } else {
-            Toast.makeText(getActivity(), "Error on create file for camera", Toast.LENGTH_SHORT).show();
+        PermissionManager permissionManager=new PermissionManager(getActivity());
+        boolean storage = permissionManager.isStorage();
+
+        if(storage){
+            FileUtils fileUtils = new FileUtils(getActivity().getBaseContext());
+            String path = fileUtils.createCameraFile();
+            if (path != null) {
+                Log.i(ConstantManager.TAG, "capture: " + path);
+                PreferencesManager.get(getActivity()).getPreferences().savePhotoPath(path);
+                IntentUtils.goCapture(getActivity(), path);
+            } else {
+                Toast.makeText(getActivity(), "Error on create file for camera", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

@@ -10,6 +10,7 @@ public interface ConstantManager {
 
     //Preferences
     String PREF_NICKNAME = "paycounter_nickname";
+    String PREF_PHOTO_PATH = "PREF_PHOTO_PATH";
 
     //Intent Extras
     String EXTRA_MODE = "EXTRA_MODE";

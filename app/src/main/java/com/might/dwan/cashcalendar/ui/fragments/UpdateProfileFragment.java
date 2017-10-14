@@ -2,10 +2,13 @@ package com.might.dwan.cashcalendar.ui.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +22,7 @@ import com.might.dwan.cashcalendar.data.db.db_models.UsersInfoDB;
 import com.might.dwan.cashcalendar.data.manager.PreferencesManager;
 import com.might.dwan.cashcalendar.data.models.UserModel;
 import com.might.dwan.cashcalendar.ui.dialogs.PhotoDialog;
+import com.might.dwan.cashcalendar.utils.BitmapUtils;
 import com.might.dwan.cashcalendar.utils.ConstantManager;
 
 /**
@@ -160,14 +164,27 @@ public class UpdateProfileFragment extends BaseFragment implements View.OnClickL
         if (resultCode == Activity.RESULT_OK) {
             if (data == null) return;
             mAvatarImg.setImageURI(data.getData());
+            setPhoto(data.getDataString());
         }
     }
 
     private void getResultCamera(int resultCode, Intent data) {
-        if(resultCode==Activity.RESULT_OK){
-            if(data!=null){
-
+        if (resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                setPhoto(PreferencesManager.get(getActivity()).getPreferences().getPhotoPath());
             }
+        }
+    }
+
+    private void setPhoto(String photoPath) {
+        Log.i(ConstantManager.TAG, "setPhoto: " + photoPath);
+        if (photoPath == null || photoPath.equals("")) return;
+        try {
+            Bitmap first = BitmapUtils.getBitmapFromUri(getActivity(), Uri.parse(photoPath));
+
+            mAvatarImg.setImageBitmap(first);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

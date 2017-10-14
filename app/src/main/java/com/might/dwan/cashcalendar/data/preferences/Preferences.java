@@ -23,4 +23,12 @@ public class Preferences {
     public String getNickname() {
         return mPreferences.getString(ConstantManager.PREF_NICKNAME, null);
     }
+
+    public void savePhotoPath(String path) {
+        mPreferences.edit().putString(ConstantManager.PREF_NICKNAME, path).apply();
+    }
+
+    public String getPhotoPath() {
+        return mPreferences.getString(ConstantManager.PREF_NICKNAME, null);
+    }
 }

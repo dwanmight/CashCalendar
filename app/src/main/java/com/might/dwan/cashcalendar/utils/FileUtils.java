@@ -1,10 +1,16 @@
 package com.might.dwan.cashcalendar.utils;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
+
+import com.might.dwan.cashcalendar.data.manager.PreferencesManager;
+import com.might.dwan.cashcalendar.data.preferences.Preferences;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -21,7 +27,7 @@ public class FileUtils {
     }
 
     public String createCameraFile() {
-        File file = new File(mWeakContext.get().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "CameraFile");
+        File file = mWeakContext.get().getExternalFilesDir(Environment.DIRECTORY_PICTURES + File.separator + "PICTURES");
         if (!file.exists()) {
             file.mkdirs();
         }
@@ -33,6 +39,11 @@ public class FileUtils {
         File cameraFile = null;
         try {
             cameraFile = File.createTempFile(stringBuffer.toString(), ".jpg", file);
+            ContentValues cv = new ContentValues();
+            cv.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
+            cv.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+            cv.put(MediaStore.MediaColumns.DATA, cameraFile.getAbsolutePath());
+            mWeakContext.get().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,6 +58,7 @@ public class FileUtils {
                     file);
             res = photoURI.toString();
         } else {
+//            res = String.valueOf(Uri.fromFile(file));
             res = String.valueOf(Uri.fromFile(file));
         }
         return res;
