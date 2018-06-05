@@ -32,17 +32,21 @@ public class MainActivity extends BaseFragmentActivity
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+       initUI();
+    }
+
+    private void initUI() {
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mNavigationView = findViewById(R.id.nav_view);
+        mNavHeader = mNavigationView.getHeaderView(0);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         toolbar.setTitle(getResources().getString(R.string.app_name));
         setSupportActionBar(toolbar);
 
-        mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
-
-        mNavigationView = findViewById(R.id.nav_view);
-        mNavHeader = mNavigationView.getHeaderView(0);
     }
 
     @Override public void onBackPressed() {
