@@ -13,8 +13,7 @@ public class NameIdModel {
         this.id = id;
     }
 
-    public NameIdModel() {
-    }
+    public NameIdModel() {}
 
     public String getName() {
         return name;

@@ -7,10 +7,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
-
-import com.might.dwan.cashcalendar.data.manager.PreferencesManager;
-import com.might.dwan.cashcalendar.data.preferences.Preferences;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -58,7 +54,6 @@ public class FileUtils {
                     file);
             res = photoURI.toString();
         } else {
-//            res = String.valueOf(Uri.fromFile(file));
             res = String.valueOf(Uri.fromFile(file));
         }
         return res;

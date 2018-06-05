@@ -29,24 +29,30 @@ public class SpinnerAdapter extends ArrayAdapter<NameIdModel> {
     }
 
     @NonNull @Override public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        ViewHolder viewHolder = null;
-        if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item_spinner_name_id, parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
+        return getAdapterView(position, convertView, parent);
+    }
+
+    private View getAdapterView(int position, View v, ViewGroup parent) {
+        ViewHolder viewHolder;
+        if (v == null) {
+            v = LayoutInflater.from(mContext).inflate(R.layout.list_item_spinner_name_id, parent,
+                    false);
+            viewHolder = new ViewHolder(v);
+            v.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (ViewHolder) v.getTag();
             viewHolder.clear();
         }
         viewHolder.setup(mData.get(position));
-        return convertView;
+        return v;
     }
+
 
     public static class ViewHolder {
         private TextView mNameTv;
 
         public ViewHolder(View v) {
-            mNameTv = (TextView) v.findViewById(R.id.list_item_spinner_tv);
+            mNameTv = v.findViewById(R.id.list_item_spinner_tv);
         }
 
         private void clear() {
@@ -64,17 +70,8 @@ public class SpinnerAdapter extends ArrayAdapter<NameIdModel> {
     }
 
 
-    @Override public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        ViewHolder viewHolder = null;
-        if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item_spinner_name_id, parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-            viewHolder.clear();
-        }
-        viewHolder.setup(mData.get(position));
-        return convertView;
+    @Override public View getDropDownView(int position, @Nullable View convertView,
+                                          @NonNull ViewGroup parent) {
+        return getAdapterView(position, convertView, parent);
     }
 }

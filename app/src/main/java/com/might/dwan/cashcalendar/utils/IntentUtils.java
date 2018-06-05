@@ -16,21 +16,37 @@ import com.might.dwan.cashcalendar.ui.activities.DetailPayActivity;
 public class IntentUtils {
 
     public static void startDetailPay(Context context, int mode, PayCounterModel item) {
-        Intent i = new Intent(context, DetailPayActivity.class);
-        i.putExtra(ConstantManager.EXTRA_MODE, mode);
-        i.putExtra(ConstantManager.EXTRA_ITEM, item);
-        ((AppCompatActivity) context).startActivityForResult(i, ConstantManager.REQUEST_ACTIVITY_DETAIL);
+        Intent intent = new Intent(context, DetailPayActivity.class);
+        intent.putExtra(ConstantManager.EXTRA_MODE, mode);
+        intent.putExtra(ConstantManager.EXTRA_ITEM, item);
+        startActivity(context, intent, ConstantManager.REQUEST_ACTIVITY_DETAIL);
     }
 
     public static void goCapture(Context context, String output) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.parse(output));
-        ((AppCompatActivity) context).startActivityForResult(intent, ConstantManager.REQUEST_CAMERA);
+        startActivity(context, intent, ConstantManager.REQUEST_CAMERA);
     }
 
     public static void pickPhotoFromGallery(Context context) {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
-        ((AppCompatActivity) context).startActivityForResult(intent, ConstantManager.REQUEST_GALLERY_PICK);
+        startActivity(context, intent, ConstantManager.REQUEST_GALLERY_PICK);
+    }
+
+
+
+    private static void startActivity(Context c, Intent intent) {
+        startActivity(c, intent, -1);
+    }
+
+    private static void startActivity(Context c, Intent intent, int requestCode) {
+        try {
+            if (requestCode == -1) {
+                ((AppCompatActivity) c).startActivity(intent);
+            } else {
+                ((AppCompatActivity) c).startActivityForResult(intent, requestCode);
+            }
+        } catch (Exception e) {e.printStackTrace();}
     }
 }

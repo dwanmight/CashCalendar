@@ -36,12 +36,12 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mOnItemPickListener = onItemPickListener;
     }
 
-
     @NonNull
     @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup root, int type) {
         switch (type) {
             case TYPE_ITEM:
-                return new PayCounterHolder(createView(R.layout.list_item_paycounter_item, root));
+                return new PayCounterHolder(createView(R.layout.list_item_paycounter_item, root),
+                        mOnItemPickListener);
             case TYPE_PLACE_HOLDER:
             default:
                 return new PlaceHolder(createView(R.layout.list_item_paycounter_place_holder, root));
@@ -81,61 +81,67 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public class PayCounterHolder extends RecyclerView.ViewHolder {
-        private ViewGroup root;
-        private TextView category_tv;
-        private TextView subcategory_tv;
-        private TextView pay_tv;
-        private TextView date_tv;
+    public static class PayCounterHolder extends RecyclerView.ViewHolder {
+        private ViewGroup rootView;
+        private TextView categoryTv;
+        private TextView subcategoryTv;
+        private TextView payTv;
+        private TextView dateTv;
+        private OnItemPickListener<PayCounterModel> pickListener;
 
-        public PayCounterHolder(View v) {
+        private PayCounterModel item;
+
+        public PayCounterHolder(View v, OnItemPickListener<PayCounterModel> pickListener) {
             super(v);
-            root = (ViewGroup) v;
-            category_tv = v.findViewById(R.id.list_item_paycounter_category_tv);
-            subcategory_tv = v.findViewById(R.id.list_item_paycounter_subcategory_tv);
-            pay_tv = v.findViewById(R.id.list_item_paycounter_pay_tv);
-            date_tv = v.findViewById(R.id.list_item_paycounter_date_tv);
+            rootView = (ViewGroup) v;
+            categoryTv = v.findViewById(R.id.list_item_paycounter_category_tv);
+            subcategoryTv = v.findViewById(R.id.list_item_paycounter_subcategory_tv);
+            payTv = v.findViewById(R.id.list_item_paycounter_pay_tv);
+            dateTv = v.findViewById(R.id.list_item_paycounter_date_tv);
+            this.pickListener = pickListener;
+            setListeners();
         }
 
         private void bind(PayCounterModel item) {
+            this.item = item;
             clearData();
-            setCategory("" + item.getCategory_text());
-            setSubcategory("" + item.getSubcategory_text());
+            setCategory(item.getCategory_text());
+            setSubcategory(item.getSubcategory_text());
             setPay(item.getCount_pay());
             setDate(item.getTimestamp());
-            setListeners(item);
         }
 
-        private void setListeners(final PayCounterModel item) {
-            root.setOnClickListener(v -> {
-                if (mOnItemPickListener != null) {
-                    mOnItemPickListener.onItemClicked(item);
-                }
-            });
+        private void setListeners() {
+            rootView.setOnClickListener(v -> sendClickItem());
+        }
+
+        private void sendClickItem() {
+            if (pickListener == null) return;
+            pickListener.onItemClicked(item);
         }
 
         private void clearData() {
-            category_tv.setText("");
-            subcategory_tv.setText("");
-            pay_tv.setText("");
-            date_tv.setText("");
+            categoryTv.setText("");
+            subcategoryTv.setText("");
+            payTv.setText("");
+            dateTv.setText("");
         }
 
         private void setCategory(String category) {
-            category_tv.setText(category);
+            categoryTv.setText(category);
         }
 
         private void setSubcategory(String subcategory) {
-            subcategory_tv.setText(subcategory);
+            subcategoryTv.setText(subcategory);
         }
 
         private void setPay(String pay) {
-            pay_tv.setText(pay);
+            payTv.setText(pay);
         }
 
         private void setDate(String date) {
             try {
-                date_tv.setText(DateUtils.stampToYMDHMS(Long.parseLong(date)));
+                dateTv.setText(DateUtils.stampToYMDHMS(Long.parseLong(date)));
             } catch (Exception e) {e.printStackTrace();}
         }
     }
