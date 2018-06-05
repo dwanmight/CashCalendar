@@ -1,6 +1,7 @@
 package com.might.dwan.cashcalendar.ui.adapter;
 
-import android.support.v7.widget.CardView;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private ArrayList<PayCounterModel> mList;
 
     private OnItemPickListener<PayCounterModel> mOnItemPickListener;
+    private LayoutInflater mLayoutInflater;
 
     private final int TYPE_PLACE_HOLDER = 0;
     private final int TYPE_ITEM = 1;
@@ -34,18 +36,31 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mOnItemPickListener = onItemPickListener;
     }
 
-    @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        switch (viewType) {
-            case TYPE_PLACE_HOLDER:
-                return new PlaceHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_paycounter_place_holder, parent, false));
+
+    @NonNull
+    @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup root, int type) {
+        switch (type) {
             case TYPE_ITEM:
-                return new PayCounterHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_paycounter_item, parent, false));
+                return new PayCounterHolder(createView(R.layout.list_item_paycounter_item, root));
+            case TYPE_PLACE_HOLDER:
             default:
-                return null;
+                return new PlaceHolder(createView(
+                        R.layout.list_item_paycounter_place_holder, root));
         }
     }
 
-    @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    private View createView(@LayoutRes int id, ViewGroup container) {
+        checkInflaterForNull(container);
+        return mLayoutInflater.inflate(id, container, false);
+    }
+
+    private void checkInflaterForNull(ViewGroup container) {
+        if (mLayoutInflater == null) {
+            mLayoutInflater = LayoutInflater.from(container.getContext());
+        }
+    }
+
+    @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof PayCounterHolder) {
             ((PayCounterHolder) holder).bind(mList.get(position));
         }
@@ -68,7 +83,7 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public class PayCounterHolder extends RecyclerView.ViewHolder {
-        private CardView card_view;
+        private ViewGroup root;
         private TextView category_tv;
         private TextView subcategory_tv;
         private TextView pay_tv;
@@ -76,11 +91,11 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public PayCounterHolder(View v) {
             super(v);
-            card_view = (CardView) v;
-            category_tv = (TextView) v.findViewById(R.id.list_item_paycounter_category_tv);
-            subcategory_tv = (TextView) v.findViewById(R.id.list_item_paycounter_subcategory_tv);
-            pay_tv = (TextView) v.findViewById(R.id.list_item_paycounter_pay_tv);
-            date_tv = (TextView) v.findViewById(R.id.list_item_paycounter_date_tv);
+            root = (ViewGroup) v;
+            category_tv = v.findViewById(R.id.list_item_paycounter_category_tv);
+            subcategory_tv = v.findViewById(R.id.list_item_paycounter_subcategory_tv);
+            pay_tv = v.findViewById(R.id.list_item_paycounter_pay_tv);
+            date_tv = v.findViewById(R.id.list_item_paycounter_date_tv);
         }
 
         private void bind(PayCounterModel item) {
@@ -93,11 +108,9 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         private void setListeners(final PayCounterModel item) {
-            card_view.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    if (mOnItemPickListener != null) {
-                        mOnItemPickListener.onItemClicked(item);
-                    }
+            root.setOnClickListener(v -> {
+                if (mOnItemPickListener != null) {
+                    mOnItemPickListener.onItemClicked(item);
                 }
             });
         }
@@ -124,9 +137,7 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private void setDate(String date) {
             try {
                 date_tv.setText(DateUtils.stampToYMDHMS(Long.parseLong(date)));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            } catch (Exception e) {e.printStackTrace();}
         }
     }
 
