@@ -1,16 +1,11 @@
 package com.might.dwan.cashcalendar.ui.fragments;
 
-import android.app.Fragment;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.data.db.DBManager;
@@ -31,7 +26,10 @@ import static android.app.Activity.RESULT_OK;
  * Created by Might on 25.08.2017.
  */
 
-public class CounterListFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, OnItemPickListener<PayCounterModel> {
+public class CounterListFragment extends BaseFragment
+        implements View.OnClickListener,
+        SwipeRefreshLayout.OnRefreshListener,
+        OnItemPickListener<PayCounterModel> {
     private RecyclerView mRecyclerView;
     private FloatingActionButton mFab;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -39,26 +37,21 @@ public class CounterListFragment extends Fragment implements View.OnClickListene
     private ArrayList<PayCounterModel> mList;
     private PayCounterAdapter mAdapter;
 
-    @Nullable @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_counter_list, container, false);
-        initViews(v);
-        setupList();
-        loadData(null);
-        return v;
+    @Override public int getLayoutId() {return R.layout.fragment_counter_list;}
+
+    @Override public void initUI(View v) {
+        mSwipeRefreshLayout = v.findViewById(R.id.swipeRefreshLayout);
+        mRecyclerView = v.findViewById(R.id.recyclerView);
+        mFab = v.findViewById(R.id.add_fab);
     }
 
-    private void initViews(View v) {
-        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLayout);
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
-        mFab = (FloatingActionButton) v.findViewById(R.id.add_fab);
-    }
-
-    private void setupList() {
+    @Override public void setupData() {
         mList = new ArrayList<>();
         mAdapter = new PayCounterAdapter(mList);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new SpaceDecoration(DisplayUtils.pxToDp(getActivity(), 32)));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        loadData(null);
     }
 
     private void loadData(String last_id) {
@@ -70,15 +63,16 @@ public class CounterListFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    @Override public void onStart() {
-        super.onStart();
-        setListeners();
-    }
-
-    private void setListeners() {
-        mFab.setOnClickListener(this);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mAdapter.setOnItemPickListener(this);
+    @Override public void setListeners(boolean enable) {
+        if (enable) {
+            mFab.setOnClickListener(this);
+            mSwipeRefreshLayout.setOnRefreshListener(this);
+            mAdapter.setOnItemPickListener(this);
+        } else {
+            mFab.setOnClickListener(null);
+            mSwipeRefreshLayout.setOnRefreshListener(null);
+            mAdapter.setOnItemPickListener(null);
+        }
     }
 
     @Override public void onClick(View v) {

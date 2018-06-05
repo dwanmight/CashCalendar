@@ -1,15 +1,13 @@
 package com.might.dwan.cashcalendar.ui.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -35,7 +33,8 @@ import static android.app.Activity.RESULT_OK;
  * Created by Might on 27.08.2017.
  */
 
-public class DetailPayFragment extends BaseFragment implements View.OnClickListener {
+public class DetailPayFragment extends BaseFragment
+        implements View.OnClickListener {
 
     public static final int MODE_NEW = 0;
     public static final int MODE_DETAIL = 1;
@@ -93,46 +92,34 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
         return fragment;
     }
 
-    @Nullable
-    @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_detail_pay, container, false);
-        restoreData(savedInstanceState);
-        initViews(v);
+    @Override public int getLayoutId() {return R.layout.fragment_detail_pay;}
+
+    @Override public void initUI(View v) {
+        mCategorySpinner = v.findViewById(R.id.category_spinner);
+        mSubcategorySpinner = v.findViewById(R.id.subcategory_spinner);
+        mDescriptionEt = v.findViewById(R.id.detail_description_et);
+        mDateTv = v.findViewById(R.id.detail_date_tv);
+        mPayEt = v.findViewById(R.id.detail_pay_et);
+
+        mToolbar = v.findViewById(R.id.toolbar);
+        setToolbar(mToolbar);
+    }
+
+    @Override public void restoreState(Bundle state) {
+        Bundle bundle = state != null ? state : getArguments();
+        mCurrMode = bundle.getInt(ConstantManager.EXTRA_MODE);
+        if (mCurrMode == MODE_NEW) {
+            mPayCounterModel = new PayCounterModel();
+        } else {
+            mPayCounterModel = (PayCounterModel) bundle.getSerializable(ConstantManager.EXTRA_ITEM);
+        }
+    }
+
+    @Override public void setupData() {
         setupAdapters();
         loadCategories();
         loadSubcategories();
         setupMode();
-        return v;
-    }
-
-    private void restoreData(Bundle savedInstanceState) {
-        // TODO: 27.08.2017
-        if (savedInstanceState == null) {
-            mCurrMode = getArguments().getInt(ConstantManager.EXTRA_MODE);
-            if (mCurrMode == MODE_NEW) {
-                mPayCounterModel = new PayCounterModel();
-            } else {
-                mPayCounterModel = (PayCounterModel) getArguments().getSerializable(ConstantManager.EXTRA_ITEM);
-            }
-        } else {
-            mCurrMode = savedInstanceState.getInt(ConstantManager.EXTRA_MODE);
-            if (mCurrMode == MODE_NEW) {
-                mPayCounterModel = new PayCounterModel();
-            } else {
-                mPayCounterModel = (PayCounterModel) savedInstanceState.getSerializable(ConstantManager.EXTRA_ITEM);
-            }
-        }
-    }
-
-    private void initViews(View v) {
-        mCategorySpinner = (Spinner) v.findViewById(R.id.category_spinner);
-        mSubcategorySpinner = (Spinner) v.findViewById(R.id.subcategory_spinner);
-        mDescriptionEt = (EditText) v.findViewById(R.id.detail_description_et);
-        mDateTv = (TextView) v.findViewById(R.id.detail_date_tv);
-        mPayEt = (EditText) v.findViewById(R.id.detail_pay_et);
-
-        mToolbar = (Toolbar) v.findViewById(R.id.toolbar);
-        setToolbar(mToolbar);
     }
 
     private void setupAdapters() {
@@ -154,9 +141,7 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
             addEmptyItemToList(mCategoryList);
             mCategoryList.addAll(new CategoryDB().getCategories(DBManager.get(getActivity()).getReadableDatabase()));
             mCategoryAdapter.notifyDataSetChanged();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     private void loadSubcategories() {
@@ -166,15 +151,12 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
             mSubcategoryList.addAll(new SubcategoryDB().getSubCategories(DBManager.get(getActivity()).getReadableDatabase()
                     , mPayCounterModel.getCategory()));
             mSubcategoryAdapter.notifyDataSetChanged();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     private void addEmptyItemToList(ArrayList<NameIdModel> list) {
         if (list == null) return;
         list.add(new NameIdModel("Ничего не выбрано", 0));
-
     }
 
     private void setupMode() {
@@ -196,17 +178,11 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
             } else {
                 mToolbar.setTitle(R.string.title_add_note);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {e.printStackTrace();}
     }
 
-    @Override public void onStart() {
-        super.onStart();
-        setListeners(true);
-    }
 
-    private void setListeners(boolean enable) {
+    @Override public void setListeners(boolean enable) {
         if(enable){
             mDateTv.setOnClickListener(this);
             mCategorySpinner.setOnItemSelectedListener(mCategorySelectedListener);
@@ -216,10 +192,6 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
             mCategorySpinner.setOnItemSelectedListener(null);
             mSubcategorySpinner.setOnItemSelectedListener(null);
         }
-    }
-
-    @Override public void onStop() {
-        super.onStop();
     }
 
     @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -272,36 +244,16 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
             mPayCounterModel.setCount_pay(mPayEt.getText().toString().trim());
             PayCounterDB payCounterDB = new PayCounterDB();
             payCounterDB.insert(DBManager.get(getActivity()).getReadableDatabase(), mPayCounterModel);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-//        PayCounterModel model = new PayCounterModel(PreferencesManager.get(getActivity()).getPreferences().getNickname()
-//                , mCategorySpinner.getSelectedItemPosition()
-//                , mCategoryText
-//                , mSubcategorySpinner.getSelectedItemPosition()
-//                , mSubcategoryText
-//                , mDescriptionEt.getText().toString().trim()
-//                , mPayEt.getText().toString().trim()
-//                , String.valueOf(System.currentTimeMillis()));
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     private void updateItem() {
-//        PayCounterModel model = new PayCounterModel(PreferencesManager.get(getActivity()).getPreferences().getNickname()
-//                , mCategorySpinner.getSelectedItemPosition()
-//                , mCategoryText
-//                , mSubcategorySpinner.getSelectedItemPosition()
-//                , mSubcategoryText
-//                , mDescriptionEt.getText().toString().trim()
-//                , mPayEt.getText().toString()
-//                , String.valueOf(System.currentTimeMillis()));
         try {
             mPayCounterModel.setDescription(mDescriptionEt.getText().toString().trim());
             mPayCounterModel.setCount_pay(mPayEt.getText().toString());
             PayCounterDB payCounterDB = new PayCounterDB();
             payCounterDB.update(DBManager.get(getActivity()).getReadableDatabase(), mPayCounterModel);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     @Override public void onClick(View v) {
@@ -318,29 +270,33 @@ public class DetailPayFragment extends BaseFragment implements View.OnClickListe
         mDatePickerDialog.show(getFragmentManager(), "DatePickerDialog");
     }
 
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(ConstantManager.EXTRA_MODE, mCurrMode);
+    }
+
+
+
+    //Activity result dialog
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        boolean result = resultCode == Activity.RESULT_OK;
         switch (requestCode) {
             case ConstantManager.REQUEST_DATE_DIALOG:
-                getResultDialogDate(resultCode, data);
+                getResultDialogDate(result, data);
                 break;
         }
     }
 
-    private void getResultDialogDate(int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            mPayCounterModel.setTimestamp(String.valueOf(data.getLongExtra(ConstantManager.EXTRA_STAMP, 0)));
-            updateDateView();
-        }
+    private void getResultDialogDate(boolean result, Intent data) {
+        if (!result) return;
+        mPayCounterModel.setTimestamp(String.valueOf(data.getLongExtra(ConstantManager.EXTRA_STAMP,
+                0)));
+        updateDateView();
     }
 
     private void updateDateView() {
         if (mPayCounterModel.getTimestamp() == null) return;
         mDateTv.setText(DateUtils.stampToYMD(Long.parseLong(mPayCounterModel.getTimestamp())));
-    }
-
-    @Override public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(ConstantManager.EXTRA_MODE, mCurrMode);
     }
 }

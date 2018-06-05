@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
  * Created by Might on 24.08.2017.
  */
 
-public class PayCounterApp extends Application {
+public class App extends Application {
     public static SharedPreferences sPreferenceManager;
 
     @Override public void onCreate() {

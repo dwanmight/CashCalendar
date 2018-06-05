@@ -17,7 +17,8 @@ import static android.app.Activity.RESULT_OK;
  * Created by Might on 12.09.2017.
  */
 
-public class DatePickerDialog extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
+public class DatePickerDialog extends DialogFragment
+        implements android.app.DatePickerDialog.OnDateSetListener {
     private String mTimeStamp;
 
     public static DatePickerDialog newInstance(String stamp) {
