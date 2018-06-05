@@ -4,7 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 
 import com.might.dwan.cashcalendar.data.models.PayCounterModel;
-import com.might.dwan.cashcalendar.ui.fragments.DetailPayFragment;
+import com.might.dwan.cashcalendar.ui.screens.DetailPayFragment;
 import com.might.dwan.cashcalendar.utils.ConstantManager;
 
 /**

@@ -2,7 +2,7 @@ package com.might.dwan.cashcalendar.ui.activities;
 
 import android.app.Fragment;
 
-import com.might.dwan.cashcalendar.ui.fragments.UpdateProfileFragment;
+import com.might.dwan.cashcalendar.ui.screens.UpdateProfileFragment;
 
 /**
  * Created by Might on 24.08.2017.

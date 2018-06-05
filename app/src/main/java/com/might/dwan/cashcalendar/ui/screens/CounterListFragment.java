@@ -1,4 +1,4 @@
-package com.might.dwan.cashcalendar.ui.fragments;
+package com.might.dwan.cashcalendar.ui.screens;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;

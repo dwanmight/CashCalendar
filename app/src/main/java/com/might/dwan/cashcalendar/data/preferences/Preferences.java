@@ -3,7 +3,7 @@ package com.might.dwan.cashcalendar.data.preferences;
 import android.content.SharedPreferences;
 
 import com.might.dwan.cashcalendar.utils.ConstantManager;
-import com.might.dwan.cashcalendar.utils.App;
+import com.might.dwan.cashcalendar.apps.App;
 
 /**
  * Created by Might on 24.08.2017.
