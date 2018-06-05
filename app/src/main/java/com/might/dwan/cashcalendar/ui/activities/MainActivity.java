@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.might.dwan.cashcalendar.R;
-import com.might.dwan.cashcalendar.ui.screens.CounterListFragment;
+import com.might.dwan.cashcalendar.ui.screens.counter_list.CountersFragment;
 
 public class MainActivity extends BaseFragmentActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -26,7 +26,7 @@ public class MainActivity extends BaseFragmentActivity
 
 
     @Override Fragment createFragment() {
-        return new CounterListFragment();
+        return new CountersFragment();
     }
 
     @Override protected void onCreate(Bundle savedInstanceState) {

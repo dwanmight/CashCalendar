@@ -11,12 +11,12 @@ import android.preference.PreferenceManager;
 public class App extends Application {
     public static SharedPreferences sPreferenceManager;
 
-    private AppComponent mAppComponent;
+    private static AppComponent sAppComponent;
 
     @Override public void onCreate() {
         super.onCreate();
         sPreferenceManager = PreferenceManager.getDefaultSharedPreferences(this);
-        mAppComponent = DaggerAppComponent.builder()
+        sAppComponent = DaggerAppComponent.builder()
                 .contextModule(new ContextModule(getBaseContext()))
                 .build();
     }
@@ -25,7 +25,7 @@ public class App extends Application {
         return sPreferenceManager;
     }
 
-    public AppComponent getAppComponent() {
-        return mAppComponent;
+    public static AppComponent getAppComponent() {
+        return sAppComponent;
     }
 }

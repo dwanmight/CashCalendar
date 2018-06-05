@@ -11,7 +11,7 @@ import dagger.Provides;
 
 @Module
 public class ContextModule {
-    private Context mContext;
+    Context mContext;
 
     public ContextModule(Context mContext) {
         this.mContext = mContext;
@@ -22,8 +22,9 @@ public class ContextModule {
         return mContext;
     }
 
-    @AppScope
-    @Provides Context provideAppContext() {
-        return mContext.getApplicationContext();
-    }
+    //    @AppContext
+    //    @AppScope
+    //    @Provides Context provideAppContext() {
+    //        return mContext.getApplicationContext();
+    //    }
 }
