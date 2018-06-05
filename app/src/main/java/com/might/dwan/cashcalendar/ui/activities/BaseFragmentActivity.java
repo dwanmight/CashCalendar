@@ -5,14 +5,13 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.might.dwan.cashcalendar.R;
-import com.might.dwan.cashcalendar.utils.ConstantManager;
 
 /**
  * Created by Might on 25.08.2017.
@@ -38,6 +37,24 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
                 .replace(R.id.container_fragment_frame, fragment)
                 .addToBackStack(fragment.getClass().toString())
                 .commit();
+    }
+
+    @CallSuper @Override protected void onResume() {
+        setListeners(true);
+        super.onResume();
+    }
+
+
+    /**
+     * Method for bind and release listeners
+     * @param enable TRUE if should bind and
+     *               FALSE to release
+     */
+    public void setListeners(boolean enable) {}
+
+    @CallSuper @Override protected void onStart() {
+        setListeners(false);
+        super.onStart();
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {

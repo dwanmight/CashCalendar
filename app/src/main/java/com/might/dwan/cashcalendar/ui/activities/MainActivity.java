@@ -3,6 +3,7 @@ package com.might.dwan.cashcalendar.ui.activities;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,6 +18,12 @@ import com.might.dwan.cashcalendar.ui.fragments.CounterListFragment;
 
 public class MainActivity extends BaseFragmentActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+    private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
+    private View mNavHeader;
+
+    private ActionBarDrawerToggle mDrawerToggle;
+
 
     @Override Fragment createFragment() {
         return new CounterListFragment();
@@ -25,33 +32,39 @@ public class MainActivity extends BaseFragmentActivity
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(getResources().getString(R.string.app_name));
         setSupportActionBar(toolbar);
 
-        setTitle(getResources().getString(R.string.app_name));
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        View headerView = navigationView.getHeaderView(0);
-        if (headerView != null) {
-            headerView.findViewById(R.id.header_photo_img).setOnClickListener(this);
-        }
+
+        mNavigationView = findViewById(R.id.nav_view);
+        mNavHeader = mNavigationView.getHeaderView(0);
     }
 
     @Override public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         } else if (getFragmentManager().getBackStackEntryCount() > 1) {
             getFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override public void setListeners(boolean enable) {
+        if (enable) {
+            mNavigationView.setNavigationItemSelectedListener(this);
+            mNavHeader.findViewById(R.id.header_photo_img).setOnClickListener(this);
+            mDrawerLayout.addDrawerListener(mDrawerToggle);
+            mDrawerToggle.syncState();
+        } else {
+            mDrawerLayout.removeDrawerListener(mDrawerToggle);
+            mNavigationView.setNavigationItemSelectedListener(null);
+            mNavHeader.findViewById(R.id.header_photo_img).setOnClickListener(null);
         }
     }
 
@@ -76,7 +89,7 @@ public class MainActivity extends BaseFragmentActivity
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
-    @Override public boolean onNavigationItemSelected(MenuItem item) {
+    @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -94,8 +107,7 @@ public class MainActivity extends BaseFragmentActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 

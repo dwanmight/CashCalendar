@@ -15,7 +15,8 @@ public class DetailPayActivity extends BaseFragmentActivity {
     @Override Fragment createFragment() {
         Intent intent = getIntent();
         int mode = intent.getIntExtra(ConstantManager.EXTRA_MODE, 0);
-        PayCounterModel model = (PayCounterModel) intent.getSerializableExtra(ConstantManager.EXTRA_ITEM);
+        PayCounterModel model = intent.hasExtra(ConstantManager.EXTRA_ITEM) ?
+                (PayCounterModel) intent.getSerializableExtra(ConstantManager.EXTRA_ITEM) : null;
         return DetailPayFragment.newInstance(mode, model);
     }
 }
