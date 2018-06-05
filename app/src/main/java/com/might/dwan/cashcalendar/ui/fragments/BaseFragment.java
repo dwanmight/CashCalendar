@@ -20,7 +20,11 @@ public class BaseFragment extends Fragment {
     }
 
     public void showToast(String mess) {
-        Toast.makeText(getActivity(), mess, Toast.LENGTH_SHORT).show();
+        if (mess == null) return;
+        if (getActivity() == null) return;
+        if (!isAdded()) return;
+        getActivity().runOnUiThread(() ->
+                Toast.makeText(getActivity(), mess, Toast.LENGTH_SHORT).show());
     }
 
     public void setToolbar(Toolbar toolbar){
