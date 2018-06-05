@@ -44,8 +44,7 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 return new PayCounterHolder(createView(R.layout.list_item_paycounter_item, root));
             case TYPE_PLACE_HOLDER:
             default:
-                return new PlaceHolder(createView(
-                        R.layout.list_item_paycounter_place_holder, root));
+                return new PlaceHolder(createView(R.layout.list_item_paycounter_place_holder, root));
         }
     }
 
