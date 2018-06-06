@@ -36,6 +36,11 @@ public class CountersFragment extends BaseFragment {
     }
 
 
+    @Override public void releaseData() {
+        presenter.release();
+    }
+
+    //Activity result region
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         boolean result = resultCode == Activity.RESULT_OK;

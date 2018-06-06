@@ -8,14 +8,16 @@ import android.view.View;
 
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.data.models.PayCounterModel;
-import com.might.dwan.cashcalendar.ui.adapter.PayCounterAdapter;
 import com.might.dwan.cashcalendar.ui.adapter.decoration.SpaceDecoration;
 import com.might.dwan.cashcalendar.ui.interfaces.OnItemPickListener;
 import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
-import com.might.dwan.cashcalendar.ui.screens.counters.interactor.CountersClickListeners;
+import com.might.dwan.cashcalendar.ui.screens.counters.contractor.CountersClickListeners;
+import com.might.dwan.cashcalendar.ui.screens.counters.list.PayCounterAdapter;
 import com.might.dwan.cashcalendar.utils.DisplayUtils;
 
 import java.util.ArrayList;
+
+import io.reactivex.Observable;
 
 /**
  * Created by Ilya on 05.06.2018.
@@ -54,13 +56,15 @@ public class CountersView
 
     public void setupAdapter(ArrayList<PayCounterModel> list) {
         mAdapter = new PayCounterAdapter(list);
-        mAdapter.setOnItemPickListener(this);
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new SpaceDecoration(
                 DisplayUtils.pxToDp(rootView.getContext(), 32)));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
     }
+
+    public Observable<Integer> getItemClicks() {return mAdapter.getItemClicks();}
+
 
 
     void adapterDataChanged() {
