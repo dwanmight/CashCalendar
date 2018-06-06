@@ -2,7 +2,6 @@ package com.might.dwan.cashcalendar.ui.screens.counters.list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.might.dwan.cashcalendar.R;
@@ -16,7 +15,6 @@ import io.reactivex.subjects.PublishSubject;
  */
 
 class PayCounterVH extends RecyclerView.ViewHolder {
-    private ViewGroup rootView;
     private TextView categoryTv;
     private TextView subcategoryTv;
     private TextView payTv;
@@ -25,12 +23,11 @@ class PayCounterVH extends RecyclerView.ViewHolder {
 
     public PayCounterVH(View v, PublishSubject<Integer> subjects) {
         super(v);
-        rootView = (ViewGroup) v;
         categoryTv = v.findViewById(R.id.list_item_paycounter_category_tv);
         subcategoryTv = v.findViewById(R.id.list_item_paycounter_subcategory_tv);
         payTv = v.findViewById(R.id.list_item_paycounter_pay_tv);
         dateTv = v.findViewById(R.id.list_item_paycounter_date_tv);
-        rootView.setOnClickListener(view -> subjects.onNext(getAdapterPosition()));
+        v.setOnClickListener(view -> subjects.onNext(getAdapterPosition()));
     }
 
     public void bind(PayCounterModel item) {

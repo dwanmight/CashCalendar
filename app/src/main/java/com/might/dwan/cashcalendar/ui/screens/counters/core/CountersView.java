@@ -9,7 +9,6 @@ import android.view.View;
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.data.models.PayCounterModel;
 import com.might.dwan.cashcalendar.ui.adapter.decoration.SpaceDecoration;
-import com.might.dwan.cashcalendar.ui.interfaces.OnItemPickListener;
 import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
 import com.might.dwan.cashcalendar.ui.screens.counters.contractor.CountersClickListeners;
 import com.might.dwan.cashcalendar.ui.screens.counters.list.PayCounterAdapter;
@@ -23,8 +22,7 @@ import io.reactivex.Observable;
  * Created by Ilya on 05.06.2018.
  */
 
-public class CountersView
-        implements OnItemPickListener<PayCounterModel> {
+public class CountersView {
 
     private View rootView;
     private RecyclerView mRecyclerView;
@@ -40,13 +38,6 @@ public class CountersView
         mRecyclerView = v.findViewById(R.id.recyclerView);
         mFab = v.findViewById(R.id.add_fab);
 
-    }
-
-    @Override public void onItemClicked(PayCounterModel item) {
-        if (item != null) {
-            //            IntentUtils.startDetailPay(getActivity(), DetailPayFragment
-            // .MODE_DETAIL, item);
-        }
     }
 
     public void bindClickListener(CountersClickListeners listener) {
