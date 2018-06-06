@@ -38,4 +38,8 @@ dependencies {
     //Dagger
     implementation "com.google.dagger:dagger:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+
+
+    //RX
+    implementation "io.reactivex.rxjava2:rxjava:2.1.14"
 }
