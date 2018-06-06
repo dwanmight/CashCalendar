@@ -1,7 +1,7 @@
-package com.might.dwan.cashcalendar.ui.screens.counter_list.dagger;
+package com.might.dwan.cashcalendar.ui.screens.counters.dagger;
 
 import com.might.dwan.cashcalendar.apps.AppComponent;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.CountersFragment;
+import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
 
 import dagger.Component;
 

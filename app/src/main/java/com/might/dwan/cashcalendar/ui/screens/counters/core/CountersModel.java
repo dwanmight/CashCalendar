@@ -1,10 +1,10 @@
-package com.might.dwan.cashcalendar.ui.screens.counter_list.core;
+package com.might.dwan.cashcalendar.ui.screens.counters.core;
 
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.db.db_writer.PayCounterDB;
 import com.might.dwan.cashcalendar.data.models.PayCounterModel;
 import com.might.dwan.cashcalendar.ui.screens.DetailPayFragment;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.CountersFragment;
+import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
-package com.might.dwan.cashcalendar.ui.screens.counter_list.core;
+package com.might.dwan.cashcalendar.ui.screens.counters.core;
 
 import com.might.dwan.cashcalendar.data.models.PayCounterModel;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.interactor.CountersClickListeners;
+import com.might.dwan.cashcalendar.ui.screens.counters.interactor.CountersClickListeners;
 
 import java.util.ArrayList;
 

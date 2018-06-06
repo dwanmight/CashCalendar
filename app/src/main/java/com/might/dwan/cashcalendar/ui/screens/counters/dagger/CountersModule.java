@@ -1,13 +1,11 @@
-package com.might.dwan.cashcalendar.ui.screens.counter_list.dagger;
-
-import android.database.sqlite.SQLiteDatabase;
+package com.might.dwan.cashcalendar.ui.screens.counters.dagger;
 
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.db.db_writer.PayCounterDB;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.CountersFragment;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.core.CountersModel;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.core.CountersPresenter;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.core.CountersView;
+import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
+import com.might.dwan.cashcalendar.ui.screens.counters.core.CountersModel;
+import com.might.dwan.cashcalendar.ui.screens.counters.core.CountersPresenter;
+import com.might.dwan.cashcalendar.ui.screens.counters.core.CountersView;
 
 import dagger.Module;
 import dagger.Provides;

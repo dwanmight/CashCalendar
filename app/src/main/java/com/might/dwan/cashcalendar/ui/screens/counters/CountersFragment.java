@@ -1,4 +1,4 @@
-package com.might.dwan.cashcalendar.ui.screens.counter_list;
+package com.might.dwan.cashcalendar.ui.screens.counters;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,10 +7,10 @@ import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.apps.App;
 import com.might.dwan.cashcalendar.data.models.PayCounterModel;
 import com.might.dwan.cashcalendar.ui.screens.BaseFragment;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.core.CountersPresenter;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.core.CountersView;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.dagger.CountersModule;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.dagger.DaggerCountersComponent;
+import com.might.dwan.cashcalendar.ui.screens.counters.core.CountersPresenter;
+import com.might.dwan.cashcalendar.ui.screens.counters.core.CountersView;
+import com.might.dwan.cashcalendar.ui.screens.counters.dagger.CountersModule;
+import com.might.dwan.cashcalendar.ui.screens.counters.dagger.DaggerCountersComponent;
 import com.might.dwan.cashcalendar.utils.ConstantManager;
 import com.might.dwan.cashcalendar.utils.IntentUtils;
 

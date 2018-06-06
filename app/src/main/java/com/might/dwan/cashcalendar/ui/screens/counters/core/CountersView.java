@@ -1,4 +1,4 @@
-package com.might.dwan.cashcalendar.ui.screens.counter_list.core;
+package com.might.dwan.cashcalendar.ui.screens.counters.core;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,8 +11,8 @@ import com.might.dwan.cashcalendar.data.models.PayCounterModel;
 import com.might.dwan.cashcalendar.ui.adapter.PayCounterAdapter;
 import com.might.dwan.cashcalendar.ui.adapter.decoration.SpaceDecoration;
 import com.might.dwan.cashcalendar.ui.interfaces.OnItemPickListener;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.CountersFragment;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.interactor.CountersClickListeners;
+import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
+import com.might.dwan.cashcalendar.ui.screens.counters.interactor.CountersClickListeners;
 import com.might.dwan.cashcalendar.utils.DisplayUtils;
 
 import java.util.ArrayList;

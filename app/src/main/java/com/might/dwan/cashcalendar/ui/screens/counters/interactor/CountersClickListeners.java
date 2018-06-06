@@ -1,4 +1,4 @@
-package com.might.dwan.cashcalendar.ui.screens.counter_list.interactor;
+package com.might.dwan.cashcalendar.ui.screens.counters.interactor;
 
 /**
  * Created by Ilya on 05.06.2018.

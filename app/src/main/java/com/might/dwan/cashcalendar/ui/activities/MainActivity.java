@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.might.dwan.cashcalendar.R;
-import com.might.dwan.cashcalendar.ui.screens.counter_list.CountersFragment;
+import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
 
 public class MainActivity extends BaseFragmentActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
