@@ -1,5 +1,6 @@
 package com.might.dwan.cashcalendar.archs.presenters;
 
+import android.os.Bundle;
 import android.support.annotation.CallSuper;
 
 import java.lang.ref.WeakReference;
@@ -63,4 +64,11 @@ public abstract class BasePresenter<V, M> {
      * Called before release data
      */
     public void onRelease() {}
+
+
+    /**
+     * Called when window save current state
+     * @param bundle
+     */
+    public void onSaveState(Bundle bundle) {}
 }

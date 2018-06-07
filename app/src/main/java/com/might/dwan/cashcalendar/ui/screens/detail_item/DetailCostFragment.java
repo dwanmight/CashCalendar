@@ -29,8 +29,6 @@ public class DetailCostFragment extends BaseFragment {
     @Inject DetailCostView view;
     @Inject DetailCostPresenter presenter;
 
-    private int mCurrMode;
-
     public static DetailCostFragment newInstance(int mode, CostItem model) {
         Bundle args = new Bundle();
         args.putInt(ConstantManager.EXTRA_MODE, mode);
@@ -44,7 +42,6 @@ public class DetailCostFragment extends BaseFragment {
     @Override public int getLayoutId() {return R.layout.fragment_detail_pay;}
 
     @Override public void setupData(Bundle state) {
-        mCurrMode = state.getInt(ConstantManager.EXTRA_MODE);
         CostItem item = state.containsKey(ConstantManager.EXTRA_ITEM) ?
                 (CostItem) state.getSerializable(ConstantManager.EXTRA_ITEM) : null;
 
@@ -77,7 +74,7 @@ public class DetailCostFragment extends BaseFragment {
 
     @Override public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(ConstantManager.EXTRA_MODE, mCurrMode);
+        presenter.onSaveState(outState);
     }
 
 

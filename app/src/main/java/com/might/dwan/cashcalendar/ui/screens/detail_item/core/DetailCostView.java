@@ -84,9 +84,9 @@ public class DetailCostView {
     }
 
     void bindClickListener(DetailCostContractor.IPresenter presenter) {
-        //        mClickListener = presenter;
+        mClickListener = presenter;
         if (presenter != null) {
-            mDateTv.setOnClickListener(v -> presenter.clickDate());
+            mDateTv.setOnClickListener(v -> mClickListener.clickDate());
             mCategorySpinner.setOnItemSelectedListener(mCategorySelectedListener);
             mSubcategorySpinner.setOnItemSelectedListener(mSubCategorySelectedListener);
         } else {

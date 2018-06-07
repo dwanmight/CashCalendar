@@ -4,7 +4,7 @@
     <style name="enter_field">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/min_view_size</item>
-        <item name="android:layout_marginLeft">@dimen/horizontal_margin_8</item>
+        <item name="android:layout_marginLeft">@dimen/horizontal_margin_16</item>
         <item name="android:layout_marginRight">@dimen/horizontal_margin_16</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin_8</item>
         <item name="android:background">@drawable/bg_rect_stroke_grey_corner_5</item>

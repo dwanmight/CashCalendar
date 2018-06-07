@@ -1,8 +1,11 @@
 package com.might.dwan.cashcalendar.ui.screens.detail_item.core;
 
+import android.os.Bundle;
+
 import com.might.dwan.cashcalendar.archs.presenters.BasePresenter;
 import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.ui.adapter.adapter_models.NameIdItem;
+import com.might.dwan.cashcalendar.utils.ConstantManager;
 import com.might.dwan.cashcalendar.utils.DateUtils;
 import com.might.dwan.cashcalendar.utils.ValidUtils;
 import com.might.dwan.cashcalendar.utils.rx.RxSchedulers;
@@ -123,6 +126,12 @@ public class DetailCostPresenter extends BasePresenter<DetailCostView, DetailCos
         view().bindClickListener(null);
         mSubscribers.dispose();
     }
+
+    @Override public void onSaveState(Bundle bundle) {
+        bundle.putSerializable(ConstantManager.EXTRA_ITEM, mCostItem);
+    }
+
+
 
     //Click region
     @Override public void clickDate() {
