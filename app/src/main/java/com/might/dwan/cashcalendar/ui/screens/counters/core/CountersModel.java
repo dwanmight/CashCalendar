@@ -28,7 +28,7 @@ public class CountersModel {
 
     public Observable<ArrayList<CostItem>> getData(String userId) {
         boolean local = true;
-        return Observable.just(local).map(it -> payDb.load(db.getReadableDatabase(), 20, userId));
+        return Observable.just(local).map(it -> payDb.load(db.getReadableDatabase()));
     }
 
     public void goCreateNote() {
