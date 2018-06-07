@@ -8,6 +8,8 @@ import com.might.dwan.cashcalendar.ui.screens.detail_item.core.DetailCostPresent
 
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
+
 /**
  * Created by Ilya on 05.06.2018.
  */
@@ -24,13 +26,9 @@ public class CountersModel {
         this.db = db;
     }
 
-    public ArrayList<CostItem> getData(String id) {
-        try {
-            return payDb.load(db.getReadableDatabase(), 20, id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
+    public Observable<ArrayList<CostItem>> getData(String userId) {
+        boolean local = true;
+        return Observable.just(local).map(it -> payDb.load(db.getReadableDatabase(), 20, userId));
     }
 
     public void goCreateNote() {

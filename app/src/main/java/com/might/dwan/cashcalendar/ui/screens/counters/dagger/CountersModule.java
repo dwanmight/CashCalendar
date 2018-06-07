@@ -6,6 +6,7 @@ import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
 import com.might.dwan.cashcalendar.ui.screens.counters.core.CountersModel;
 import com.might.dwan.cashcalendar.ui.screens.counters.core.CountersPresenter;
 import com.might.dwan.cashcalendar.ui.screens.counters.core.CountersView;
+import com.might.dwan.cashcalendar.utils.rx.RxSchedulers;
 
 import dagger.Module;
 import dagger.Provides;
@@ -29,8 +30,9 @@ public class CountersModule {
     }
 
     @CountersScope
-    @Provides CountersPresenter providePresenter(CountersModel model, CountersView view) {
-        return new CountersPresenter(model, view);
+    @Provides CountersPresenter providePresenter(CountersModel model, CountersView view,
+                                                 RxSchedulers schedulers) {
+        return new CountersPresenter(model, view, schedulers);
     }
 
     @CountersScope

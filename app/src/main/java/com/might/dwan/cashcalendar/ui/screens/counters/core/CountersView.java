@@ -10,7 +10,6 @@ import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.ui.adapter.decoration.SpaceDecoration;
 import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
-import com.might.dwan.cashcalendar.ui.screens.counters.contractor.CountersClickListeners;
 import com.might.dwan.cashcalendar.ui.screens.counters.list.CountersAdapter;
 import com.might.dwan.cashcalendar.utils.DisplayUtils;
 
@@ -40,9 +39,14 @@ public class CountersView {
 
     }
 
-    public void bindClickListener(CountersClickListeners listener) {
-        mFab.setOnClickListener(v -> listener.onClickAdd());
-        mSwipeRefreshLayout.setOnRefreshListener(listener::onRefresh);
+    void bindClickListener(CountersContractor.IPresenter listener) {
+        if (listener != null) {
+            mFab.setOnClickListener(v -> listener.onClickAdd());
+            mSwipeRefreshLayout.setOnRefreshListener(listener::onRefresh);
+        } else {
+            mFab.setOnClickListener(null);
+            mSwipeRefreshLayout.setOnRefreshListener(null);
+        }
     }
 
     public void setupAdapter(ArrayList<CostItem> list) {

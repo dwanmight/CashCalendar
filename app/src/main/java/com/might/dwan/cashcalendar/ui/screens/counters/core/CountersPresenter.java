@@ -2,7 +2,7 @@ package com.might.dwan.cashcalendar.ui.screens.counters.core;
 
 import com.might.dwan.cashcalendar.archs.presenters.BasePresenter;
 import com.might.dwan.cashcalendar.data.models.CostItem;
-import com.might.dwan.cashcalendar.ui.screens.counters.contractor.CountersClickListeners;
+import com.might.dwan.cashcalendar.utils.rx.RxSchedulers;
 
 import java.util.ArrayList;
 
@@ -13,12 +13,14 @@ import io.reactivex.disposables.CompositeDisposable;
  */
 
 public class CountersPresenter extends BasePresenter<CountersView, CountersModel>
-        implements CountersClickListeners {
+        implements CountersContractor.IPresenter {
     private ArrayList<CostItem> list = new ArrayList<>();
     private CompositeDisposable subscriptions = new CompositeDisposable();
+    private RxSchedulers mRxSchedulers;
 
-    public CountersPresenter(CountersModel model, CountersView view) {
+    public CountersPresenter(CountersModel model, CountersView view, RxSchedulers rxSchedulers) {
         super(view);
+        mRxSchedulers = rxSchedulers;
         bindModel(model);
     }
 
@@ -37,14 +39,19 @@ public class CountersPresenter extends BasePresenter<CountersView, CountersModel
 
     private void loadData(String id) {
         try {
-            list.clear();
-            view().adapterDataChanged();
-            list.addAll(model.getData(id));
-            view().adapterDataChanged();
+            subscriptions.add(model.getData(id)
+                    .subscribeOn(mRxSchedulers.io())
+                    .observeOn(mRxSchedulers.androidThread())
+                    .subscribe(dataList -> list.addAll(dataList),
+                            Throwable::printStackTrace,
+                            () -> view().adapterDataChanged(),
+                            d -> list.clear()));
         } catch (Exception e) {e.printStackTrace();}
     }
 
-
+    @Override public void onRelease() {
+        subscriptions.clear();
+    }
 
     //Click region
     @Override public void onClickAdd() {
