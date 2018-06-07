@@ -47,6 +47,8 @@ public class MainActivity extends BaseFragmentActivity
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        mNavigationView.setCheckedItem(R.id.main_list);
     }
 
     @Override public void onBackPressed() {
@@ -97,7 +99,7 @@ public class MainActivity extends BaseFragmentActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.main_list) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
