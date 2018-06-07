@@ -3,6 +3,7 @@ package com.might.dwan.cashcalendar.data.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.ArrayRes;
 
 import com.might.dwan.cashcalendar.R;
 
@@ -88,50 +89,33 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     private void insertCategories(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO categories ('title' , 'category_id') values (\'" + mContext.getString(R.string.db_categories_necessarily) + "\',1);");
-        db.execSQL("INSERT INTO categories ('title' , 'category_id') values (\'" + mContext.getString(R.string.db_categories_products) + "\',2);");
-        db.execSQL("INSERT INTO categories ('title' , 'category_id') values (\'" + mContext.getString(R.string.db_categories_auto) + "\',3);");
-        db.execSQL("INSERT INTO categories ('title' , 'category_id') values (\'" + mContext.getString(R.string.db_categories_entertainment) + "\',4);");
-        db.execSQL("INSERT INTO categories ('title' , 'category_id') values (\'" + mContext.getString(R.string.db_categories_self) + "\',5);");
-        db.execSQL("INSERT INTO categories ('title' , 'category_id') values (\'" + mContext.getString(R.string.db_categories_home) + "\',6);");
+        String[] categories = mContext.getResources().getStringArray(R.array.db_categories);
+        if (categories.length == 0) return;
+        int categoryId = 0;
+
+        for (String category : categories) {
+            categoryId++;
+            db.execSQL("INSERT INTO categories ('title' , 'category_id')" +
+                    " values (\'" + category + "\'," + categoryId + ");");
+        }
     }
 
     private void insertSubcategories(SQLiteDatabase db) {
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_necessarily_credit) + "\','1');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_necessarily_rent) + "\','1');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_necessarily_internet) + "\','1');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_necessarily_communication) + "\','1');");
+        insertSubcategory(db, R.array.necessarily, 1);
+        insertSubcategory(db, R.array.products, 2);
+        insertSubcategory(db, R.array.auto, 3);
+        insertSubcategory(db, R.array.entertainment, 4);
+        insertSubcategory(db, R.array.self, 5);
+        insertSubcategory(db, R.array.home, 6);
 
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_products_meal_fish) + "\','2');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_products_veg_fruits) + "\','2');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_products_milk) + "\','2');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_products_sweet) + "\','2');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_products_drinks) + "\','2');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_products_rest) + "\','2');");
+    }
 
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_auto_fuel) + "\','3');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_auto_repair) + "\','3');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_auto_wash) + "\','3');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_auto_insurance) + "\','3');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_auto_tax_penalty) + "\','3');");
-
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_entertainment_rest) + "\','4');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_entertainment_pizza) + "\','4');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_entertainment_sushi) + "\','4');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_entertainment_films) + "\','4');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_entertainment_coffee) + "\','4');");
-
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_self_salon) + "\','5');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_self_clothes) + "\','5');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_self_aid) + "\','5');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_self_cosmetics) + "\','5');");
-
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_home_household) + "\','6');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_home_furniture) + "\','6');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_home_technology) + "\','6');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_home_animals) + "\','6');");
-        db.execSQL("INSERT INTO subcategories ('title','category_id') values (\'" + mContext.getString(R.string.db_categories_home_repair) + "\','6');");
-
+    private void insertSubcategory(SQLiteDatabase db, @ArrayRes int res, int id) {
+        String[] subcategories = mContext.getResources().getStringArray(res);
+        for (String subcategory : subcategories) {
+            db.execSQL("INSERT INTO subcategories ('title','category_id')" +
+                    " values (\'" + subcategory + "\','" + id + "');");
+        }
     }
 
     @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

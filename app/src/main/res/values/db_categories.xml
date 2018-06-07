@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="db_categories_necessarily">"Обязательные расходы"</string>
+    <string name="db_categories_products">"Продукты"</string>
+    <string name="db_categories_auto">"Автомобиль"</string>
+    <string name="db_categories_entertainment">"Развлечения"</string>
+    <string name="db_categories_self">"Забота о себе"</string>
+    <string name="db_categories_home">"Товары для дома"</string>
+
+    <string-array name="db_categories">
+        <item>@string/db_categories_necessarily</item>
+        <item>@string/db_categories_products</item>
+        <item>@string/db_categories_auto</item>
+        <item>@string/db_categories_entertainment</item>
+        <item>@string/db_categories_self</item>
+        <item>@string/db_categories_home</item>
+    </string-array>
+
+</resources>

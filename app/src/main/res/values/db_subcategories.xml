@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Subcategories necessarily-->
+    <string name="db_categories_necessarily_credit">"Кредит"</string>
+    <string name="db_categories_necessarily_rent">"Квартплата"</string>
+    <string name="db_categories_necessarily_internet">"Интернет"</string>
+    <string name="db_categories_necessarily_communication">"Связь"</string>
+
+    <string-array name="necessarily">
+        <item>@string/db_categories_necessarily_credit</item>
+        <item>@string/db_categories_necessarily_rent</item>
+        <item>@string/db_categories_necessarily_internet</item>
+        <item>@string/db_categories_necessarily_communication</item>
+    </string-array>
+
+
+    <!--Subcategories products-->
+    <string name="db_categories_products_meal_fish">"Мясо, рыба"</string>
+    <string name="db_categories_products_veg_fruits">"Овощи, фрукты"</string>
+    <string name="db_categories_products_milk">"Молочная продукция"</string>
+    <string name="db_categories_products_sweet">"Сладкое"</string>
+    <string name="db_categories_products_drinks">"Напитки"</string>
+    <string name="db_categories_products_rest">"Остальное"</string>
+
+    <string-array name="products">
+        <item>@string/db_categories_products_meal_fish</item>
+        <item>@string/db_categories_products_veg_fruits</item>
+        <item>@string/db_categories_products_milk</item>
+        <item>@string/db_categories_products_sweet</item>
+        <item>@string/db_categories_products_drinks</item>
+        <item>@string/db_categories_products_rest</item>
+    </string-array>
+
+
+    <!--Subcategories auto-->
+    <string name="db_categories_auto_fuel">"Топливо"</string>
+    <string name="db_categories_auto_repair">"Ремонт"</string>
+    <string name="db_categories_auto_wash">"Мойка"</string>
+    <string name="db_categories_auto_insurance">"Страховка"</string>
+    <string name="db_categories_auto_tax_penalty">"Налоги, штрафы"</string>
+
+    <string-array name="auto">
+        <item>@string/db_categories_auto_fuel</item>
+        <item>@string/db_categories_auto_repair</item>
+        <item>@string/db_categories_auto_wash</item>
+        <item>@string/db_categories_auto_insurance</item>
+        <item>@string/db_categories_auto_tax_penalty</item>
+    </string-array>
+
+
+    <!--Subcategories entertainment-->
+    <string name="db_categories_entertainment_rest">"Ресторан"</string>
+    <string name="db_categories_entertainment_pizza">"Пицца"</string>
+    <string name="db_categories_entertainment_sushi">"Суши"</string>
+    <string name="db_categories_entertainment_films">"Кино"</string>
+    <string name="db_categories_entertainment_coffee">"Кофейня"</string>
+
+    <string-array name="entertainment">
+        <item>@string/db_categories_entertainment_rest</item>
+        <item>@string/db_categories_entertainment_pizza</item>
+        <item>@string/db_categories_entertainment_sushi</item>
+        <item>@string/db_categories_entertainment_films</item>
+        <item>@string/db_categories_entertainment_coffee</item>
+    </string-array>
+
+    <!--Subcategories self-->
+    <string name="db_categories_self_salon">"Салон красоты"</string>
+    <string name="db_categories_self_clothes">"Одежда"</string>
+    <string name="db_categories_self_aid">"Медицина"</string>
+    <string name="db_categories_self_cosmetics">"Косметика"</string>
+
+
+    <string-array name="self">
+        <item>@string/db_categories_self_salon</item>
+        <item>@string/db_categories_self_clothes</item>
+        <item>@string/db_categories_self_aid</item>
+        <item>@string/db_categories_self_cosmetics</item>
+    </string-array>
+
+    <!--Subcategories home-->
+    <string name="db_categories_home_household">"Бытовая химия"</string>
+    <string name="db_categories_home_furniture">"Мебель"</string>
+    <string name="db_categories_home_technology">"Техника"</string>
+    <string name="db_categories_home_animals">"Животные"</string>
+    <string name="db_categories_home_repair">"Ремонт"</string>
+
+    <string-array name="home">
+        <item>@string/db_categories_home_household</item>
+        <item>@string/db_categories_home_furniture</item>
+        <item>@string/db_categories_home_technology</item>
+        <item>@string/db_categories_home_animals</item>
+        <item>@string/db_categories_home_repair</item>
+    </string-array>
+
+
+</resources>
