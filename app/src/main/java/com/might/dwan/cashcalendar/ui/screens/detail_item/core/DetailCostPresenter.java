@@ -121,7 +121,7 @@ public class DetailCostPresenter extends BasePresenter<DetailCostView, DetailCos
 
     @Override public void onRelease() {
         view().bindClickListener(null);
-        mSubscribers.clear();
+        mSubscribers.dispose();
     }
 
     //Click region

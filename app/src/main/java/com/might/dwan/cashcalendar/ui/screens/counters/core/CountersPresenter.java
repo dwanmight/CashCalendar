@@ -50,7 +50,7 @@ public class CountersPresenter extends BasePresenter<CountersView, CountersModel
     }
 
     @Override public void onRelease() {
-        subscriptions.clear();
+        subscriptions.dispose();
     }
 
     //Click region
