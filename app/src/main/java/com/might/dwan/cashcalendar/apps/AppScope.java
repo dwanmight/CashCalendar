@@ -10,5 +10,5 @@ import javax.inject.Scope;
  */
 
 @Scope
-@Retention(RetentionPolicy.CLASS) @interface AppScope {
+@Retention(RetentionPolicy.CLASS) public @interface AppScope {
 }

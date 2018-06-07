@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.might.dwan.cashcalendar.R;
-import com.might.dwan.cashcalendar.ui.adapter.adapter_models.NameIdModel;
+import com.might.dwan.cashcalendar.ui.adapter.adapter_models.NameIdItem;
 
 import java.util.ArrayList;
 
@@ -18,11 +18,11 @@ import java.util.ArrayList;
  * Created by Might on 02.09.2017.
  */
 
-public class SpinnerAdapter extends ArrayAdapter<NameIdModel> {
-    private ArrayList<NameIdModel> mData;
+public class SpinnerAdapter extends ArrayAdapter<NameIdItem> {
+    private ArrayList<NameIdItem> mData;
     private Context mContext;
 
-    public SpinnerAdapter(Context context, ArrayList<NameIdModel> data) {
+    public SpinnerAdapter(Context context, ArrayList<NameIdItem> data) {
         super(context, 0, data);
         mContext = context;
         mData = data;
@@ -59,7 +59,7 @@ public class SpinnerAdapter extends ArrayAdapter<NameIdModel> {
             mNameTv.setText("");
         }
 
-        private void setup(NameIdModel item) {
+        private void setup(NameIdItem item) {
             if (item == null) return;
             mNameTv.setText(item.getName());
         }

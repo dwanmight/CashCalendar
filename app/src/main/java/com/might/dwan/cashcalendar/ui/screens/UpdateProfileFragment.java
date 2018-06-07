@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import com.might.dwan.cashcalendar.data.db.db_writer.UsersInfoDB;
 import com.might.dwan.cashcalendar.data.manager.PreferencesManager;
 import com.might.dwan.cashcalendar.data.models.UserModel;
 import com.might.dwan.cashcalendar.ui.dialogs.PhotoDialog;
+import com.might.dwan.cashcalendar.ui.screens.BaseFragment;
 import com.might.dwan.cashcalendar.utils.BitmapUtils;
 import com.might.dwan.cashcalendar.utils.ConstantManager;
 import com.might.dwan.cashcalendar.utils.EditTextUtils;
@@ -47,7 +49,7 @@ public class UpdateProfileFragment extends BaseFragment
         setToolbar(toolbar);
     }
 
-    @Override public void setupData() {
+    @Override public void setupData(Bundle state) {
         try {
             String nickName = PreferencesManager.get(getActivity()).getPreferences().getNickname();
             UsersInfoDB usersInfoDB = new UsersInfoDB();

@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 
-import com.might.dwan.cashcalendar.data.models.PayCounterModel;
+import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.ui.activities.DetailPayActivity;
 
 /**
@@ -15,7 +15,7 @@ import com.might.dwan.cashcalendar.ui.activities.DetailPayActivity;
 
 public class IntentUtils {
 
-    public static void startDetailPay(Context context, int mode, PayCounterModel item) {
+    public static void startDetailPay(Context context, int mode, CostItem item) {
         Intent intent = new Intent(context, DetailPayActivity.class);
         intent.putExtra(ConstantManager.EXTRA_MODE, mode);
         intent.putExtra(ConstantManager.EXTRA_ITEM, item);

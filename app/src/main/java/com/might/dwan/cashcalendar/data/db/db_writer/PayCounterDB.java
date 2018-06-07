@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.might.dwan.cashcalendar.data.db.DBHelper;
-import com.might.dwan.cashcalendar.data.models.PayCounterModel;
+import com.might.dwan.cashcalendar.data.models.CostItem;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class PayCounterDB {
 
     }
 
-    public PayCounterModel getPayItem(SQLiteDatabase db, String item_id)throws Exception {
+    public CostItem getPayItem(SQLiteDatabase db, String item_id)throws Exception {
         Cursor c = db.query(DBHelper.TABLE_USER_PAY
                 , null
                 , DBHelper.COLUMN_USER_PAY_ITEM_ID + " = ?"
@@ -32,16 +32,16 @@ public class PayCounterDB {
                 , null);
         if (c.getCount() > 0) {
             c.moveToFirst();
-            PayCounterModel model = new PayCounterModel();
-            model.setPay_item_id(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_ITEM_ID)));
+            CostItem model = new CostItem();
+            model.setPayItemId(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_ITEM_ID)));
             model.setCategory(c.getInt(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_CATEGORY)));
-            model.setCategory_text(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_CATEGORY_TEXT)));
+            model.setCategoryText(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_CATEGORY_TEXT)));
             model.setSubcategory(c.getInt(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_SUBCATEGORY)));
-            model.setSubcategory_text(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_SUBCATEGORY_TEXT)));
+            model.setSubcategoryText(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_SUBCATEGORY_TEXT)));
             model.setDescription(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_DESCRIPTION)));
             model.setTimestamp(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_DATE)));
-            model.setUser_id(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_USER_ID)));
-            model.setCount_pay(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_COUNT_PAY)));
+            model.setUserId(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_USER_ID)));
+            model.setCountPay(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_COUNT_PAY)));
             c.close();
             db.close();
             return model;
@@ -52,19 +52,19 @@ public class PayCounterDB {
         }
     }
 
-    public long insert(SQLiteDatabase db, PayCounterModel model)throws Exception {
+    public long insert(SQLiteDatabase db, CostItem model)throws Exception {
         long res = -1;
         if (model == null) return res;
         ContentValues cv = new ContentValues();
-        cv.put(DBHelper.COLUMN_USER_PAY_USER_ID, model.getUser_id());
-        cv.put(DBHelper.COLUMN_USER_PAY_ITEM_ID, model.getPay_item_id());
+        cv.put(DBHelper.COLUMN_USER_PAY_USER_ID, model.getUserId());
+        cv.put(DBHelper.COLUMN_USER_PAY_ITEM_ID, model.getPayItemId());
         cv.put(DBHelper.COLUMN_USER_PAY_CATEGORY, model.getCategory());
-        cv.put(DBHelper.COLUMN_USER_PAY_CATEGORY_TEXT, model.getCategory_text());
+        cv.put(DBHelper.COLUMN_USER_PAY_CATEGORY_TEXT, model.getCategoryText());
         cv.put(DBHelper.COLUMN_USER_PAY_SUBCATEGORY, model.getSubcategory());
-        cv.put(DBHelper.COLUMN_USER_PAY_SUBCATEGORY_TEXT, model.getSubcategory_text());
+        cv.put(DBHelper.COLUMN_USER_PAY_SUBCATEGORY_TEXT, model.getSubcategoryText());
         cv.put(DBHelper.COLUMN_USER_PAY_DESCRIPTION, model.getDescription());
         cv.put(DBHelper.COLUMN_USER_PAY_DATE, model.getTimestamp());
-        cv.put(DBHelper.COLUMN_USER_PAY_COUNT_PAY, model.getCount_pay());
+        cv.put(DBHelper.COLUMN_USER_PAY_COUNT_PAY, model.getCountPay());
 
         res = db.insert(DBHelper.TABLE_USER_PAY, null, cv);
 
@@ -72,19 +72,19 @@ public class PayCounterDB {
         return res;
     }
 
-    public long update(SQLiteDatabase db, PayCounterModel model)throws Exception {
+    public long update(SQLiteDatabase db, CostItem model)throws Exception {
         long res = -1;
         if (model == null) return res;
         ContentValues cv = new ContentValues();
-        cv.put(DBHelper.COLUMN_USER_PAY_USER_ID, model.getUser_id());
-        cv.put(DBHelper.COLUMN_USER_PAY_ITEM_ID, model.getPay_item_id());
+        cv.put(DBHelper.COLUMN_USER_PAY_USER_ID, model.getUserId());
+        cv.put(DBHelper.COLUMN_USER_PAY_ITEM_ID, model.getPayItemId());
         cv.put(DBHelper.COLUMN_USER_PAY_CATEGORY, model.getCategory());
-        cv.put(DBHelper.COLUMN_USER_PAY_CATEGORY_TEXT, model.getCategory_text());
+        cv.put(DBHelper.COLUMN_USER_PAY_CATEGORY_TEXT, model.getCategoryText());
         cv.put(DBHelper.COLUMN_USER_PAY_SUBCATEGORY, model.getSubcategory());
-        cv.put(DBHelper.COLUMN_USER_PAY_SUBCATEGORY_TEXT, model.getSubcategory_text());
+        cv.put(DBHelper.COLUMN_USER_PAY_SUBCATEGORY_TEXT, model.getSubcategoryText());
         cv.put(DBHelper.COLUMN_USER_PAY_DESCRIPTION, model.getDescription());
         cv.put(DBHelper.COLUMN_USER_PAY_DATE, model.getTimestamp());
-        cv.put(DBHelper.COLUMN_USER_PAY_COUNT_PAY, model.getCount_pay());
+        cv.put(DBHelper.COLUMN_USER_PAY_COUNT_PAY, model.getCountPay());
 
         res = db.update(DBHelper.TABLE_USER_PAY, cv, DBHelper.COLUMN_USER_PAY_DATE + " = ?", new String[]{model.getTimestamp()});
 
@@ -92,16 +92,16 @@ public class PayCounterDB {
         return res;
     }
 
-    public ArrayList<PayCounterModel> load(SQLiteDatabase db) throws Exception {
+    public ArrayList<CostItem> load(SQLiteDatabase db) throws Exception {
         return load(db, -1, null);
     }
 
-    public ArrayList<PayCounterModel> load(SQLiteDatabase db, int limit) throws Exception {
+    public ArrayList<CostItem> load(SQLiteDatabase db, int limit) throws Exception {
         return load(db, limit, null);
     }
 
-    public ArrayList<PayCounterModel> load(SQLiteDatabase db, int limit, String timestamp) throws Exception {
-        ArrayList<PayCounterModel> dataList = new ArrayList<>();
+    public ArrayList<CostItem> load(SQLiteDatabase db, int limit, String timestamp) throws Exception {
+        ArrayList<CostItem> dataList = new ArrayList<>();
         Cursor c = null;
         try {
             if (timestamp == null || timestamp.equals("")) {
@@ -113,16 +113,16 @@ public class PayCounterDB {
             if (c.getCount() > 0) {
                 c.moveToFirst();
                 for (int i = 0; i < c.getCount(); i++) {
-                    PayCounterModel model = new PayCounterModel();
-                    model.setPay_item_id(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_ITEM_ID)));
+                    CostItem model = new CostItem();
+                    model.setPayItemId(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_ITEM_ID)));
                     model.setCategory(c.getInt(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_CATEGORY)));
-                    model.setCategory_text(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_CATEGORY_TEXT)));
+                    model.setCategoryText(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_CATEGORY_TEXT)));
                     model.setSubcategory(c.getInt(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_SUBCATEGORY)));
-                    model.setSubcategory_text(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_SUBCATEGORY_TEXT)));
+                    model.setSubcategoryText(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_SUBCATEGORY_TEXT)));
                     model.setDescription(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_DESCRIPTION)));
                     model.setTimestamp(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_DATE)));
-                    model.setUser_id(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_USER_ID)));
-                    model.setCount_pay(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_COUNT_PAY)));
+                    model.setUserId(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_USER_ID)));
+                    model.setCountPay(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_COUNT_PAY)));
                     dataList.add(model);
                     c.moveToNext();
                 }

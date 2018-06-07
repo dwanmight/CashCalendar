@@ -1,7 +1,7 @@
 package com.might.dwan.cashcalendar.ui.screens.counters.core;
 
 import com.might.dwan.cashcalendar.archs.presenters.BasePresenter;
-import com.might.dwan.cashcalendar.data.models.PayCounterModel;
+import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.ui.screens.counters.contractor.CountersClickListeners;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class CountersPresenter extends BasePresenter<CountersView, CountersModel>
         implements CountersClickListeners {
-    private ArrayList<PayCounterModel> list = new ArrayList<>();
+    private ArrayList<CostItem> list = new ArrayList<>();
     private CompositeDisposable subscriptions = new CompositeDisposable();
 
     public CountersPresenter(CountersModel model, CountersView view) {

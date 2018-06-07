@@ -13,12 +13,7 @@ public abstract class BasePresenter<V, M> {
     protected M model;
 
     public BasePresenter(V v) {
-        this(v, null);
-    }
-
-    public BasePresenter(V v, M m) {
-        this.view = new WeakReference<V>(v);
-        this.model = m;
+        this.view = new WeakReference<>(v);
         performUpdateView();
     }
 
@@ -51,11 +46,21 @@ public abstract class BasePresenter<V, M> {
 
     @CallSuper
     public void unbindView() {
-        view = null;
+        if (view != null) {
+            view.clear();
+            view = null;
+        }
     }
 
+    @CallSuper
     public void release() {
+        onRelease();
         unbindView();
         model = null;
     }
+
+    /**
+     * Called before release data
+     */
+    public void onRelease() {}
 }

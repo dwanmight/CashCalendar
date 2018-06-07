@@ -7,11 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.might.dwan.cashcalendar.R;
-import com.might.dwan.cashcalendar.data.models.PayCounterModel;
+import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.ui.adapter.decoration.SpaceDecoration;
 import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
 import com.might.dwan.cashcalendar.ui.screens.counters.contractor.CountersClickListeners;
-import com.might.dwan.cashcalendar.ui.screens.counters.list.PayCounterAdapter;
+import com.might.dwan.cashcalendar.ui.screens.counters.list.CountersAdapter;
 import com.might.dwan.cashcalendar.utils.DisplayUtils;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class CountersView {
     private FloatingActionButton mFab;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private PayCounterAdapter mAdapter;
+    private CountersAdapter mAdapter;
 
     public CountersView(CountersFragment fragment) {
         View v = fragment.getView();
@@ -45,8 +45,8 @@ public class CountersView {
         mSwipeRefreshLayout.setOnRefreshListener(listener::onRefresh);
     }
 
-    public void setupAdapter(ArrayList<PayCounterModel> list) {
-        mAdapter = new PayCounterAdapter(list);
+    public void setupAdapter(ArrayList<CostItem> list) {
+        mAdapter = new CountersAdapter(list);
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new SpaceDecoration(

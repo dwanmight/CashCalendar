@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.might.dwan.cashcalendar.R;
-import com.might.dwan.cashcalendar.data.models.PayCounterModel;
+import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.utils.DateUtils;
 
 import io.reactivex.subjects.PublishSubject;
@@ -30,11 +30,11 @@ class PayCounterVH extends RecyclerView.ViewHolder {
         v.setOnClickListener(view -> subjects.onNext(getAdapterPosition()));
     }
 
-    public void bind(PayCounterModel item) {
+    public void bind(CostItem item) {
         clearData();
-        setCategory(item.getCategory_text());
-        setSubcategory(item.getSubcategory_text());
-        setPay(item.getCount_pay());
+        setCategory(item.getCategoryText());
+        setSubcategory(item.getSubcategoryText());
+        setPay(item.getCountPay());
         setDate(item.getTimestamp());
     }
 

@@ -2,9 +2,9 @@ package com.might.dwan.cashcalendar.ui.screens.counters.core;
 
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.db.db_writer.PayCounterDB;
-import com.might.dwan.cashcalendar.data.models.PayCounterModel;
-import com.might.dwan.cashcalendar.ui.screens.DetailPayFragment;
+import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
+import com.might.dwan.cashcalendar.ui.screens.detail_item.core.DetailCostPresenter;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class CountersModel {
         this.db = db;
     }
 
-    public ArrayList<PayCounterModel> getData(String id) {
+    public ArrayList<CostItem> getData(String id) {
         try {
             return payDb.load(db.getReadableDatabase(), 20, id);
         } catch (Exception e) {
@@ -34,10 +34,10 @@ public class CountersModel {
     }
 
     public void goCreateNote() {
-        fragment.goCreateNote(DetailPayFragment.MODE_NEW, null);
+        fragment.goCreateNote(DetailCostPresenter.MODE_NEW, null);
     }
 
-    public void goUpdateNote(PayCounterModel item) {
-        fragment.goCreateNote(DetailPayFragment.MODE_DETAIL, item);
+    public void goUpdateNote(CostItem item) {
+        fragment.goCreateNote(DetailCostPresenter.MODE_DETAIL, item);
     }
 }

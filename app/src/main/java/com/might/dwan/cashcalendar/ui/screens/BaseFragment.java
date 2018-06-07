@@ -20,6 +20,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle("");
         setHasOptionsMenu(true);
         setRetainInstance(true);
     }
@@ -34,14 +35,14 @@ public abstract class BaseFragment extends Fragment {
     @Override public final void onViewCreated(View view, @Nullable Bundle state) {
         initUI(view);
         restoreState(state);
-        setupData();
+        setupData(state != null ? state : getArguments());
     }
 
     public void initUI(View view) {}
 
     public void restoreState(Bundle state) {}
 
-    public void setupData() {}
+    public void setupData(Bundle state) {}
 
     @Override public final void onDestroyView() {
         super.onDestroyView();

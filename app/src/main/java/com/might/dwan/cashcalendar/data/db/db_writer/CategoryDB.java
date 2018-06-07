@@ -4,7 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.might.dwan.cashcalendar.data.db.DBHelper;
-import com.might.dwan.cashcalendar.ui.adapter.adapter_models.NameIdModel;
+import com.might.dwan.cashcalendar.ui.adapter.adapter_models.NameIdItem;
 
 import java.util.ArrayList;
 
@@ -17,8 +17,8 @@ public class CategoryDB {
     public CategoryDB() {
     }
 
-    public ArrayList<NameIdModel> getCategories(SQLiteDatabase db)throws Exception {
-        ArrayList<NameIdModel> data = new ArrayList<>();
+    public ArrayList<NameIdItem> getCategories(SQLiteDatabase db)throws Exception {
+        ArrayList<NameIdItem> data = new ArrayList<>();
 
         Cursor c = db.query(DBHelper.TABLE_CATEGORIES
                 , null
@@ -30,7 +30,7 @@ public class CategoryDB {
         if (c.getCount() > 0) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {
-                NameIdModel item = new NameIdModel();
+                NameIdItem item = new NameIdItem();
                 item.setId(c.getInt(c.getColumnIndex(DBHelper.COLUMN_CATEGORIES_ID)));
                 item.setName(c.getString(c.getColumnIndex(DBHelper.COLUMN_CATEGORIES_TITLE)));
                 data.add(item);

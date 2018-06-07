@@ -80,4 +80,10 @@
     <string name="title_edit">Редактировать</string>
     <string name="title_add_note">Добавить запись</string>
 
+
+    <!--DetailCostFragment-->
+    <string name="pick_category">Выберите категорию</string>
+    <string name="pick_subcategory">Выберите подкатегорию</string>
+    <string name="enter_amount">Укажите сумму</string>
+
 </resources>

@@ -1,6 +1,8 @@
-package com.might.dwan.cashcalendar.apps;
+package com.might.dwan.cashcalendar.apps.modules;
 
 import android.content.Context;
+
+import com.might.dwan.cashcalendar.apps.AppScope;
 
 import dagger.Module;
 import dagger.Provides;

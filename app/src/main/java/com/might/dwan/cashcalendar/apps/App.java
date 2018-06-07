@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.might.dwan.cashcalendar.apps.modules.ContextModule;
+
 /**
  * Created by Might on 24.08.2017.
  */

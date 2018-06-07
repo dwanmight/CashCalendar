@@ -2,10 +2,11 @@ package com.might.dwan.cashcalendar.ui.screens.counters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.apps.App;
-import com.might.dwan.cashcalendar.data.models.PayCounterModel;
+import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.ui.screens.BaseFragment;
 import com.might.dwan.cashcalendar.ui.screens.counters.core.CountersPresenter;
 import com.might.dwan.cashcalendar.ui.screens.counters.core.CountersView;
@@ -27,7 +28,7 @@ public class CountersFragment extends BaseFragment {
 
     @Override public int getLayoutId() {return R.layout.fragment_counter_list;}
 
-    @Override public void setupData() {
+    @Override public void setupData(Bundle state) {
         DaggerCountersComponent.builder()
                 .appComponent(App.getAppComponent())
                 .countersModule(new CountersModule(this))
@@ -59,7 +60,7 @@ public class CountersFragment extends BaseFragment {
 
 
     //Transition region
-    public void goCreateNote(int mode, PayCounterModel item) {
+    public void goCreateNote(int mode, CostItem item) {
         IntentUtils.startDetailPay(getActivity(), mode, item);
     }
 }

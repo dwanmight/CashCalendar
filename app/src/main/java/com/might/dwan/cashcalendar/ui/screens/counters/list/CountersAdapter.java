@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.might.dwan.cashcalendar.R;
-import com.might.dwan.cashcalendar.data.models.PayCounterModel;
+import com.might.dwan.cashcalendar.data.models.CostItem;
 
 import java.util.ArrayList;
 
@@ -19,8 +19,8 @@ import io.reactivex.subjects.PublishSubject;
  * Created by Might on 25.08.2017.
  */
 
-public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<PayCounterModel> mList;
+public class CountersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private ArrayList<CostItem> mList;
 
     private LayoutInflater mLayoutInflater;
 
@@ -29,7 +29,7 @@ public class PayCounterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final int TYPE_PLACE_HOLDER = 0;
     private final int TYPE_ITEM = 1;
 
-    public PayCounterAdapter(ArrayList<PayCounterModel> list) {
+    public CountersAdapter(ArrayList<CostItem> list) {
         mList = list;
     }
 

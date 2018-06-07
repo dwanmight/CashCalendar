@@ -7,7 +7,7 @@ import java.util.UUID;
  * Created by Might on 25.08.2017.
  */
 
-public class PayCounterModel implements Serializable {
+public class CostItem implements Serializable {
     private String user_id;
     private int category;
     private String category_text;
@@ -18,7 +18,7 @@ public class PayCounterModel implements Serializable {
     private String timestamp;
     private String pay_item_id;
 
-    public PayCounterModel(String user_id, int category, String category_text, int subcategory, String subcategory_text, String description, String count_pay, String timestamp) {
+    public CostItem(String user_id, int category, String category_text, int subcategory, String subcategory_text, String description, String count_pay, String timestamp) {
         this.user_id = user_id;
         this.category = category;
         this.category_text = category_text;
@@ -31,14 +31,14 @@ public class PayCounterModel implements Serializable {
     }
 
 
-    public PayCounterModel() {
+    public CostItem() {
     }
 
-    public String getUser_id() {
+    public String getUserId() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUserId(String user_id) {
         this.user_id = user_id;
     }
 
@@ -66,11 +66,11 @@ public class PayCounterModel implements Serializable {
         this.description = description;
     }
 
-    public String getCount_pay() {
+    public String getCountPay() {
         return count_pay;
     }
 
-    public void setCount_pay(String count_pay) {
+    public void setCountPay(String count_pay) {
         this.count_pay = count_pay;
     }
 
@@ -82,27 +82,27 @@ public class PayCounterModel implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public String getPay_item_id() {
+    public String getPayItemId() {
         return pay_item_id;
     }
 
-    public void setPay_item_id(String pay_item_id) {
+    public void setPayItemId(String pay_item_id) {
         this.pay_item_id = pay_item_id;
     }
 
-    public String getCategory_text() {
+    public String getCategoryText() {
         return category_text;
     }
 
-    public void setCategory_text(String category_text) {
+    public void setCategoryText(String category_text) {
         this.category_text = category_text;
     }
 
-    public String getSubcategory_text() {
+    public String getSubcategoryText() {
         return subcategory_text;
     }
 
-    public void setSubcategory_text(String subcategory_text) {
+    public void setSubcategoryText(String subcategory_text) {
         this.subcategory_text = subcategory_text;
     }
 }
