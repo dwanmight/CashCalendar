@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.might.dwan.cashcalendar.ui.activities.DetailPayActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
                   android:screenOrientation="portrait"/>
         <activity android:name="com.might.dwan.cashcalendar.ui.activities.UpdateProfileActivity"
                   android:parentActivityName=".ui.activities.MainActivity"
