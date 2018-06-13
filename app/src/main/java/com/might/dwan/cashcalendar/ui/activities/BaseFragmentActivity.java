@@ -2,7 +2,6 @@ package com.might.dwan.cashcalendar.ui.activities;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -27,12 +26,12 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
         Fragment fragment = createFragment();
         if (fragment != null) {
-            switchFragment(this, fragment);
+            startFragment(fragment);
         }
     }
 
-    public static void switchFragment(Context context, Fragment fragment) {
-        FragmentManager fragmentManager = ((AppCompatActivity) context).getFragmentManager();
+    public void startFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container_fragment_frame, fragment)
                 .addToBackStack(fragment.getClass().toString())
@@ -47,6 +46,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
     /**
      * Method for bind and release listeners
+     *
      * @param enable TRUE if should bind and
      *               FALSE to release
      */
@@ -73,7 +73,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     }
 
     @Override public boolean onOptionsItemSelected(MenuItem item) {
-       return false;
+        return false;
     }
 
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {

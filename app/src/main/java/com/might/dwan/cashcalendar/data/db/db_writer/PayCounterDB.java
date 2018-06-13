@@ -3,6 +3,7 @@ package com.might.dwan.cashcalendar.data.db.db_writer;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.models.CostItem;
@@ -19,7 +20,7 @@ public class PayCounterDB {
 
     }
 
-    public CostItem getPayItem(SQLiteDatabase db, String item_id)throws Exception {
+    public CostItem getPayItem(SQLiteDatabase db, String item_id) throws Exception {
         Cursor c = db.query(DBHelper.TABLE_USER_PAY
                 , null
                 , DBHelper.COLUMN_USER_PAY_ITEM_ID + " = ?"
@@ -49,7 +50,7 @@ public class PayCounterDB {
         }
     }
 
-    public long insert(SQLiteDatabase db, CostItem model)throws Exception {
+    public long insert(SQLiteDatabase db, CostItem model) throws Exception {
         long res = -1;
         if (model == null) return res;
         ContentValues cv = new ContentValues();
@@ -69,7 +70,7 @@ public class PayCounterDB {
         return res;
     }
 
-    public long update(SQLiteDatabase db, CostItem model)throws Exception {
+    public long update(SQLiteDatabase db, CostItem model) throws Exception {
         long res = -1;
         if (model == null) return res;
         ContentValues cv = new ContentValues();
@@ -122,6 +123,30 @@ public class PayCounterDB {
         return dataList;
     }
 
+    public ArrayList<CostItem> loadMonthly(@NonNull SQLiteDatabase db) {
+        ArrayList<CostItem> list = createList();
+        Cursor c = null;
+        try {
+            c = db.query(DBHelper.TABLE_USER_PAY,
+                    null,
+                    null,
+                    null,
+                    DBHelper.COLUMN_USER_PAY_DATE,
+                    null,
+                    "ASC");
+            // TODO: 14.06.2018 having and group by
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            release(c, db);
+        }
+        return list;
+    }
+
+    private ArrayList<CostItem> createList() {
+        return new ArrayList<>();
+    }
+
     private CostItem createItem(Cursor c) {
         CostItem item = new CostItem();
         item.setPayItemId(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_ITEM_ID)));
@@ -144,7 +169,7 @@ public class PayCounterDB {
             db.close();
     }
 
-    private Cursor getCursorFromFirst(SQLiteDatabase db, int limit)throws Exception {
+    private Cursor getCursorFromFirst(SQLiteDatabase db, int limit) throws Exception {
         Cursor c = db.query(DBHelper.TABLE_USER_PAY
                 , null
                 , null
@@ -156,7 +181,7 @@ public class PayCounterDB {
         return c;
     }
 
-    private Cursor getCursorFromLast(SQLiteDatabase db, String timestamp, int limit)throws Exception {
+    private Cursor getCursorFromLast(SQLiteDatabase db, String timestamp, int limit) throws Exception {
         Cursor c = db.query(DBHelper.TABLE_USER_PAY
                 , null
                 , DBHelper.COLUMN_USER_PAY_DATE + " > ?"

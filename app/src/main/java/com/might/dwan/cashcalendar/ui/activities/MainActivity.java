@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
+import com.might.dwan.cashcalendar.ui.screens.statistics.StatisticsFragment;
 
 public class MainActivity extends BaseFragmentActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -33,7 +34,7 @@ public class MainActivity extends BaseFragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       initUI();
+        initUI();
     }
 
     private void initUI() {
@@ -48,7 +49,7 @@ public class MainActivity extends BaseFragmentActivity
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
-        mNavigationView.setCheckedItem(R.id.main_list);
+        mNavigationView.setCheckedItem(R.id.nav_main_list);
     }
 
     @Override public void onBackPressed() {
@@ -99,10 +100,10 @@ public class MainActivity extends BaseFragmentActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.main_list) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
+        if (id == R.id.nav_main_list) {
+            startFragment(new CountersFragment());
+        } else if (id == R.id.nav_statistics) {
+            startFragment(new StatisticsFragment());
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
