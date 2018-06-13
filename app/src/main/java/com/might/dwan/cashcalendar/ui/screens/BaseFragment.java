@@ -44,7 +44,7 @@ public abstract class BaseFragment extends Fragment {
 
     public void setupData(Bundle state) {}
 
-    @Override public final void onDestroyView() {
+    @CallSuper @Override public void onDestroyView() {
         super.onDestroyView();
         releaseData();
     }

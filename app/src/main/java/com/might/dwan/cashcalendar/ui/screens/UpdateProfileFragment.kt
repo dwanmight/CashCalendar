@@ -32,7 +32,7 @@ class UpdateProfileFragment : BaseFragment(), View.OnClickListener {
         setToolbar(toolbar)
     }
 
-    override fun setupData(state: Bundle) {
+    override fun setupData(state: Bundle?) {
         try {
             val nickName = PreferencesManager.get(activity).preferences.nickname
             val usersInfoDB = UsersInfoDB()
