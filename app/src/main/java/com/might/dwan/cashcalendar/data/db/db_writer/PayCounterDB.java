@@ -14,11 +14,7 @@ import java.util.ArrayList;
  * Created by Might on 27.08.2017.
  */
 
-public class PayCounterDB {
-
-    public PayCounterDB() {
-
-    }
+public class PayCounterDB extends BaseDB {
 
     public CostItem getPayItem(SQLiteDatabase db, String item_id) throws Exception {
         Cursor c = db.query(DBHelper.TABLE_USER_PAY
@@ -40,12 +36,10 @@ public class PayCounterDB {
             model.setTimestamp(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_DATE)));
             model.setUserId(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_USER_ID)));
             model.setCountPay(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_COUNT_PAY)));
-            c.close();
-            db.close();
+            release(c, db);
             return model;
         } else {
-            c.close();
-            db.close();
+            release(c, db);
             return null;
         }
     }
@@ -160,13 +154,6 @@ public class PayCounterDB {
         item.setUserId(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_USER_ID)));
         item.setCountPay(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_COUNT_PAY)));
         return item;
-    }
-
-    private void release(Cursor c, SQLiteDatabase db) {
-        if (c != null)
-            c.close();
-        if (db != null)
-            db.close();
     }
 
     private Cursor getCursorFromFirst(SQLiteDatabase db, int limit) throws Exception {

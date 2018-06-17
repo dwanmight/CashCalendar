@@ -12,11 +12,7 @@ import com.might.dwan.cashcalendar.data.models.UserModel;
  * Created by Might on 24.08.2017.
  */
 
-public class UsersInfoDB {
-
-    public UsersInfoDB() {
-
-    }
+public class UsersInfoDB extends BaseDB {
 
     public void addUser(SQLiteDatabase db, String nickname, String name, String surname) throws Exception {
         if (db == null) return;
@@ -37,8 +33,7 @@ public class UsersInfoDB {
         } else {
             db.update(DBHelper.TABLE_USERS_INFO, cv, "user_id = ?", new String[]{nickname});
         }
-        c.close();
-        db.close();
+        release(c, db);
     }
 
     public UserModel getUser(SQLiteDatabase db, String nickname) throws Exception {
@@ -59,8 +54,7 @@ public class UsersInfoDB {
             user.setName(c.getString(c.getColumnIndex(DBHelper.COLUMN_USERS_INFO_NAME)));
             user.setSurname(c.getString(c.getColumnIndex(DBHelper.COLUMN_USERS_INFO_SURNAME)));
         }
-        c.close();
-        db.close();
+        release(c, db);
         return user;
     }
 }

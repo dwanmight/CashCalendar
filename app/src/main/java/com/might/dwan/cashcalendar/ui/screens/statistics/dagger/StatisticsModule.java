@@ -29,8 +29,8 @@ public class StatisticsModule {
 
     @StatisticsScope
     @Provides
-    StatisticsPresenter providePresenter(StatisticsView v) {
-        return new StatisticsPresenter(v);
+    StatisticsPresenter providePresenter(StatisticsModel model, StatisticsView v) {
+        return new StatisticsPresenter(model, v);
     }
 
     @StatisticsScope

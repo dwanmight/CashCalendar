@@ -12,12 +12,10 @@ import java.util.ArrayList;
  * Created by Might on 02.09.2017.
  */
 
-public class StatisticsDB {
+public class StatisticsDB extends BaseDB {
 
-    public StatisticsDB(){
-    }
 
-    public ArrayList<NameIdItem> getStatistics(SQLiteDatabase db)throws Exception {
+    public ArrayList<NameIdItem> getStatistics(SQLiteDatabase db) throws Exception {
         ArrayList<NameIdItem> data = new ArrayList<>();
 
         Cursor c = db.query(DBHelper.TABLE_SUBCATEGORIES
@@ -37,8 +35,7 @@ public class StatisticsDB {
                 c.moveToNext();
             }
         }
-        c.close();
-        db.close();
+        release(c, db);
         return data;
     }
 }

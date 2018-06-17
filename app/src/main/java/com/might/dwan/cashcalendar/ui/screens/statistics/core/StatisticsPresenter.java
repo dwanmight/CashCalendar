@@ -9,8 +9,9 @@ import com.might.dwan.cashcalendar.archs.presenters.BasePresenter;
 public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IView, StatisticsModel>
         implements StatisticsContractor.IPresenter {
 
-    public StatisticsPresenter(StatisticsContractor.IView v) {
+    public StatisticsPresenter(StatisticsModel model, StatisticsContractor.IView v) {
         super(v);
+        bindModel(model);
     }
 
     @Override public void updateView() {

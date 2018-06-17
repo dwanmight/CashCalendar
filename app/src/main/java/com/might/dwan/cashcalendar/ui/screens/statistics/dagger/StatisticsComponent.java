@@ -1,5 +1,6 @@
 package com.might.dwan.cashcalendar.ui.screens.statistics.dagger;
 
+import com.might.dwan.cashcalendar.apps.AppComponent;
 import com.might.dwan.cashcalendar.ui.screens.statistics.StatisticsFragment;
 
 import dagger.Component;
@@ -9,7 +10,7 @@ import dagger.Component;
  */
 
 @StatisticsScope
-@Component(modules = {StatisticsModule.class})
+@Component(modules = {StatisticsModule.class}, dependencies = {AppComponent.class})
 public interface StatisticsComponent {
 
     void inject(StatisticsFragment fragment);
