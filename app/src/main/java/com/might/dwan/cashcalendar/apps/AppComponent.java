@@ -6,6 +6,7 @@ import com.might.dwan.cashcalendar.apps.modules.RxSchedulerModule;
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.db.db_writer.CategoryDB;
 import com.might.dwan.cashcalendar.data.db.db_writer.PayCounterDB;
+import com.might.dwan.cashcalendar.data.db.db_writer.StatisticsDB;
 import com.might.dwan.cashcalendar.data.db.db_writer.SubcategoryDB;
 import com.might.dwan.cashcalendar.utils.rx.RxSchedulers;
 
@@ -28,4 +29,6 @@ public interface AppComponent {
     SubcategoryDB provideSubcategoryDb();
 
     CategoryDB provideCategoryDb();
+
+    StatisticsDB provideStatisticsDb();
 }

@@ -141,7 +141,7 @@ public class PayCounterDB extends BaseDB {
         return new ArrayList<>();
     }
 
-    private CostItem createItem(Cursor c) {
+    public static CostItem createItem(Cursor c) {
         CostItem item = new CostItem();
         item.setPayItemId(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_ITEM_ID)));
         item.setCategory(c.getInt(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_CATEGORY)));

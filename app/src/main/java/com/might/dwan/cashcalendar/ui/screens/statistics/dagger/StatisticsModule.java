@@ -1,5 +1,7 @@
 package com.might.dwan.cashcalendar.ui.screens.statistics.dagger;
 
+import com.might.dwan.cashcalendar.data.db.DBHelper;
+import com.might.dwan.cashcalendar.data.db.db_writer.StatisticsDB;
 import com.might.dwan.cashcalendar.ui.screens.statistics.StatisticsFragment;
 import com.might.dwan.cashcalendar.ui.screens.statistics.core.StatisticsModel;
 import com.might.dwan.cashcalendar.ui.screens.statistics.core.StatisticsPresenter;
@@ -35,8 +37,8 @@ public class StatisticsModule {
 
     @StatisticsScope
     @Provides
-    StatisticsModel provideModel() {
-        return new StatisticsModel();
+    StatisticsModel provideModel(DBHelper dbHelper, StatisticsDB statisticsDB) {
+        return new StatisticsModel(dbHelper, statisticsDB);
     }
 
 }

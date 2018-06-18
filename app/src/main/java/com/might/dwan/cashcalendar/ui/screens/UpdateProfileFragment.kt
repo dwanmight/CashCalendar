@@ -79,7 +79,7 @@ class UpdateProfileFragment : BaseFragment(), View.OnClickListener {
     private fun checkFields(): Boolean {
         if (!EditTextUtils.isValid(update_nickname_et)) {
             showToast(getString(R.string.profile_enter_nickname))
-            return false
+             return false
         }
         if (!EditTextUtils.isValid(update_name_et)) {
             showToast(getString(R.string.profile_enter_name))

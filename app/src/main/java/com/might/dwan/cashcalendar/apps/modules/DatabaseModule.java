@@ -6,6 +6,7 @@ import com.might.dwan.cashcalendar.apps.AppScope;
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.db.db_writer.CategoryDB;
 import com.might.dwan.cashcalendar.data.db.db_writer.PayCounterDB;
+import com.might.dwan.cashcalendar.data.db.db_writer.StatisticsDB;
 import com.might.dwan.cashcalendar.data.db.db_writer.SubcategoryDB;
 
 import dagger.Module;
@@ -34,4 +35,7 @@ public class DatabaseModule {
 
     @AppScope
     @Provides CategoryDB provideCategoryDb() {return new CategoryDB();}
+
+    @AppScope
+    @Provides StatisticsDB provideStatisticsDb() {return new StatisticsDB();}
 }
