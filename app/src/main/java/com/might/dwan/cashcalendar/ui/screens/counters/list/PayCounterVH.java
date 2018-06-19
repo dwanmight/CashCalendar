@@ -14,11 +14,13 @@ import io.reactivex.subjects.PublishSubject;
  * Created by Ilya on 06.06.2018.
  */
 
-class PayCounterVH extends RecyclerView.ViewHolder {
+public class PayCounterVH extends RecyclerView.ViewHolder {
     private TextView categoryTv;
     private TextView subcategoryTv;
     private TextView payTv;
     private TextView dateTv;
+
+    public View frontView;
 
 
     public PayCounterVH(View v, PublishSubject<Integer> subjects) {
@@ -27,6 +29,7 @@ class PayCounterVH extends RecyclerView.ViewHolder {
         subcategoryTv = v.findViewById(R.id.list_item_paycounter_subcategory_tv);
         payTv = v.findViewById(R.id.list_item_paycounter_pay_tv);
         dateTv = v.findViewById(R.id.list_item_paycounter_date_tv);
+        frontView = v.findViewById(R.id.front_view);
         v.setOnClickListener(view -> subjects.onNext(getAdapterPosition()));
     }
 

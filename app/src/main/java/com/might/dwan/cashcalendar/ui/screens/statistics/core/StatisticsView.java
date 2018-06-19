@@ -12,28 +12,33 @@ import com.might.dwan.cashcalendar.R;
 
 public class StatisticsView
         implements StatisticsContractor.IView {
-    private View v;
-    private TextView maxDateTv, maxAmountTv, maxCategoryTv, maxSubcategoryTv; //max views
-    private TextView minDateTv, minAmountTv, minCategoryTv, minSubcategoryTv; //min views
-    private TextView sumAmountTv; //sum views
+    private View v, maxRootView, minRootView;
+    private TextView maxLabelTv, maxDateTv, maxAmountTv, maxCategoryTv, maxSubcategoryTv; //max
+    private TextView minLabelTv, minDateTv, minAmountTv, minCategoryTv, minSubcategoryTv; //min
+    private TextView sumLabelTv, sumAmountTv; //sum views
 
 
     public StatisticsView(Fragment fragment) {
         v = fragment.getView();
 
-        ItemVH vh = new ItemVH(v.findViewById(R.id.statistics_max_root_view));
+        maxRootView = v.findViewById(R.id.statistics_max_root_view);
+        maxLabelTv = v.findViewById(R.id.statistics_max_label_tv);
+        ItemVH vh = new ItemVH(maxRootView);
         maxDateTv = vh.initDate();
         maxAmountTv = vh.initAmount();
         maxCategoryTv = vh.initCategory();
         maxSubcategoryTv = vh.initSubcategory();
 
-        vh = new ItemVH(v.findViewById(R.id.statistics_min_root_view));
+        minRootView = v.findViewById(R.id.statistics_min_root_view);
+        minLabelTv = v.findViewById(R.id.statistics_min_label_tv);
+        vh = new ItemVH(minRootView);
         minDateTv = vh.initDate();
         minAmountTv = vh.initAmount();
         minCategoryTv = vh.initCategory();
         minSubcategoryTv = vh.initSubcategory();
 
         sumAmountTv = v.findViewById(R.id.statistics_sum_tv);
+        sumLabelTv = v.findViewById(R.id.statistics_sum_label_tv);
     }
 
 
@@ -55,6 +60,11 @@ public class StatisticsView
         maxSubcategoryTv.setText(subcategory);
     }
 
+    @Override public void hideMax() {
+        maxRootView.setVisibility(View.GONE);
+        maxLabelTv.setVisibility(View.GONE);
+    }
+
 
 
     //Min region
@@ -74,11 +84,21 @@ public class StatisticsView
         minSubcategoryTv.setText(subcategory);
     }
 
+    @Override public void hideMin() {
+        minRootView.setVisibility(View.GONE);
+        minLabelTv.setVisibility(View.GONE);
+    }
+
 
 
     //Sum region
     @Override public void setSumAmount(String amount) {
         sumAmountTv.setText(getAmount(amount));
+    }
+
+    @Override public void hideSum() {
+        sumLabelTv.setVisibility(View.GONE);
+        sumAmountTv.setVisibility(View.GONE);
     }
 
     private String getAmount(String amount) {

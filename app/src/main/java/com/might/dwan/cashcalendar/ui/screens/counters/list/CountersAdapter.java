@@ -38,7 +38,7 @@ public class CountersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         RecyclerView.ViewHolder h;
         switch (type) {
             case TYPE_ITEM:
-                h = new PayCounterVH(createView(R.layout.list_item_paycounter_item, root),
+                h = new PayCounterVH(createView(R.layout.list_item_cost, root),
                         mItemClicks);
                 break;
             case TYPE_PLACE_HOLDER:

@@ -20,6 +20,8 @@ public interface StatisticsContractor {
 
         void setMaxSubcategory(String subcategory);
 
+        void hideMax();
+
 
 
         //Min
@@ -31,8 +33,12 @@ public interface StatisticsContractor {
 
         void setMinSubcategory(String subcategory);
 
+        void hideMin();
+
 
         //Min
         void setSumAmount(String amount);
+
+        void hideSum();
     }
 }

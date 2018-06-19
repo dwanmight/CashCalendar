@@ -17,34 +17,6 @@ import java.util.ArrayList;
 
 public class StatisticsDB extends BaseDB {
 
-
-    //    public ArrayList<NameIdItem> getStatistics(SQLiteDatabase db) throws Exception {
-    //        ArrayList<NameIdItem> data = new ArrayList<>();
-    //
-    //        Cursor c = db.query(DBHelper.TABLE_USER_PAY
-    //                , new String[]{DBHelper.COLUMN_USER_PAY_DATE, DBHelper
-    // .COLUMN_USER_PAY_COUNT_PAY}
-    //                , DBHelper.COLUMN_USER_PAY_DATE + " = ?"
-    //                , new String[]{String.valueOf(category_id)}
-    //                , null
-    //                , null
-    //                , null);
-    //        if (c.getCount() > 0) {
-    //            c.moveToFirst();
-    //            for (int i = 0; i < c.getCount(); i++) {
-    //                NameIdItem item = new NameIdItem();
-    //                item.setId(c.getInt(c.getColumnIndex(DBHelper.COLUMN_SUBCATEGORIES_ID)));
-    //                item.setName(c.getString(c.getColumnIndex(DBHelper
-    // .COLUMN_SUBCATEGORIES_CATEGORY_TITLE)));
-    //                data.add(item);
-    //                c.moveToNext();
-    //            }
-    //        }
-    //        release(c, db);
-    //        return data;
-    //    }
-
-
     public ArrayList<CostItem> getMax(SQLiteDatabase db) {
         ArrayList<CostItem> data = new ArrayList<>();
 
@@ -66,6 +38,7 @@ public class StatisticsDB extends BaseDB {
                 , null
                 , null);
         Log.i(ConstantManager.TAG, "getMax: " + DatabaseUtils.dumpCursorToString(c));
+        Log.i(ConstantManager.TAG, "getMax: " + c.getCount());
 
         if (c.getCount() > 0) {
             c.moveToFirst();
@@ -114,7 +87,7 @@ public class StatisticsDB extends BaseDB {
     }
 
     public String getSum(SQLiteDatabase db) {
-        String result = null;
+        StringBuilder builder = new StringBuilder("");
         String columnName = "sum_amount";
         Cursor c = db.query(DBHelper.TABLE_USER_PAY
                 , new String[]{"SUM(count_pay) AS " + columnName,
@@ -137,9 +110,12 @@ public class StatisticsDB extends BaseDB {
 
         if (c.getCount() > 0) {
             c.moveToFirst();
-            result = c.getString(c.getColumnIndex(columnName));
+            String amount = c.getString(c.getColumnIndex(columnName));
+            if (amount != null) {
+                builder.append(amount);
+            }
         }
         release(c, db);
-        return result;
+        return builder.toString();
     }
 }

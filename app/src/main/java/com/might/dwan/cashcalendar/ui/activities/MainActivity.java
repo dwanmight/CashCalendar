@@ -23,6 +23,7 @@ public class MainActivity extends BaseFragmentActivity
     private NavigationView mNavigationView;
     private View mNavHeader;
 
+    private Toolbar mToolbar;
     private ActionBarDrawerToggle mDrawerToggle;
 
 
@@ -41,12 +42,12 @@ public class MainActivity extends BaseFragmentActivity
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mNavigationView = findViewById(R.id.nav_view);
         mNavHeader = mNavigationView.getHeaderView(0);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
 
-        toolbar.setTitle(getResources().getString(R.string.app_name));
-        setSupportActionBar(toolbar);
+        mToolbar.setTitle(getResources().getString(R.string.app_name));
+        setSupportActionBar(mToolbar);
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
         mNavigationView.setCheckedItem(R.id.nav_main_list);
@@ -101,9 +102,9 @@ public class MainActivity extends BaseFragmentActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_main_list) {
-            startFragment(new CountersFragment());
+            startFragment(new CountersFragment(), "History");
         } else if (id == R.id.nav_statistics) {
-            startFragment(new StatisticsFragment());
+            startFragment(new StatisticsFragment(), "Statistics");
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -124,6 +125,11 @@ public class MainActivity extends BaseFragmentActivity
                 startUpdateProfile();
                 break;
         }
+    }
+
+    public void startFragment(Fragment fragment, String title) {
+        super.startFragment(fragment);
+        mToolbar.setTitle(title);
     }
 
     private void startUpdateProfile() {

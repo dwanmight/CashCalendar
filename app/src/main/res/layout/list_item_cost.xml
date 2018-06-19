@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_size"
+    android:background="#c62828">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginRight="@dimen/horizontal_margin_16"
+        android:src="@android:drawable/ic_menu_delete"
+        android:tint="#ffffffff" />
+
+    <include
+        android:id="@+id/front_view"
+        layout="@layout/include_cost_item"
+        android:visibility="visible" />
+</FrameLayout>

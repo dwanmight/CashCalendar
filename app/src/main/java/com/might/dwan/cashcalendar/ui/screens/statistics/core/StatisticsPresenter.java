@@ -3,6 +3,7 @@ package com.might.dwan.cashcalendar.ui.screens.statistics.core;
 import com.might.dwan.cashcalendar.archs.presenters.BasePresenter;
 import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.utils.DateUtils;
+import com.might.dwan.cashcalendar.utils.ValidUtils;
 import com.might.dwan.cashcalendar.utils.rx.RxSchedulers;
 
 import io.reactivex.Observable;
@@ -42,10 +43,14 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
     }
 
     private void setMaxToView(CostItem item) {
-        view().setMaxAmount(item.getCountPay());
-        view().setMaxDate(DateUtils.stampToYMDHMS(Long.parseLong(item.getTimestamp())));
-        view().setMaxCategory(item.getCategoryText());
-        view().setMaxSubcategory(item.getSubcategoryText());
+        if (isValidItem(item)) {
+            view().setMaxAmount(item.getCountPay());
+            view().setMaxDate(getDate(item.getTimestamp()));
+            view().setMaxCategory(item.getCategoryText());
+            view().setMaxSubcategory(item.getSubcategoryText());
+        } else {
+            view().hideMax();
+        }
     }
 
     private void loadMin() {
@@ -59,10 +64,14 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
     }
 
     private void setMinToView(CostItem item) {
-        view().setMinAmount(item.getCountPay());
-        view().setMinDate(DateUtils.stampToYMDHMS(Long.parseLong(item.getTimestamp())));
-        view().setMinCategory(item.getCategoryText());
-        view().setMinSubcategory(item.getSubcategoryText());
+        if (isValidItem(item)) {
+            view().setMinAmount(item.getCountPay());
+            view().setMinDate(getDate(item.getTimestamp()));
+            view().setMinCategory(item.getCategoryText());
+            view().setMinSubcategory(item.getSubcategoryText());
+        } else {
+            view().hideMin();
+        }
     }
 
     private void loadSum() {
@@ -74,7 +83,21 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
     }
 
     private void setSumToView(String amount) {
-        view().setSumAmount(amount);
+        if (!ValidUtils.isTextValid(amount)) {
+            view().hideSum();
+        } else {
+            view().setSumAmount(amount);
+        }
+    }
+
+    private String getDate(String timestamp) {
+        if (timestamp == null) return "";
+
+        return DateUtils.stampToYMDHMS(Long.parseLong(timestamp));
+    }
+
+    private boolean isValidItem(CostItem item) {
+        return item != null && item.getTimestamp() != null && item.getCountPay() != null;
     }
 
     @Override public void onRelease() {
