@@ -11,5 +11,28 @@ public interface StatisticsContractor {
 
     interface IView {
 
+        //Max
+        void setMaxAmount(String amount);
+
+        void setMaxDate(String date);
+
+        void setMaxCategory(String category);
+
+        void setMaxSubcategory(String subcategory);
+
+
+
+        //Min
+        void setMinAmount(String amount);
+
+        void setMinDate(String date);
+
+        void setMinCategory(String category);
+
+        void setMinSubcategory(String subcategory);
+
+
+        //Min
+        void setSumAmount(String amount);
     }
 }

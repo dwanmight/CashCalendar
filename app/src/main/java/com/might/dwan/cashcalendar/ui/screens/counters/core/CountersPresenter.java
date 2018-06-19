@@ -6,6 +6,7 @@ import com.might.dwan.cashcalendar.utils.rx.RxSchedulers;
 
 import java.util.ArrayList;
 
+import io.reactivex.annotations.Nullable;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -37,7 +38,7 @@ public class CountersPresenter extends BasePresenter<CountersView, CountersModel
         loadData(null);
     }
 
-    private void loadData(String id) {
+    private void loadData(@Nullable String id) {
         try {
             subscriptions.add(model.getData(id)
                     .subscribeOn(mRxSchedulers.io())

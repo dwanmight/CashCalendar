@@ -54,7 +54,7 @@ public class DetailCostPresenter extends BasePresenter<DetailCostView, DetailCos
                 .subscribe(this::selectSubcategoryByPos, Throwable::printStackTrace));
 
         loadCategories();
-        setupUIForMode();
+        setupDataForMode();
     }
 
     private void selectCategoryByPos(int pos) {
@@ -111,8 +111,9 @@ public class DetailCostPresenter extends BasePresenter<DetailCostView, DetailCos
         mCostItem.setSubcategoryText(mSubcategoryList.get(pos).getName());
     }
 
-    private void setupUIForMode() {
+    private void setupDataForMode() {
         if (mMode == MODE_NEW) {
+            mCostItem.setTimestamp(String.valueOf(System.currentTimeMillis()));
             view().setupToolbarForCreate();
         } else {
             view().setupToolbarForUpdate();

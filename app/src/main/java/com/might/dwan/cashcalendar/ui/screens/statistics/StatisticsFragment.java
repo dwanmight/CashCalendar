@@ -3,6 +3,7 @@ package com.might.dwan.cashcalendar.ui.screens.statistics;
 import android.os.Bundle;
 
 import com.might.dwan.cashcalendar.R;
+import com.might.dwan.cashcalendar.apps.App;
 import com.might.dwan.cashcalendar.ui.screens.BaseFragment;
 import com.might.dwan.cashcalendar.ui.screens.statistics.core.StatisticsPresenter;
 import com.might.dwan.cashcalendar.ui.screens.statistics.core.StatisticsView;
@@ -26,6 +27,7 @@ public class StatisticsFragment extends BaseFragment {
 
     @Override public void setupData(Bundle state) {
         DaggerStatisticsComponent.builder()
+                .appComponent(App.getAppComponent())
                 .statisticsModule(new StatisticsModule(this))
                 .build()
                 .inject(this);

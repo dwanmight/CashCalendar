@@ -13,7 +13,7 @@ import dagger.Provides;
 @Module
 public class RxSchedulerModule {
 
-    @Provides RxSchedulers provideRxSchedulr() {
+    @Provides RxSchedulers provideRxSchedule() {
         return new AppRxSchedulers();
     }
 }

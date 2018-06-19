@@ -6,6 +6,7 @@ import com.might.dwan.cashcalendar.ui.screens.statistics.StatisticsFragment;
 import com.might.dwan.cashcalendar.ui.screens.statistics.core.StatisticsModel;
 import com.might.dwan.cashcalendar.ui.screens.statistics.core.StatisticsPresenter;
 import com.might.dwan.cashcalendar.ui.screens.statistics.core.StatisticsView;
+import com.might.dwan.cashcalendar.utils.rx.RxSchedulers;
 
 import dagger.Module;
 import dagger.Provides;
@@ -31,8 +32,9 @@ public class StatisticsModule {
 
     @StatisticsScope
     @Provides
-    StatisticsPresenter providePresenter(StatisticsModel model, StatisticsView v) {
-        return new StatisticsPresenter(model, v);
+    StatisticsPresenter providePresenter(StatisticsModel model, StatisticsView v,
+                                         RxSchedulers schedule) {
+        return new StatisticsPresenter(model, v, schedule);
     }
 
     @StatisticsScope

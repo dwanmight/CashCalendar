@@ -2,11 +2,14 @@ package com.might.dwan.cashcalendar.data.db.db_writer;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.models.CostItem;
+import com.might.dwan.cashcalendar.utils.ConstantManager;
 
 import java.util.ArrayList;
 
@@ -101,6 +104,8 @@ public class PayCounterDB extends BaseDB {
             } else {
                 c = getCursorFromLast(db, timestamp, limit);
             }
+
+            Log.i(ConstantManager.TAG, "load: " + DatabaseUtils.dumpCursorToString(c));
 
             if (c.getCount() > 0) {
                 c.moveToFirst();

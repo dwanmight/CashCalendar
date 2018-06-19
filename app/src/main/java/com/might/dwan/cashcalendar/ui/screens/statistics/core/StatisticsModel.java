@@ -2,6 +2,9 @@ package com.might.dwan.cashcalendar.ui.screens.statistics.core;
 
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.db.db_writer.StatisticsDB;
+import com.might.dwan.cashcalendar.data.models.CostItem;
+
+import java.util.ArrayList;
 
 import io.reactivex.Observable;
 
@@ -18,12 +21,15 @@ public class StatisticsModel {
         this.statisticsDB = statisticsDB;
     }
 
-    public Observable getMax() {
-        Observable.zip(
-                Observable.just(dbHelper),
-                Observable.just(statisticsDB),
-                (helper, db) -> db.getMax(helper.getReadableDatabase()))
-                .flatMap();
-        // TODO: 18.06.2018  
+    public Observable<ArrayList<CostItem>> getMax() {
+        return Observable.just(statisticsDB.getMax(dbHelper.getReadableDatabase()));
+    }
+
+    public Observable<ArrayList<CostItem>> getMin() {
+        return Observable.just(statisticsDB.getMin(dbHelper.getReadableDatabase()));
+    }
+
+    public Observable<String> getSum() {
+        return Observable.just(statisticsDB.getSum(dbHelper.getReadableDatabase()));
     }
 }
