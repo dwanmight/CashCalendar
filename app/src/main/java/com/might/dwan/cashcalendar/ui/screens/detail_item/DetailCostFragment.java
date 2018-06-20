@@ -101,7 +101,7 @@ public class DetailCostFragment extends BaseFragment {
     public void showDatePickDialog(String timestamp) {
         DatePickerDialog dialog = DatePickerDialog.newInstance(timestamp);
         dialog.setTargetFragment(this, ConstantManager.REQUEST_DATE_DIALOG);
-        dialog.show(getFragmentManager(), "DatePickerDialog");
+        dialog.show(getFragmentManager(), "PickDate");
     }
 
     public void showErrorPickCategory() {

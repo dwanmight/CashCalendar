@@ -10,7 +10,7 @@ import dagger.Component;
  */
 
 @DetailCostScope
-@Component(dependencies = {AppComponent.class},modules = {DetailCostModule.class} )
+@Component(dependencies = {AppComponent.class}, modules = {DetailCostModule.class} )
 public interface DetailCostComponent {
     void inject(DetailCostFragment fragment);
 }

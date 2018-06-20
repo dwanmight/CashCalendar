@@ -31,15 +31,15 @@ public class DetailCostModel {
         this.subcategoryDB = subcategoryDB;
         this.payCounterDB = payCounterDB;
         this.dbHelper = dbHelper;
-        this.fragment = new WeakReference<DetailCostFragment>(fragment);
+        this.fragment = new WeakReference<>(fragment);
     }
 
 
     Observable<ArrayList<NameIdItem>> loadCategories() throws Exception {
-        boolean fromDb = true;
-        return Observable.just(fromDb)
-                .filter(local -> true)
-                .map(it -> categoryDB.getCategories(dbHelper.getReadableDatabase()));
+        return Observable.zip(
+                Observable.just(categoryDB),
+                Observable.just(dbHelper),
+                (db, helper) -> db.getCategories(helper.getReadableDatabase()));
     }
 
     Observable<ArrayList<NameIdItem>> loadSubcategories(int category) {
