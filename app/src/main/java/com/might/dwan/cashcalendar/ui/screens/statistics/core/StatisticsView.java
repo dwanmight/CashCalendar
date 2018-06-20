@@ -1,6 +1,5 @@
 package com.might.dwan.cashcalendar.ui.screens.statistics.core;
 
-import android.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,8 +17,8 @@ public class StatisticsView
     private TextView sumLabelTv, sumAmountTv; //sum views
 
 
-    public StatisticsView(Fragment fragment) {
-        v = fragment.getView();
+    public StatisticsView(View root) {
+        v = root;
 
         maxRootView = v.findViewById(R.id.statistics_max_root_view);
         maxLabelTv = v.findViewById(R.id.statistics_max_label_tv);

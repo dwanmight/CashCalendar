@@ -6,7 +6,6 @@ import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.apps.App;
 import com.might.dwan.cashcalendar.ui.screens.BaseFragment;
 import com.might.dwan.cashcalendar.ui.screens.statistics.core.StatisticsPresenter;
-import com.might.dwan.cashcalendar.ui.screens.statistics.core.StatisticsView;
 import com.might.dwan.cashcalendar.ui.screens.statistics.dagger.DaggerStatisticsComponent;
 import com.might.dwan.cashcalendar.ui.screens.statistics.dagger.StatisticsModule;
 
@@ -18,7 +17,6 @@ import javax.inject.Inject;
 
 public class StatisticsFragment extends BaseFragment {
 
-    @Inject StatisticsView view;
     @Inject StatisticsPresenter mPresenter;
 
     @Override public int getLayoutId() {

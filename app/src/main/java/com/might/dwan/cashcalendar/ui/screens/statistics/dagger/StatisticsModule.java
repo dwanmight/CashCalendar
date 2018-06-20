@@ -3,6 +3,7 @@ package com.might.dwan.cashcalendar.ui.screens.statistics.dagger;
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.db.db_writer.StatisticsDB;
 import com.might.dwan.cashcalendar.ui.screens.statistics.StatisticsFragment;
+import com.might.dwan.cashcalendar.ui.screens.statistics.core.StatisticsContractor;
 import com.might.dwan.cashcalendar.ui.screens.statistics.core.StatisticsModel;
 import com.might.dwan.cashcalendar.ui.screens.statistics.core.StatisticsPresenter;
 import com.might.dwan.cashcalendar.ui.screens.statistics.core.StatisticsView;
@@ -26,13 +27,13 @@ public class StatisticsModule {
 
     @StatisticsScope
     @Provides
-    StatisticsView provideView() {
-        return new StatisticsView(mFragment);
+    StatisticsContractor.IView provideView() {
+        return new StatisticsView(mFragment.getView());
     }
 
     @StatisticsScope
     @Provides
-    StatisticsPresenter providePresenter(StatisticsModel model, StatisticsView v,
+    StatisticsPresenter providePresenter(StatisticsModel model, StatisticsContractor.IView v,
                                          RxSchedulers schedule) {
         return new StatisticsPresenter(model, v, schedule);
     }
