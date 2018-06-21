@@ -10,6 +10,7 @@ import android.util.Log;
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.utils.ConstantManager;
+import com.might.dwan.cashcalendar.utils.DateUtils;
 
 import java.util.ArrayList;
 
@@ -50,38 +51,35 @@ public class PayCounterDB extends BaseDB {
     public long insert(SQLiteDatabase db, CostItem model) throws Exception {
         long res = -1;
         if (model == null) return res;
-        ContentValues cv = new ContentValues();
-        cv.put(DBHelper.COLUMN_USER_PAY_USER_ID, model.getUserId());
-        cv.put(DBHelper.COLUMN_USER_PAY_ITEM_ID, model.getPayItemId());
-        cv.put(DBHelper.COLUMN_USER_PAY_CATEGORY, model.getCategory());
-        cv.put(DBHelper.COLUMN_USER_PAY_CATEGORY_TEXT, model.getCategoryText());
-        cv.put(DBHelper.COLUMN_USER_PAY_SUBCATEGORY, model.getSubcategory());
-        cv.put(DBHelper.COLUMN_USER_PAY_SUBCATEGORY_TEXT, model.getSubcategoryText());
-        cv.put(DBHelper.COLUMN_USER_PAY_DESCRIPTION, model.getDescription());
-        cv.put(DBHelper.COLUMN_USER_PAY_DATE, model.getTimestamp());
-        cv.put(DBHelper.COLUMN_USER_PAY_COUNT_PAY, model.getCountPay());
 
-        res = db.insert(DBHelper.TABLE_USER_PAY, null, cv);
+        res = db.insert(DBHelper.TABLE_USER_PAY, null, getContentValuesFromItem(model));
 
         db.close();
         return res;
     }
 
+    private ContentValues getContentValuesFromItem(CostItem item) {
+        ContentValues cv = new ContentValues();
+        cv.put(DBHelper.COLUMN_USER_PAY_USER_ID, item.getUserId());
+        cv.put(DBHelper.COLUMN_USER_PAY_ITEM_ID, item.getPayItemId());
+        cv.put(DBHelper.COLUMN_USER_PAY_CATEGORY, item.getCategory());
+        cv.put(DBHelper.COLUMN_USER_PAY_CATEGORY_TEXT, item.getCategoryText());
+        cv.put(DBHelper.COLUMN_USER_PAY_SUBCATEGORY, item.getSubcategory());
+        cv.put(DBHelper.COLUMN_USER_PAY_SUBCATEGORY_TEXT, item.getSubcategoryText());
+        cv.put(DBHelper.COLUMN_USER_PAY_DESCRIPTION, item.getDescription());
+        cv.put(DBHelper.COLUMN_USER_PAY_DATE, DateUtils.parseTimeStampToUnix(item.getTimestamp()));
+        cv.put(DBHelper.COLUMN_USER_PAY_COUNT_PAY, item.getCountPay());
+        return cv;
+    }
+
     public long update(SQLiteDatabase db, CostItem model) throws Exception {
         long res = -1;
         if (model == null) return res;
-        ContentValues cv = new ContentValues();
-        cv.put(DBHelper.COLUMN_USER_PAY_USER_ID, model.getUserId());
-        cv.put(DBHelper.COLUMN_USER_PAY_ITEM_ID, model.getPayItemId());
-        cv.put(DBHelper.COLUMN_USER_PAY_CATEGORY, model.getCategory());
-        cv.put(DBHelper.COLUMN_USER_PAY_CATEGORY_TEXT, model.getCategoryText());
-        cv.put(DBHelper.COLUMN_USER_PAY_SUBCATEGORY, model.getSubcategory());
-        cv.put(DBHelper.COLUMN_USER_PAY_SUBCATEGORY_TEXT, model.getSubcategoryText());
-        cv.put(DBHelper.COLUMN_USER_PAY_DESCRIPTION, model.getDescription());
-        cv.put(DBHelper.COLUMN_USER_PAY_DATE, model.getTimestamp());
-        cv.put(DBHelper.COLUMN_USER_PAY_COUNT_PAY, model.getCountPay());
 
-        res = db.update(DBHelper.TABLE_USER_PAY, cv, DBHelper.COLUMN_USER_PAY_DATE + " = ?", new String[]{model.getTimestamp()});
+        res = db.update(DBHelper.TABLE_USER_PAY,
+                getContentValuesFromItem(model),
+                DBHelper.COLUMN_USER_PAY_DATE + " = ?",
+                new String[]{String.valueOf(DateUtils.parseTimeStampToUnix(model.getTimestamp()))});
 
         db.close();
         return res;
@@ -123,7 +121,7 @@ public class PayCounterDB extends BaseDB {
     }
 
     public ArrayList<CostItem> loadMonthly(@NonNull SQLiteDatabase db) {
-        ArrayList<CostItem> list = createList();
+        ArrayList<CostItem> list = new ArrayList<>();
         Cursor c = null;
         try {
             c = db.query(DBHelper.TABLE_USER_PAY,
@@ -142,10 +140,6 @@ public class PayCounterDB extends BaseDB {
         return list;
     }
 
-    private ArrayList<CostItem> createList() {
-        return new ArrayList<>();
-    }
-
     public static CostItem createItem(Cursor c) {
         CostItem item = new CostItem();
         item.setPayItemId(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_ITEM_ID)));
@@ -155,7 +149,8 @@ public class PayCounterDB extends BaseDB {
         item.setSubcategoryText(c.getString(c.getColumnIndex(DBHelper
                 .COLUMN_USER_PAY_SUBCATEGORY_TEXT)));
         item.setDescription(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_DESCRIPTION)));
-        item.setTimestamp(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_DATE)));
+        item.setTimestamp(
+                String.valueOf(c.getInt(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_DATE)) * 1000L));
         item.setUserId(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_USER_ID)));
         item.setCountPay(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_COUNT_PAY)));
         return item;

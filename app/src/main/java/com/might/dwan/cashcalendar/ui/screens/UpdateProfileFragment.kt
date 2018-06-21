@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.TextView
 import com.might.dwan.cashcalendar.R
@@ -27,7 +26,6 @@ class UpdateProfileFragment : BaseFragment(), View.OnClickListener {
     override fun getLayoutId() = R.layout.fragment_update_profile
 
     override fun initUI(v: View) {
-        val toolbar = v.findViewById<Toolbar>(R.id.toolbar)
         toolbar.setTitle(R.string.title_profile)
         setToolbar(toolbar)
     }
@@ -47,9 +45,9 @@ class UpdateProfileFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    private fun setTextIfNeed(v: TextView?, text: String) {
+    private fun setTextIfNeed(v: TextView, text: String) {
         if (ValidUtils.isTextValid(text)) {
-            v?.text = text
+            v.text = text
         }
     }
 

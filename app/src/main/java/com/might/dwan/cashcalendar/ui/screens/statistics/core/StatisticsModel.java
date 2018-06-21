@@ -3,6 +3,7 @@ package com.might.dwan.cashcalendar.ui.screens.statistics.core;
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.db.db_writer.StatisticsDB;
 import com.might.dwan.cashcalendar.data.models.CostItem;
+import com.might.dwan.cashcalendar.utils.DateUtils;
 
 import java.util.ArrayList;
 
@@ -31,5 +32,10 @@ public class StatisticsModel {
 
     public Observable<String> getSum() {
         return Observable.just(statisticsDB.getSum(dbHelper.getReadableDatabase()));
+    }
+
+    public ArrayList<CostItem> getTime() {
+        return statisticsDB.getMonth(dbHelper.getReadableDatabase(),
+                DateUtils.parseTimeStampToUnix(System.currentTimeMillis()));
     }
 }

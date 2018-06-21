@@ -18,4 +18,18 @@ public class DateUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
         return sdf.format(new Date(stamp));
     }
+
+
+
+    public static long parseTimeStampToUnix(long timestamp) {
+        return parseTimeStampToUnix(String.valueOf(timestamp));
+    }
+
+    public static long parseTimeStampToUnix(String timestamp) {
+        return Long.parseLong(timestamp) / 1000L;
+    }
+
+    public static long parseTimeStampFromUnix(String timestamp) {
+        return Long.parseLong(timestamp) * 1000L;
+    }
 }

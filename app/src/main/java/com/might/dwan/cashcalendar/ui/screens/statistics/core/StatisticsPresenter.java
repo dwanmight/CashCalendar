@@ -30,6 +30,7 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
         loadMax();
         loadMin();
         loadSum();
+        model.getTime();
     }
 
     private void loadMax() {
@@ -97,7 +98,7 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
     }
 
     private boolean isValidItem(CostItem item) {
-        return item != null && item.getTimestamp() != null && item.getCountPay() != null;
+        return (item != null && item.getTimestamp() != null && item.getCountPay() != null);
     }
 
     @Override public void onRelease() {
