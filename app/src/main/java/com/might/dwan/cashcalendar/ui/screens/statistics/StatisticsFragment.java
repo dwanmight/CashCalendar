@@ -12,6 +12,7 @@ import com.might.dwan.cashcalendar.ui.screens.statistics.dagger.StatisticsModule
 import javax.inject.Inject;
 
 /**
+ *
  * Created by Ilya on 07.06.2018.
  */
 

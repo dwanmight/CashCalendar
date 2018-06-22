@@ -22,7 +22,6 @@ public abstract class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         getActivity().setTitle("");
         setHasOptionsMenu(true);
-        setRetainInstance(true);
     }
 
     @Nullable @Override public final View onCreateView(LayoutInflater inflater, ViewGroup container,

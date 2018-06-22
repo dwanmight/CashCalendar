@@ -2,10 +2,7 @@ package com.might.dwan.cashcalendar.ui.views
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.util.AttributeSet
 import android.view.View
@@ -14,23 +11,24 @@ import com.might.dwan.cashcalendar.utils.DisplayUtils
 /**
  * Created by Ilya on 21.06.2018.
  */
-//open class DiagramView(c: Context, attr: AttributeSet?, defStyle: Int?) : View(c, attr, 0) {
-
-open class DiagramView : View {
+open class ChartView : View {
 
     private var maxAmount: Int = 0
     lateinit var monthName: String
 
     private val paint = Paint()
-    private var rect = Rect()
+    private var rect = RectF()
+    private val path = Path()
     private var height: Float = 0f
 
-    private val chartWidth = DisplayUtils.pxToDp(context, 120)
+    //    private val chartWidth = DisplayUtils.pxToDp(context, 120)
+    private val topRoundOffset = DisplayUtils.pxToDpi(context, 16)
+    private val radius = DisplayUtils.pxToDpi(context, 5)
 
-    constructor(c: Context, attr: AttributeSet?) : super(c, attr)
+    constructor(c: Context, attr: AttributeSet? = null) : super(c, attr)
 
     init {
-        paint.color = Color.RED
+        paint.color = Color.parseColor("#B71C1C")
         paint.style = Paint.Style.FILL
     }
 
@@ -39,17 +37,20 @@ open class DiagramView : View {
         if (height == 0f && measuredHeight > 0) {
             height = measuredHeight.toFloat()
 
-            rect.right = measuredWidth / 2 + chartWidth
-            rect.left = measuredWidth / 2 - chartWidth
-            rect.top = 0
-            rect.bottom = measuredHeight
+            rect.right = MeasureSpec.getSize(widthMeasureSpec).toFloat()
+            rect.left = 0f
+            rect.top = 0f
+            rect.bottom = MeasureSpec.getSize(heightMeasureSpec).toFloat()
         }
     }
 
     override fun onDraw(canvas: Canvas?) {
         if (canvas == null) return
 
-        canvas.drawRect(rect, paint)
+        canvas.save()
+        canvas.clipRect(rect.left, rect.top, rect.right, rect.bottom + 300)
+        canvas.drawRoundRect(rect.left, rect.top, rect.right, rect.bottom + topRoundOffset, radius, radius, paint)
+        canvas.restore()
     }
 
 
@@ -58,7 +59,7 @@ open class DiagramView : View {
         anim.interpolator = FastOutSlowInInterpolator()
         anim.duration = 300
         anim.addUpdateListener {
-            rect.top = (height - (height * it.animatedValue as Float)).toInt()
+            rect.top = (height - (height * it.animatedValue as Float))
             invalidate()
             println("aniamtedVAlue ${it.animatedValue}")
         }

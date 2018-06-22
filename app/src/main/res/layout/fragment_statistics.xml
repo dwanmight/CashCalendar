@@ -5,7 +5,8 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         android:background="#159e9e9e">
 
         <LinearLayout
@@ -15,11 +16,7 @@
 
             <TextView
                 android:id="@+id/statistics_max_label_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/vertical_margin_16"
-                android:layout_marginTop="@dimen/vertical_margin_16"
+                style="@style/statistics_label"
                 android:text="Максимум" />
 
             <include
@@ -27,12 +24,8 @@
                 layout="@layout/include_cost_item" />
 
             <TextView
+                style="@style/statistics_label"
                 android:id="@+id/statistics_min_label_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/vertical_margin_16"
-                android:layout_marginTop="@dimen/vertical_margin_16"
                 android:text="Минимум" />
 
             <include
@@ -40,12 +33,8 @@
                 layout="@layout/include_cost_item" />
 
             <TextView
+                style="@style/statistics_label"
                 android:id="@+id/statistics_sum_label_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/vertical_margin_16"
-                android:layout_marginTop="@dimen/vertical_margin_16"
                 android:text="Всего" />
 
             <TextView
@@ -57,6 +46,17 @@
                 android:gravity="center"
                 android:textSize="24sp"
                 android:textColor="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/statistics_sum_daigrams_tv"
+                style="@style/statistics_label"
+                android:text="диграммы" />
+
+            <com.might.dwan.cashcalendar.ui.views.ChartContainer
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/colorWhite" />
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

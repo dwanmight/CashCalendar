@@ -44,14 +44,16 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
     }
 
     private void setMaxToView(CostItem item) {
-        if (isValidItem(item)) {
-            view().setMaxAmount(item.getCountPay());
-            view().setMaxDate(getDate(item.getTimestamp()));
-            view().setMaxCategory(item.getCategoryText());
-            view().setMaxSubcategory(item.getSubcategoryText());
-        } else {
-            view().hideMax();
-        }
+        try {
+            if (isValidItem(item)) {
+                view().setMaxAmount(item.getCountPay());
+                view().setMaxDate(getDate(item.getTimestamp()));
+                view().setMaxCategory(item.getCategoryText());
+                view().setMaxSubcategory(item.getSubcategoryText());
+            } else {
+                view().hideMax();
+            }
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     private void loadMin() {

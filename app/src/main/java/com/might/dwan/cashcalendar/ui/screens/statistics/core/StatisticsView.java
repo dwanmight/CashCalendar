@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.might.dwan.cashcalendar.R;
+import com.might.dwan.cashcalendar.ui.views.ChartView;
 
 /**
  * Created by ilya on 13.06.2018.
@@ -16,6 +17,7 @@ public class StatisticsView
     private TextView minLabelTv, minDateTv, minAmountTv, minCategoryTv, minSubcategoryTv; //min
     private TextView sumLabelTv, sumAmountTv; //sum views
 
+    private ChartView chartView;
 
     public StatisticsView(View root) {
         v = root;
@@ -38,6 +40,7 @@ public class StatisticsView
 
         sumAmountTv = v.findViewById(R.id.statistics_sum_tv);
         sumLabelTv = v.findViewById(R.id.statistics_sum_label_tv);
+
     }
 
 

@@ -38,6 +38,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$androidLibVesion"
     implementation "com.android.support:design:$androidLibVesion"
     implementation "com.android.support:recyclerview-v7:$androidLibVesion"
+    implementation "com.android.support:support-dynamic-animation:$androidLibVesion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
 
