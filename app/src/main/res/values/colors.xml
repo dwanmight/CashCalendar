@@ -8,4 +8,6 @@
     <color name="colorBlack">#212121</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorDarkGreen">#00897B</color>
+
+    <color name="red">#B71C1C</color>
 </resources>

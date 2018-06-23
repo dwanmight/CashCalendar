@@ -4,12 +4,13 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.util.AttributeSet
 import android.view.View
+import com.might.dwan.cashcalendar.R
 import com.might.dwan.cashcalendar.utils.BuildUtils
 import com.might.dwan.cashcalendar.utils.DisplayUtils
 
@@ -33,7 +34,7 @@ open class ChartView : View {
     }
 
     init {
-        paint.color = Color.parseColor("#B71C1C")
+        paint.color = ContextCompat.getColor(context, R.color.red)
         paint.style = Paint.Style.FILL
     }
 
