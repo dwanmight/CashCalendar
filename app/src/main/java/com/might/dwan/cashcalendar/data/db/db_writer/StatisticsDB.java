@@ -121,7 +121,7 @@ public class StatisticsDB extends BaseDB {
         return builder.toString();
     }
 
-    public ArrayList<CostItem> getMonth(SQLiteDatabase db, long timestamp) {
+    public ArrayList<CostItem> getMonthly(SQLiteDatabase db, long timestamp) {
         ArrayList<CostItem> items = new ArrayList<>();
         String time = String.valueOf(DateUtils.parseTimeStampToUnix(timestamp));
 
@@ -152,12 +152,39 @@ public class StatisticsDB extends BaseDB {
                 items.add(PayCounterDB.createItem(c));
             }
         }
-        c.moveToFirst();
         release(c, db);
 
         Log.i(ConstantManager.TAG, "getMonth: " + Arrays.toString(items.toArray()));
 
         return items;
+    }
+
+    public float getMonthlyAmount(SQLiteDatabase db, long timestamp) {
+        float res = 0;
+        String time = String.valueOf(DateUtils.parseTimeStampToUnix(timestamp));
+
+        Cursor c = db.query(DBHelper.TABLE_USER_PAY
+                , new String[]{getFirstDayOfMonth() + " AS start_month",
+                        getLastDayOfMonth() + " AS end_month",
+                        "SUM(count_pay) as sum_amount",
+                }
+                , " start_month <= ? AND end_month >= ?"
+                , new String[]{time, time}
+                , null
+                , null
+                , null);
+
+        Log.i(ConstantManager.TAG, "getMonth: " + DatabaseUtils.dumpCursorToString(c));
+        if (c.getCount() > 0) {
+            c.moveToFirst();
+            c.moveToPrevious();
+            while (c.moveToNext()) {
+                res = c.getFloat(c.getColumnIndex("sum_amount"));
+            }
+        }
+        release(c, db);
+
+        return res;
     }
 
     private String getFirstDayOfMonth() {

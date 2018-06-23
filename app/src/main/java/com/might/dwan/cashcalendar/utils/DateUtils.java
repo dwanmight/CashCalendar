@@ -2,6 +2,7 @@ package com.might.dwan.cashcalendar.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Might on 12.09.2017.
@@ -13,6 +14,29 @@ public class DateUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd");
         return sdf.format(new Date(stamp));
     }
+
+
+
+    /**
+     * Get current month name
+     *
+     * @return month name
+     * @see #stampToMonth(long)
+     */
+    public static String stampToMonth() {
+        return stampToMonth(System.currentTimeMillis());
+    }
+
+    /**
+     * Get month name from timestamp
+     *
+     * @return month name
+     */
+    public static String stampToMonth(long stamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM", Locale.US);
+        return sdf.format(new Date(stamp));
+    }
+
 
     public static String stampToYMDHMS(long stamp) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");

@@ -6,6 +6,8 @@ import com.might.dwan.cashcalendar.utils.DateUtils;
 import com.might.dwan.cashcalendar.utils.ValidUtils;
 import com.might.dwan.cashcalendar.utils.rx.RxSchedulers;
 
+import java.util.ArrayList;
+
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -30,7 +32,21 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
         loadMax();
         loadMin();
         loadSum();
-        model.getTime();
+        loadMonthlyStatistics();
+    }
+
+    private void loadMonthlyStatistics() {
+        ArrayList<ChartInfo> list = new ArrayList<>();
+        ChartInfo info = model.getCurrentMonthAmount();
+        if (info.getValue() > 0) {
+            list.add(info);
+        }
+
+        if (list.isEmpty()) {
+            view().hideCharts();
+        } else {
+            view().addCharts(list);
+        }
     }
 
     private void loadMax() {

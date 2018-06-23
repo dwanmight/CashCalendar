@@ -43,12 +43,6 @@ public class StatisticsView
         sumLabelTv = v.findViewById(R.id.statistics_sum_label_tv);
 
         chartsView = v.findViewById(R.id.statistics_charts_view);
-
-        ArrayList<ChartInfo> charts = new ArrayList<>();
-        charts.add(new ChartInfo("Jun", 123f));
-        charts.add(new ChartInfo("Jul", 465f));
-        charts.add(new ChartInfo("May", 320f));
-        chartsView.addCharts(charts);
     }
 
 
@@ -114,5 +108,16 @@ public class StatisticsView
 
     private String getAmount(String amount) {
         return v.getResources().getString(R.string.value_type_uah, amount);
+    }
+
+
+
+    //Charts region
+    @Override public void addCharts(ArrayList<ChartInfo> list) {
+        chartsView.addCharts(list);
+    }
+
+    @Override public void hideCharts() {
+        chartsView.setVisibility(View.GONE);
     }
 }

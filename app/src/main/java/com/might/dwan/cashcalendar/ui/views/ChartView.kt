@@ -40,14 +40,18 @@ open class ChartView : View {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         if (graphHeight == 0f && measuredHeight > 0) {
-            graphHeight = measuredHeight.toFloat() * heightRatio
-            graphSpace = (measuredHeight - graphHeight).toInt()
-            rect.right = MeasureSpec.getSize(widthMeasureSpec).toFloat()
-            rect.left = 0f
-            rect.top = 0f
-            rect.bottom = MeasureSpec.getSize(heightMeasureSpec).toFloat()
-            animateChart()
+            initRectAndStartAnimation()
         }
+    }
+
+    private fun initRectAndStartAnimation() {
+        graphHeight = measuredHeight.toFloat() * heightRatio
+        graphSpace = (measuredHeight - graphHeight).toInt()
+        rect.right = measuredWidth.toFloat()
+        rect.left = 0f
+        rect.top = 0f
+        rect.bottom = measuredHeight.toFloat()
+        animateChart()
     }
 
     @SuppressLint("NewApi")

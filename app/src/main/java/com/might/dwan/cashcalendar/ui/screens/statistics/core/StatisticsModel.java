@@ -34,8 +34,10 @@ public class StatisticsModel {
         return Observable.just(statisticsDB.getSum(dbHelper.getReadableDatabase()));
     }
 
-    public ArrayList<CostItem> getTime() {
-        return statisticsDB.getMonth(dbHelper.getReadableDatabase(),
+    public ChartInfo getCurrentMonthAmount() {
+        String name = DateUtils.stampToMonth();
+        float value = statisticsDB.getMonthlyAmount(dbHelper.getReadableDatabase(),
                 DateUtils.parseTimeStampToUnix(System.currentTimeMillis()));
+        return new ChartInfo(name, value);
     }
 }
