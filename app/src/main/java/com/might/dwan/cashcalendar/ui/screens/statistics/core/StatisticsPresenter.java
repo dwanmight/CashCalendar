@@ -36,11 +36,10 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
     }
 
     private void loadMonthlyStatistics() {
-        ArrayList<ChartInfo> list = model.getMonthlyChartsInfo();
-
-        if (!list.isEmpty()) {
-            view().addCharts(list);
-        }
+        mSubscriptions.add(model.loadMonthlyChartsInfo().subscribe(
+                list->view().addCharts(new ArrayList<>(list)),
+                Throwable::printStackTrace
+        ));
     }
 
     private void loadMax() {

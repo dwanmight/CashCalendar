@@ -113,8 +113,8 @@ public class StatisticsView
 
     //Charts region
     @Override public void addCharts(ArrayList<ChartInfo> list) {
-        chartsView.addCharts(list);
         chartsTv.setVisibility(View.VISIBLE);
         chartsView.setVisibility(View.VISIBLE);
+        chartsView.addCharts(list);
     }
 }

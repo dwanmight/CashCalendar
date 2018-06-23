@@ -6,7 +6,10 @@ import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.utils.DateUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
 /**
@@ -34,20 +37,15 @@ public class StatisticsModel {
         return Observable.just(statisticsDB.getSum(dbHelper.getReadableDatabase()));
     }
 
-    public ArrayList<ChartInfo> getMonthlyChartsInfo() {
-        ArrayList<ChartInfo> charts = new ArrayList<>();
-        String name;
-        float amount;
-
-        for (int i = -2; i <= 0; i++) {
-            amount = statisticsDB.getMonthlyAmount(
-                    dbHelper.getReadableDatabase(),
-                    DateUtils.parseTimeStampToUnix(DateUtils.getMonthStamp(i)));
-            if (amount > 0) {
-                name = DateUtils.getMonthNameFromCurrent(i);
-                charts.add(new ChartInfo(name, amount));
-            }
-        }
-        return charts;
+    public Maybe<List<ChartInfo>> loadMonthlyChartsInfo() {
+        return Flowable.fromArray(-2, -1, 0)
+                .map(index -> {
+                    float amount = statisticsDB.getMonthlyAmount(dbHelper.getReadableDatabase(),
+                            DateUtils.parseTimeStampToUnix(DateUtils.getMonthStamp(index)));
+                    String name = DateUtils.getMonthNameFromCurrent(index);
+                    return new ChartInfo(name, amount);
+                }).filter(info -> info.getValue() > 0)
+                .toList()
+                .filter(list -> !list.isEmpty());
     }
 }
