@@ -68,7 +68,6 @@ open class ChartView : View {
         }
     }
 
-
     private fun animateChart() {
         val anim = ValueAnimator.ofFloat(0f, graphHeight)
         anim.interpolator = FastOutSlowInInterpolator()
@@ -78,8 +77,5 @@ open class ChartView : View {
             invalidate()
         }
         anim.start()
-
     }
-
-
 }
