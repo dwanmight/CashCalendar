@@ -4,7 +4,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.might.dwan.cashcalendar.R;
-import com.might.dwan.cashcalendar.ui.views.ChartView;
+import com.might.dwan.cashcalendar.ui.views.ChartContainer;
+
+import java.util.ArrayList;
 
 /**
  * Created by ilya on 13.06.2018.
@@ -16,8 +18,7 @@ public class StatisticsView
     private TextView maxLabelTv, maxDateTv, maxAmountTv, maxCategoryTv, maxSubcategoryTv; //max
     private TextView minLabelTv, minDateTv, minAmountTv, minCategoryTv, minSubcategoryTv; //min
     private TextView sumLabelTv, sumAmountTv; //sum views
-
-    private ChartView chartView;
+    private ChartContainer chartsView;
 
     public StatisticsView(View root) {
         v = root;
@@ -41,6 +42,13 @@ public class StatisticsView
         sumAmountTv = v.findViewById(R.id.statistics_sum_tv);
         sumLabelTv = v.findViewById(R.id.statistics_sum_label_tv);
 
+        chartsView = v.findViewById(R.id.statistics_charts_view);
+
+        ArrayList<ChartInfo> charts = new ArrayList<>();
+        charts.add(new ChartInfo("Jun", 123f));
+        charts.add(new ChartInfo("Jul", 465f));
+        charts.add(new ChartInfo("May", 320f));
+        chartsView.addCharts(charts);
     }
 
 
@@ -89,6 +97,7 @@ public class StatisticsView
     @Override public void hideMin() {
         minRootView.setVisibility(View.GONE);
         minLabelTv.setVisibility(View.GONE);
+
     }
 
 

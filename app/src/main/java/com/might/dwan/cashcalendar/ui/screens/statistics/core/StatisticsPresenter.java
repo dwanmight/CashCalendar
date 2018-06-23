@@ -67,14 +67,16 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
     }
 
     private void setMinToView(CostItem item) {
-        if (isValidItem(item)) {
-            view().setMinAmount(item.getCountPay());
-            view().setMinDate(getDate(item.getTimestamp()));
-            view().setMinCategory(item.getCategoryText());
-            view().setMinSubcategory(item.getSubcategoryText());
-        } else {
-            view().hideMin();
-        }
+        try {
+            if (isValidItem(item)) {
+                view().setMinAmount(item.getCountPay());
+                view().setMinDate(getDate(item.getTimestamp()));
+                view().setMinCategory(item.getCategoryText());
+                view().setMinSubcategory(item.getSubcategoryText());
+            } else {
+                view().hideMin();
+            }
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     private void loadSum() {
@@ -86,11 +88,13 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
     }
 
     private void setSumToView(String amount) {
-        if (!ValidUtils.isTextValid(amount)) {
-            view().hideSum();
-        } else {
-            view().setSumAmount(amount);
-        }
+        try {
+            if (!ValidUtils.isTextValid(amount)) {
+                view().hideSum();
+            } else {
+                view().setSumAmount(amount);
+            }
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     private String getDate(String timestamp) {
