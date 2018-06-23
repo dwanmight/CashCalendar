@@ -1,13 +1,14 @@
 package com.might.dwan.cashcalendar.ui.views
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Typeface
 import android.support.annotation.Dimension
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.might.dwan.cashcalendar.R
 import com.might.dwan.cashcalendar.ui.screens.statistics.core.ChartInfo
 import com.might.dwan.cashcalendar.utils.DisplayUtils
 
@@ -48,8 +49,8 @@ class ChartContainer(c: Context, attr: AttributeSet? = null) : ViewGroup(c, attr
     private fun addAmountView(amount: Float): View {
         val size = MarginLayoutParams.WRAP_CONTENT
         val v = AnimatedTextView(context)
-        v.setTextColor(Color.BLACK)
-        v.textSize = 16f
+        v.setTextColor(ContextCompat.getColor(context, R.color.colorGrey))
+        v.textSize = 14f
         v.typeface = Typeface.SERIF
         val params = MarginLayoutParams(size, size)
         params.topMargin = DisplayUtils.pxToDpi(context, 8).toInt()
@@ -71,9 +72,9 @@ class ChartContainer(c: Context, attr: AttributeSet? = null) : ViewGroup(c, attr
     private fun addTitleView(title: String): View {
         val size = MarginLayoutParams.WRAP_CONTENT
         val v = TextView(context)
-        v.setTextColor(Color.BLACK)
+        v.setTextColor(ContextCompat.getColor(context, R.color.colorGrey))
         v.text = title
-        v.textSize = 18f
+        v.textSize = 16f
         v.typeface = Typeface.SERIF
         val params = MarginLayoutParams(size, size)
         params.bottomMargin = DisplayUtils.pxToDpi(context, 8).toInt()
@@ -131,7 +132,7 @@ class ChartContainer(c: Context, attr: AttributeSet? = null) : ViewGroup(c, attr
             child = getChildAt(i)
             params = child.layoutParams as MarginLayoutParams
             if (index == 1) {
-//                println("onLayout w = ${child.measuredWidth}, h = ${child.measuredHeight}")
+                //ChartView
                 child.layout(left - child.measuredWidth / 2,
                         0 + params.topMargin,
                         left + child.measuredWidth / 2,
@@ -140,10 +141,13 @@ class ChartContainer(c: Context, attr: AttributeSet? = null) : ViewGroup(c, attr
             }
 
             if (index == 0) {
+                //title
+                val space = (getChildAt(i + 1) as ChartView).graphSpace
+
                 child.layout(left - (child.measuredWidth / 2),
-                        0 + params.topMargin,
+                        0 + params.topMargin + space,
                         left + (child.measuredWidth / 2),
-                        params.topMargin + child.measuredHeight)
+                        params.topMargin + space + child.measuredHeight)
 
                 continue
             }

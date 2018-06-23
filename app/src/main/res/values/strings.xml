@@ -42,4 +42,10 @@
     <!--Value type-->
     <string name="value_type_uah">%1$s грн</string>
 
+    <!--Statistics-->
+    <string name="diagrams">Диаграммы</string>
+    <string name="max">Максимум</string>
+    <string name="min">Минимум</string>
+    <string name="all">Всего</string>
+
 </resources>

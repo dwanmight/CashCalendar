@@ -15,9 +15,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/statistics_sum_daigrams_tv"
+                style="@style/statistics_label"
+                android:text="@string/diagrams" />
+
+            <com.might.dwan.cashcalendar.ui.views.ChartContainer
+                android:id="@+id/statistics_charts_view"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/colorWhite" />
+
+            <TextView
                 android:id="@+id/statistics_max_label_tv"
                 style="@style/statistics_label"
-                android:text="Максимум" />
+                android:layout_height="18dp"
+                android:text="@string/max" />
 
             <include
                 android:id="@+id/statistics_max_root_view"
@@ -26,7 +38,7 @@
             <TextView
                 style="@style/statistics_label"
                 android:id="@+id/statistics_min_label_tv"
-                android:text="Минимум" />
+                android:text="@string/min" />
 
             <include
                 android:id="@+id/statistics_min_root_view"
@@ -35,7 +47,7 @@
             <TextView
                 style="@style/statistics_label"
                 android:id="@+id/statistics_sum_label_tv"
-                android:text="Всего" />
+                android:text="@string/all" />
 
             <TextView
                 android:id="@+id/statistics_sum_tv"
@@ -46,17 +58,6 @@
                 android:gravity="center"
                 android:textSize="24sp"
                 android:textColor="@color/colorPrimaryDark" />
-
-            <TextView
-                android:id="@+id/statistics_sum_daigrams_tv"
-                style="@style/statistics_label"
-                android:text="диграммы" />
-
-            <com.might.dwan.cashcalendar.ui.views.ChartContainer
-                android:id="@+id/statistics_charts_view"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="@color/colorWhite" />
 
         </LinearLayout>
 
