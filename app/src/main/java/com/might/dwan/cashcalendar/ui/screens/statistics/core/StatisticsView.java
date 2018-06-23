@@ -18,6 +18,7 @@ public class StatisticsView
     private TextView maxLabelTv, maxDateTv, maxAmountTv, maxCategoryTv, maxSubcategoryTv; //max
     private TextView minLabelTv, minDateTv, minAmountTv, minCategoryTv, minSubcategoryTv; //min
     private TextView sumLabelTv, sumAmountTv; //sum views
+    private TextView chartsTv;
     private ChartContainer chartsView;
 
     public StatisticsView(View root) {
@@ -43,6 +44,7 @@ public class StatisticsView
         sumLabelTv = v.findViewById(R.id.statistics_sum_label_tv);
 
         chartsView = v.findViewById(R.id.statistics_charts_view);
+        chartsTv = v.findViewById(R.id.statistics_sum_diagrams_tv);
     }
 
 
@@ -118,6 +120,7 @@ public class StatisticsView
     }
 
     @Override public void hideCharts() {
+        chartsTv.setVisibility(View.GONE);
         chartsView.setVisibility(View.GONE);
     }
 }

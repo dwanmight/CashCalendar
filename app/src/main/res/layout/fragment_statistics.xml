@@ -16,14 +16,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/statistics_sum_daigrams_tv"
+                android:id="@+id/statistics_sum_diagrams_tv"
                 style="@style/statistics_label"
                 android:text="@string/diagrams" />
 
             <com.might.dwan.cashcalendar.ui.views.ChartContainer
                 android:id="@+id/statistics_charts_view"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="180dp"
                 android:background="@color/colorWhite" />
 
             <TextView

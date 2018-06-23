@@ -17,21 +17,19 @@ import com.might.dwan.cashcalendar.utils.DisplayUtils
 /**
  * Created by Ilya on 21.06.2018.
  */
-open class ChartView : View {
+open class ChartView(c: Context,
+                     attr: AttributeSet? = null,
+                     private var heightRatio: Float = 1f
+) : View(c, attr) {
 
 
     private val paint = Paint()
     private var rect = RectF()
-    var graphHeight: Float = 0f
+    private var graphHeight: Float = 0f
     var graphSpace: Int = 0
-    private var heightRatio: Float = 1f
 
     private val topRoundOffset = DisplayUtils.pxToDpi(context, 16)
     private val radius = DisplayUtils.pxToDpi(context, 5)
-
-    constructor(c: Context, attr: AttributeSet? = null, heightRatio: Float = 1f) : super(c, attr) {
-        this.heightRatio = heightRatio
-    }
 
     init {
         paint.color = ContextCompat.getColor(context, R.color.red)
@@ -47,6 +45,9 @@ open class ChartView : View {
 
     private fun initRectAndStartAnimation() {
         graphHeight = measuredHeight.toFloat() * heightRatio
+        if (graphHeight < 5) {
+            graphHeight = 10f
+        }
         graphSpace = (measuredHeight - graphHeight).toInt()
         rect.right = measuredWidth.toFloat()
         rect.left = 0f

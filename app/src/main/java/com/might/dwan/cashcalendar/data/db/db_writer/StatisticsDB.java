@@ -5,6 +5,7 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.might.dwan.cashcalendar.data.db.DBDateUtils;
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.utils.ConstantManager;
@@ -126,8 +127,8 @@ public class StatisticsDB extends BaseDB {
         String time = String.valueOf(DateUtils.parseTimeStampToUnix(timestamp));
 
         Cursor c = db.query(DBHelper.TABLE_USER_PAY
-                , new String[]{getFirstDayOfMonth() + " AS start_month",
-                        getLastDayOfMonth() + " AS end_month",
+                , new String[]{DBDateUtils.getCurrentMonthStart() + " AS start_month",
+                        DBDateUtils.getCurrentMonthEnd() + " AS end_month",
                         DBHelper.COLUMN_USER_PAY_ITEM_ID,
                         DBHelper.COLUMN_USER_PAY_USER_ID,
                         DBHelper.COLUMN_USER_PAY_CATEGORY,
@@ -144,7 +145,7 @@ public class StatisticsDB extends BaseDB {
                 , null
                 , null);
 
-        Log.i(ConstantManager.TAG, "getMonth: " + DatabaseUtils.dumpCursorToString(c));
+        Log.i(ConstantManager.TAG, "getMonthly: " + DatabaseUtils.dumpCursorToString(c));
         if (c.getCount() > 0) {
             c.moveToFirst();
             c.moveToPrevious();
@@ -161,11 +162,11 @@ public class StatisticsDB extends BaseDB {
 
     public float getMonthlyAmount(SQLiteDatabase db, long timestamp) {
         float res = 0;
-        String time = String.valueOf(DateUtils.parseTimeStampToUnix(timestamp));
+        String time = String.valueOf(timestamp);
 
         Cursor c = db.query(DBHelper.TABLE_USER_PAY
-                , new String[]{getFirstDayOfMonth() + " AS start_month",
-                        getLastDayOfMonth() + " AS end_month",
+                , new String[]{DBDateUtils.getCurrentMonthStart() + " AS start_month",
+                        DBDateUtils.getCurrentMonthEnd() + " AS end_month",
                         "SUM(count_pay) as sum_amount",
                 }
                 , " start_month <= ? AND end_month >= ?"
@@ -174,7 +175,7 @@ public class StatisticsDB extends BaseDB {
                 , null
                 , null);
 
-        Log.i(ConstantManager.TAG, "getMonth: " + DatabaseUtils.dumpCursorToString(c));
+        Log.i(ConstantManager.TAG, "getMonthlyAmount: " + DatabaseUtils.dumpCursorToString(c));
         if (c.getCount() > 0) {
             c.moveToFirst();
             c.moveToPrevious();
@@ -185,13 +186,5 @@ public class StatisticsDB extends BaseDB {
         release(c, db);
 
         return res;
-    }
-
-    private String getFirstDayOfMonth() {
-        return " strftime('%s', timestamp, 'unixepoch', 'start of month' ) ";
-    }
-
-    private String getLastDayOfMonth() {
-        return " strftime('%s', timestamp, 'unixepoch', 'start of month', '+1 month', '-1 day' ) ";
     }
 }

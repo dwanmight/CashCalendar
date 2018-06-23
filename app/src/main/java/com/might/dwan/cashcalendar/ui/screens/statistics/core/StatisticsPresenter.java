@@ -36,11 +36,7 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
     }
 
     private void loadMonthlyStatistics() {
-        ArrayList<ChartInfo> list = new ArrayList<>();
-        ChartInfo info = model.getCurrentMonthAmount();
-        if (info.getValue() > 0) {
-            list.add(info);
-        }
+        ArrayList<ChartInfo> list = model.getMonthlyChartsInfo();
 
         if (list.isEmpty()) {
             view().hideCharts();

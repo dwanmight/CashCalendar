@@ -1,6 +1,7 @@
 package com.might.dwan.cashcalendar.utils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -25,6 +26,10 @@ public class DateUtils {
      */
     public static String stampToMonth() {
         return stampToMonth(System.currentTimeMillis());
+    }
+
+    public static String getMonthNameFromCurrent(int monthDiff) {
+        return stampToMonth(getMonthStamp(monthDiff));
     }
 
     /**
@@ -55,5 +60,22 @@ public class DateUtils {
 
     public static long parseTimeStampFromUnix(String timestamp) {
         return Long.parseLong(timestamp) * 1000L;
+    }
+
+
+    public static long getMonthStamp(int monthDiff) {
+        return getPrevMonthCalendar(monthDiff).getTimeInMillis();
+    }
+
+
+    public static long getPrevMonthStamp() {
+        return getPrevMonthCalendar(-1).getTimeInMillis();
+    }
+
+    public static Calendar getPrevMonthCalendar(int monthDiff) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.add(Calendar.MONTH, monthDiff);
+        return calendar;
     }
 }
