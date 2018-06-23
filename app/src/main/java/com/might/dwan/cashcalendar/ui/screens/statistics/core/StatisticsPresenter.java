@@ -38,9 +38,7 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
     private void loadMonthlyStatistics() {
         ArrayList<ChartInfo> list = model.getMonthlyChartsInfo();
 
-        if (list.isEmpty()) {
-            view().hideCharts();
-        } else {
+        if (!list.isEmpty()) {
             view().addCharts(list);
         }
     }
@@ -62,8 +60,7 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
                 view().setMaxDate(getDate(item.getTimestamp()));
                 view().setMaxCategory(item.getCategoryText());
                 view().setMaxSubcategory(item.getSubcategoryText());
-            } else {
-                view().hideMax();
+                view().showMax();
             }
         } catch (Exception e) {e.printStackTrace();}
     }
@@ -85,8 +82,7 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
                 view().setMinDate(getDate(item.getTimestamp()));
                 view().setMinCategory(item.getCategoryText());
                 view().setMinSubcategory(item.getSubcategoryText());
-            } else {
-                view().hideMin();
+                view().showMin();
             }
         } catch (Exception e) {e.printStackTrace();}
     }
@@ -101,9 +97,7 @@ public class StatisticsPresenter extends BasePresenter<StatisticsContractor.IVie
 
     private void setSumToView(String amount) {
         try {
-            if (!ValidUtils.isTextValid(amount)) {
-                view().hideSum();
-            } else {
+            if (ValidUtils.isTextValid(amount)) {
                 view().setSumAmount(amount);
             }
         } catch (Exception e) {e.printStackTrace();}

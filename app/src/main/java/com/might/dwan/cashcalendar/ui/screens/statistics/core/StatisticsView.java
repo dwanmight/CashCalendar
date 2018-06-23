@@ -66,9 +66,9 @@ public class StatisticsView
         maxSubcategoryTv.setText(subcategory);
     }
 
-    @Override public void hideMax() {
-        maxRootView.setVisibility(View.GONE);
-        maxLabelTv.setVisibility(View.GONE);
+    @Override public void showMax() {
+        maxRootView.setVisibility(View.VISIBLE);
+        maxLabelTv.setVisibility(View.VISIBLE);
     }
 
 
@@ -90,9 +90,9 @@ public class StatisticsView
         minSubcategoryTv.setText(subcategory);
     }
 
-    @Override public void hideMin() {
-        minRootView.setVisibility(View.GONE);
-        minLabelTv.setVisibility(View.GONE);
+    @Override public void showMin() {
+        minRootView.setVisibility(View.VISIBLE);
+        minLabelTv.setVisibility(View.VISIBLE);
 
     }
 
@@ -101,11 +101,8 @@ public class StatisticsView
     //Sum region
     @Override public void setSumAmount(String amount) {
         sumAmountTv.setText(getAmount(amount));
-    }
-
-    @Override public void hideSum() {
-        sumLabelTv.setVisibility(View.GONE);
-        sumAmountTv.setVisibility(View.GONE);
+        sumLabelTv.setVisibility(View.VISIBLE);
+        sumAmountTv.setVisibility(View.VISIBLE);
     }
 
     private String getAmount(String amount) {
@@ -117,10 +114,7 @@ public class StatisticsView
     //Charts region
     @Override public void addCharts(ArrayList<ChartInfo> list) {
         chartsView.addCharts(list);
-    }
-
-    @Override public void hideCharts() {
-        chartsTv.setVisibility(View.GONE);
-        chartsView.setVisibility(View.GONE);
+        chartsTv.setVisibility(View.VISIBLE);
+        chartsView.setVisibility(View.VISIBLE);
     }
 }

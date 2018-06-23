@@ -43,8 +43,10 @@ public class StatisticsModel {
             amount = statisticsDB.getMonthlyAmount(
                     dbHelper.getReadableDatabase(),
                     DateUtils.parseTimeStampToUnix(DateUtils.getMonthStamp(i)));
-            name = DateUtils.getMonthNameFromCurrent(i);
-            charts.add(new ChartInfo(name, amount));
+            if (amount > 0) {
+                name = DateUtils.getMonthNameFromCurrent(i);
+                charts.add(new ChartInfo(name, amount));
+            }
         }
         return charts;
     }

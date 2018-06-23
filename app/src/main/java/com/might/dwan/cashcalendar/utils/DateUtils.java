@@ -38,7 +38,7 @@ public class DateUtils {
      * @return month name
      */
     public static String stampToMonth(long stamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM yyyy", Locale.US);
         return sdf.format(new Date(stamp));
     }
 

@@ -17,6 +17,7 @@
 
             <TextView
                 android:id="@+id/statistics_sum_diagrams_tv"
+                android:visibility="gone"
                 style="@style/statistics_label"
                 android:text="@string/diagrams" />
 
@@ -24,35 +25,42 @@
                 android:id="@+id/statistics_charts_view"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
+                android:visibility="gone"
                 android:background="@color/colorWhite" />
 
             <TextView
                 android:id="@+id/statistics_max_label_tv"
                 style="@style/statistics_label"
+                android:visibility="gone"
                 android:layout_height="18dp"
                 android:text="@string/max" />
 
             <include
                 android:id="@+id/statistics_max_root_view"
+                android:visibility="gone"
                 layout="@layout/include_cost_item" />
 
             <TextView
                 style="@style/statistics_label"
+                android:visibility="gone"
                 android:id="@+id/statistics_min_label_tv"
                 android:text="@string/min" />
 
             <include
                 android:id="@+id/statistics_min_root_view"
+                android:visibility="gone"
                 layout="@layout/include_cost_item" />
 
             <TextView
                 style="@style/statistics_label"
+                android:visibility="gone"
                 android:id="@+id/statistics_sum_label_tv"
                 android:text="@string/all" />
 
             <TextView
                 android:id="@+id/statistics_sum_tv"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="@dimen/list_item_size"
                 android:background="@color/colorWhite"
                 android:fontFamily="sans-serif-condensed"
