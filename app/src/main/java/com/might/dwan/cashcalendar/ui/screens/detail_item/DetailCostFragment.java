@@ -97,6 +97,7 @@ public class DetailCostFragment extends BaseFragment {
     }
 
 
+    
     //show region
     public void showDatePickDialog(String timestamp) {
         DatePickerDialog dialog = DatePickerDialog.newInstance(timestamp);
@@ -117,8 +118,9 @@ public class DetailCostFragment extends BaseFragment {
     }
 
     public void goBack(boolean result) {
-        getActivity().setResult(result ? Activity.RESULT_OK : Activity.RESULT_CANCELED);
-        getActivity().finish();
+        try {
+            getActivity().setResult(result ? Activity.RESULT_OK : Activity.RESULT_CANCELED);
+            getActivity().finish();
+        } catch (Exception e) {e.printStackTrace();}
     }
-
 }

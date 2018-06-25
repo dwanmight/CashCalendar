@@ -34,10 +34,9 @@
                     android:id="@+id/toolbar_title_tv"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp"
-                    android:fontFamily="sans-serif-condensed"
+                    android:layout_gravity="center_vertical|left"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                    android:layout_height="wrap_content"/>
             </FrameLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

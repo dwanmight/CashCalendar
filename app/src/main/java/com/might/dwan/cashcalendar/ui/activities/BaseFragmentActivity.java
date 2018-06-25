@@ -65,10 +65,9 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
         int count_fragment_stack = getFragmentManager().getBackStackEntryCount();
         if (count_fragment_stack > 1) {
             getFragmentManager().popBackStack();
-        } else if (count_fragment_stack == 1) {
-            finish();
         } else {
-            super.onBackPressed();
+//            super.onBackPressed();
+            finish();
         }
     }
 

@@ -48,7 +48,7 @@ public class MainActivity extends BaseFragmentActivity
         mNavHeader = mNavigationView.getHeaderView(0);
         mToolbar = findViewById(R.id.toolbar);
 
-        mToolbar.setTitle(getResources().getString(R.string.app_name));
+        mToolbar.setTitle("History");
         setSupportActionBar(mToolbar);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
