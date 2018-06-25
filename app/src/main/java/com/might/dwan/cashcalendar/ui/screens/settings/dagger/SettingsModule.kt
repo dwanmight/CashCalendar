@@ -1,32 +1,29 @@
 package com.might.dwan.cashcalendar.ui.screens.settings.dagger
 
-import android.view.View
+import com.might.dwan.cashcalendar.ui.screens.settings.core.SettingsContractor
 import com.might.dwan.cashcalendar.ui.screens.settings.core.SettingsModel
 import com.might.dwan.cashcalendar.ui.screens.settings.core.SettingsPresenter
-import com.might.dwan.cashcalendar.ui.screens.settings.core.SettingsView
 import dagger.Module
 import dagger.Provides
 
 @Module
-class SettingsModule(var view: View?) {
+class SettingsModule(var view: SettingsContractor.IView) {
+
+    @SettingScope
+    @Provides
+    fun provideView(): SettingsContractor.IView = view
 
 
     @SettingScope
     @Provides
-    internal fun provideView(): SettingsView {
-        return SettingsView(view)
+
+    fun providePresenter(view: SettingsContractor.IView, model: SettingsModel): SettingsContractor.IPresenter {
+        return SettingsPresenter(view, model)
     }
 
-
     @SettingScope
     @Provides
-    internal fun providePresenter(): SettingsPresenter {
-        return SettingsPresenter()
-    }
-
-    @SettingScope
-    @Provides
-    internal fun provideModel(): SettingsModel {
+    fun provideModel(): SettingsModel {
         return SettingsModel()
     }
 }

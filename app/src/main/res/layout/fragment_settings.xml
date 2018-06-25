@@ -13,6 +13,7 @@
 
         <TextView
             android:id="@+id/settings_notifications_tv"
+            android:background="?selectableItemBackground"
             style="@style/simple_text_list_item"
             android:text="@string/title_notifications" />
     </LinearLayout>
