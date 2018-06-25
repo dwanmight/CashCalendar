@@ -3,7 +3,7 @@ package com.might.dwan.cashcalendar.ui.screens.settings.core
 import com.might.dwan.cashcalendar.archs.presenters.BasePresenter
 
 class SettingsPresenter(v: SettingsContractor.IView,
-                        model: SettingsModel
+                        model: Any
 ) : BasePresenter<SettingsContractor.IView, Any>(v),
         SettingsContractor.IPresenter {
 
