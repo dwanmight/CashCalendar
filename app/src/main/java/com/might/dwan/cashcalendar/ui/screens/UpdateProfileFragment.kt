@@ -99,7 +99,7 @@ class UpdateProfileFragment : BaseFragment(), View.OnClickListener {
                     EditTextUtils.getText(update_name_et),
                     EditTextUtils.getText(update_surname_et))
             PreferencesManager.get(activity).preferences.saveNickname(EditTextUtils.getText(update_nickname_et))
-            activity.finish()
+            activity?.finish()
         } catch (e: Exception) {
             e.printStackTrace()
         }

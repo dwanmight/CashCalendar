@@ -1,6 +1,6 @@
 package com.might.dwan.cashcalendar.ui.activities;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 import com.might.dwan.cashcalendar.ui.screens.UpdateProfileFragment;
 

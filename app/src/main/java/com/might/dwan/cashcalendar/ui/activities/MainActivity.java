@@ -1,10 +1,11 @@
 package com.might.dwan.cashcalendar.ui.activities;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +18,8 @@ import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
 import com.might.dwan.cashcalendar.ui.screens.statistics.StatisticsFragment;
 import com.might.dwan.cashcalendar.utils.IntentUtils;
+
+import java.util.List;
 
 public class MainActivity extends BaseFragmentActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -127,6 +130,14 @@ public class MainActivity extends BaseFragmentActivity
     }
 
     public void startFragment(Fragment fragment, String title) {
+        FragmentManager fm = getSupportFragmentManager();
+        List<android.support.v4.app.Fragment> fragments = fm.getFragments();
+        int stackCount = fragments.size();
+        if (stackCount > 0 &&
+                (fragments.get(stackCount - 1).getClass().getSimpleName()
+                        .equals(fragment.getClass().getSimpleName()))) {
+            return;
+        }
         super.startFragment(fragment);
         mToolbar.setTitle(title);
     }

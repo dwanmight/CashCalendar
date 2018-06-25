@@ -1,11 +1,11 @@
 package com.might.dwan.cashcalendar.ui.activities;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +31,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     }
 
     public void startFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container_fragment_frame, fragment)
                 .addToBackStack(fragment.getClass().toString())
@@ -78,7 +78,8 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Fragment fragment = getFragmentManager().findFragmentById(R.id.container_fragment_frame);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id
+                .container_fragment_frame);
         if (fragment != null) {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
