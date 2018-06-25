@@ -31,6 +31,7 @@ class ChartContainer(c: Context, attr: AttributeSet? = null) : ViewGroup(c, attr
 
     fun addCharts(list: List<ChartInfo>) {
         if (list.isEmpty()) return
+        removeAllViews()
 
         list.forEach { amounts.add(it.value) }
 
@@ -74,7 +75,7 @@ class ChartContainer(c: Context, attr: AttributeSet? = null) : ViewGroup(c, attr
         val v = TextView(context)
         v.setTextColor(ContextCompat.getColor(context, R.color.colorGrey))
         v.text = title
-        v.textSize = 16f
+        v.textSize = 14f
         v.typeface = Typeface.SERIF
         val params = MarginLayoutParams(size, size)
         params.bottomMargin = DisplayUtils.pxToDpi(context, 8).toInt()
