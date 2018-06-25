@@ -19,4 +19,22 @@
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+    <style name="statistics_label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">@dimen/vertical_margin_16</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin_16</item>
+    </style>
+
+
+    <!--Simple textView for list item-->
+    <style name="simple_text_list_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/min_view_size</item>
+        <item name="android:layout_marginLeft">@dimen/horizontal_margin_16</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
 </resources>

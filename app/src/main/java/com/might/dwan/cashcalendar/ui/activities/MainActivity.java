@@ -16,6 +16,7 @@ import android.view.View;
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
 import com.might.dwan.cashcalendar.ui.screens.statistics.StatisticsFragment;
+import com.might.dwan.cashcalendar.utils.IntentUtils;
 
 public class MainActivity extends BaseFragmentActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -105,10 +106,8 @@ public class MainActivity extends BaseFragmentActivity
             startFragment(new CountersFragment(), "History");
         } else if (id == R.id.nav_statistics) {
             startFragment(new StatisticsFragment(), "Statistics");
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_settings) {
+            IntentUtils.startSettings(this);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

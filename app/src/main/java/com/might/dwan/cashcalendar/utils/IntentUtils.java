@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.ui.activities.DetailPayActivity;
+import com.might.dwan.cashcalendar.ui.activities.SettingActivity;
 
 /**
  * Created by Might on 13.09.2017.
@@ -34,7 +35,14 @@ public class IntentUtils {
         startActivity(context, intent, ConstantManager.REQUEST_GALLERY_PICK);
     }
 
+    public static void startSettings(Context context) {
+        startActivity(context, SettingActivity.class);
+    }
 
+
+    public static void startActivity(Context context, Class cl) {
+        startActivity(context, new Intent(context, cl));
+    }
 
     private static void startActivity(Context c, Intent intent) {
         startActivity(c, intent, -1);
