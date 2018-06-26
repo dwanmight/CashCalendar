@@ -179,4 +179,12 @@ public class PayCounterDB extends BaseDB {
                 , String.valueOf(limit));
         return c;
     }
+
+
+    public boolean removeItemWithId(SQLiteDatabase db, String id) {
+        int delete = db.delete(DBHelper.TABLE_USER_PAY,
+                DBHelper.COLUMN_USER_PAY_ITEM_ID + " = ?",
+                new String[]{id});
+        return delete != 0;
+    }
 }

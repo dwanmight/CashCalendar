@@ -14,7 +14,6 @@ import com.might.dwan.cashcalendar.ui.adapter.decoration.SpaceDecoration;
 import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
 import com.might.dwan.cashcalendar.ui.screens.counters.list.CountersAdapter;
 import com.might.dwan.cashcalendar.ui.screens.counters.list.ItemSwipeCallback;
-import com.might.dwan.cashcalendar.ui.screens.counters.list.PayCounterVH;
 import com.might.dwan.cashcalendar.utils.DisplayUtils;
 
 import java.util.ArrayList;
@@ -41,11 +40,11 @@ public class CountersView {
 
         @Override public void onChildDraw(Canvas c, RecyclerView rv, RecyclerView.ViewHolder vh,
                                           float dX, float dY, int action, boolean isActive) {
-            if (vh instanceof PayCounterVH) {
-                if (dX > -300 && dX <= 0) {
-                    ((PayCounterVH) vh).frontView.setTranslationX(dX);
-                }
-            }
+            //            if (vh instanceof PayCounterVH) {
+            //                if (dX > -300 && dX <= 0) {
+            //                    ((PayCounterVH) vh).frontView.setTranslationX(dX);
+            //                }
+            //            }
         }
     };
 
