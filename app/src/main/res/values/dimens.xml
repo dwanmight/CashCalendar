@@ -5,11 +5,13 @@
     <!--horizontal margins-->
     <dimen name="horizontal_margin_8">8dp</dimen>
     <dimen name="horizontal_margin_16">16dp</dimen>
+    <dimen name="horizontal_margin_24">24dp</dimen>
 
 
     <!--Vertical margins-->
     <dimen name="vertical_margin_8">8dp</dimen>
     <dimen name="vertical_margin_16">16dp</dimen>
+    <dimen name="vertical_margin_24">24dp</dimen>
 
 
     <dimen name="nav_header_vertical_spacing">16dp</dimen>

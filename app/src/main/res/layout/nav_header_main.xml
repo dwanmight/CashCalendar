@@ -1,36 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
     android:background="@drawable/side_nav_bar"
-    android:gravity="bottom"
     android:orientation="vertical"
+    android:gravity="center_vertical"
     android:paddingBottom="@dimen/vertical_margin_16"
     android:paddingLeft="@dimen/horizontal_margin_16"
     android:paddingRight="@dimen/horizontal_margin_16"
-    android:paddingTop="@dimen/vertical_margin_16"
+    android:paddingTop="@dimen/vertical_margin_24"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
         android:id="@+id/header_photo_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@android:drawable/sym_def_app_icon"/>
+        android:layout_width="60dp"
+        android:tint="@color/colorBlack"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_wallet_black" />
 
     <TextView
         android:id="@+id/nav_header_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/nav_header_surnam"
+        android:id="@+id/nav_header_surname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 </LinearLayout>
