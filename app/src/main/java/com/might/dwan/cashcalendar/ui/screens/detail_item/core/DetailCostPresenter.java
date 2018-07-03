@@ -11,8 +11,10 @@ import com.might.dwan.cashcalendar.utils.ValidUtils;
 import com.might.dwan.cashcalendar.utils.rx.RxSchedulers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -27,7 +29,7 @@ public class DetailCostPresenter extends BasePresenter<DetailCostView, DetailCos
     private ArrayList<NameIdItem> mCategoryList, mSubcategoryList;
     private RxSchedulers mRxSchedulers;
     private CostItem mCostItem;
-    private CompositeDisposable mSubscribers = new CompositeDisposable();
+    private CompositeDisposable mSubscribers;
 
     private int mMode;
 
@@ -44,7 +46,8 @@ public class DetailCostPresenter extends BasePresenter<DetailCostView, DetailCos
         bindModel(model);
     }
 
-    @Override public void updateView() {
+    @Override
+    public void updateView() {
         view().setupCategoryAdapter(mCategoryList);
         view().setupSubCategoryAdapter(mSubcategoryList);
         view().bindClickListener(this);
@@ -68,18 +71,23 @@ public class DetailCostPresenter extends BasePresenter<DetailCostView, DetailCos
             mSubscribers.add(model.loadCategories()
                     .subscribeOn(mRxSchedulers.io())
                     .observeOn(mRxSchedulers.androidThread())
-                    .subscribe(list -> {
-                                mCategoryList.clear();
-                                addEmptyItemToList(mCategoryList);
-                                mCategoryList.addAll(list);
-                            },
-                            Throwable::printStackTrace,
+                    .subscribe(list ->
+                                    resetAddData(mCategoryList, list),
+                                    Throwable::printStackTrace,
                             () -> {
                                 view().adapterCategoryChanged();
                                 view().spinnerSetCategory(mCostItem.getCategory());
                             }));
 
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void resetAddData(@NonNull List<NameIdItem> source, @NonNull List<NameIdItem> data) {
+        source.clear();
+        addEmptyItemToList(source);
+        source.addAll(data);
     }
 
     private void loadSubcategories() {
@@ -98,10 +106,12 @@ public class DetailCostPresenter extends BasePresenter<DetailCostView, DetailCos
                                 view().adapterSubcategoryChanged();
                                 view().spinnerSetSubCategory(mCostItem.getSubcategory());
                             }));
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void addEmptyItemToList(ArrayList<NameIdItem> list) {
+    private void addEmptyItemToList(List<NameIdItem> list) {
         if (list == null) return;
         list.add(new NameIdItem("Ничего не выбрано", 0));
     }
@@ -123,23 +133,26 @@ public class DetailCostPresenter extends BasePresenter<DetailCostView, DetailCos
         }
     }
 
-    @Override public void onRelease() {
+    @Override
+    public void onRelease() {
         view().bindClickListener(null);
         mSubscribers.dispose();
     }
 
-    @Override public void onSaveState(Bundle bundle) {
+    @Override
+    public void onSaveState(Bundle bundle) {
         bundle.putSerializable(ConstantManager.EXTRA_ITEM, mCostItem);
     }
 
 
-
     //Click region
-    @Override public void clickDate() {
+    @Override
+    public void clickDate() {
         model.showDatePicker(mCostItem.getTimestamp());
     }
 
-    @Override public void clickSave() {
+    @Override
+    public void clickSave() {
         checkSave();
     }
 
@@ -163,13 +176,17 @@ public class DetailCostPresenter extends BasePresenter<DetailCostView, DetailCos
     private void saveToDB() {
         try {
             model.createCost(mCostItem);
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateItem() {
         try {
             model.updateCost(mCostItem);
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean isDataValid() {
@@ -190,25 +207,27 @@ public class DetailCostPresenter extends BasePresenter<DetailCostView, DetailCos
         return true;
     }
 
-    @Override public void clickBack() {
+    @Override
+    public void clickBack() {
         model.goBack(false);
     }
 
 
-
     //Result region
-    @Override public void getResultDateDialog(long stamp) {
+    @Override
+    public void getResultDateDialog(long stamp) {
         mCostItem.setTimestamp(String.valueOf(stamp));
         setDateToView();
     }
-
 
 
     //setup view region
     private void setDateToView() {
         try {
             view().setDate(DateUtils.stampToYMDHMS(Long.parseLong(mCostItem.getTimestamp())));
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setDescriptionToView() {

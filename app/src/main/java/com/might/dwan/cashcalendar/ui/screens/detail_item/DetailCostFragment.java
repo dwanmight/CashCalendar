@@ -26,8 +26,10 @@ import javax.inject.Inject;
 
 public class DetailCostFragment extends BaseFragment {
 
-    @Inject DetailCostView view;
-    @Inject DetailCostPresenter presenter;
+    @Inject
+    DetailCostView view;
+    @Inject
+    DetailCostPresenter presenter;
 
     public static DetailCostFragment newInstance(int mode, CostItem model) {
         Bundle args = new Bundle();
@@ -39,28 +41,36 @@ public class DetailCostFragment extends BaseFragment {
         return fragment;
     }
 
-    @Override public int getLayoutId() {return R.layout.fragment_detail_pay;}
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_detail_pay;
+    }
 
-    @Override public void setupData(Bundle state) {
+    @Override
+    public void setupData(Bundle state) {
         CostItem item = state.containsKey(ConstantManager.EXTRA_ITEM) ?
                 (CostItem) state.getSerializable(ConstantManager.EXTRA_ITEM) : null;
 
-        DaggerDetailCostComponent.builder().appComponent(App.getAppComponent())
+        DaggerDetailCostComponent.builder()
+                .appComponent(App.getAppComponent())
                 .detailCostModule(new DetailCostModule(this, item))
                 .build()
                 .inject(this);
 
     }
 
-    @Override public void releaseData() {
+    @Override
+    public void releaseData() {
         presenter.release();
     }
 
-    @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.detail_pay, menu);
     }
 
-    @Override public boolean onOptionsItemSelected(MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.toolbar_done:
                 presenter.clickSave();
@@ -72,15 +82,16 @@ public class DetailCostFragment extends BaseFragment {
         return false;
     }
 
-    @Override public void onSaveInstanceState(Bundle outState) {
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         presenter.onSaveState(outState);
     }
 
 
-
     //Activity result dialog
-    @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         boolean result = resultCode == Activity.RESULT_OK;
         switch (requestCode) {
@@ -97,12 +108,11 @@ public class DetailCostFragment extends BaseFragment {
     }
 
 
-    
     //show region
     public void showDatePickDialog(String timestamp) {
         DatePickerDialog dialog = DatePickerDialog.newInstance(timestamp);
         dialog.setTargetFragment(this, ConstantManager.REQUEST_DATE_DIALOG);
-        dialog.show(getFragmentManager(), "PickDate");
+        dialog.show(getFragmentManager(), dialog.getClass().getSimpleName());
     }
 
     public void showErrorPickCategory() {
@@ -121,6 +131,8 @@ public class DetailCostFragment extends BaseFragment {
         try {
             getActivity().setResult(result ? Activity.RESULT_OK : Activity.RESULT_CANCELED);
             getActivity().finish();
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
