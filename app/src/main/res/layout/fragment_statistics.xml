@@ -20,11 +20,6 @@
                 style="@style/statistics_label"
                 android:text="@string/diagrams" />
 
-            <com.might.dwan.cashcalendar.ui.views.CircleChart
-                android:layout_width="200dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_height="200dp" />
-
             <com.might.dwan.cashcalendar.ui.views.ChartContainer
                 android:id="@+id/statistics_charts_view"
                 android:layout_width="match_parent"
