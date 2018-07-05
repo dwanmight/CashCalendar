@@ -1,4 +1,4 @@
-package com.might.dwan.cashcalendar.ui;
+package com.might.dwan.cashcalendar.ui.dialogs;
 
 import android.app.Dialog;
 import android.content.Intent;

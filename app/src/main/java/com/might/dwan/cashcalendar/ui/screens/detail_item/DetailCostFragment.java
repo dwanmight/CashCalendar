@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.apps.App;
 import com.might.dwan.cashcalendar.data.models.CostItem;
-import com.might.dwan.cashcalendar.ui.DatePickerDialog;
+import com.might.dwan.cashcalendar.ui.dialogs.DatePickerDialog;
 import com.might.dwan.cashcalendar.ui.screens.BaseFragment;
 import com.might.dwan.cashcalendar.ui.screens.detail_item.core.DetailCostPresenter;
 import com.might.dwan.cashcalendar.ui.screens.detail_item.core.DetailCostView;
