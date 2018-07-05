@@ -15,9 +15,6 @@ public class UserModel {
         this.surname = surname;
     }
 
-    public UserModel() {
-    }
-
     public String getNickname() {
         return nickname;
     }

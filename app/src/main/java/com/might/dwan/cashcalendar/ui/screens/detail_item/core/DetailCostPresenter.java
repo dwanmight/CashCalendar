@@ -71,9 +71,8 @@ public class DetailCostPresenter extends BasePresenter<DetailCostView, DetailCos
             mSubscribers.add(model.loadCategories()
                     .subscribeOn(mRxSchedulers.io())
                     .observeOn(mRxSchedulers.androidThread())
-                    .subscribe(list ->
-                                    resetAddData(mCategoryList, list),
-                                    Throwable::printStackTrace,
+                    .subscribe(list -> resetAddData(mCategoryList, list),
+                            Throwable::printStackTrace,
                             () -> {
                                 view().adapterCategoryChanged();
                                 view().spinnerSetCategory(mCostItem.getCategory());
@@ -96,11 +95,7 @@ public class DetailCostPresenter extends BasePresenter<DetailCostView, DetailCos
                     .subscribeOn(mRxSchedulers.io())
                     .flatMap(id -> model.loadSubcategories(id))
                     .observeOn(mRxSchedulers.androidThread())
-                    .subscribe(list -> {
-                                mSubcategoryList.clear();
-                                addEmptyItemToList(mSubcategoryList);
-                                mSubcategoryList.addAll(list);
-                            },
+                    .subscribe(list -> resetAddData(mSubcategoryList, list),
                             Throwable::printStackTrace,
                             () -> {
                                 view().adapterSubcategoryChanged();

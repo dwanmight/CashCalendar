@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 public abstract class BaseDB {
 
     public void release(Cursor c, SQLiteDatabase db) {
-        if (c != null)
+        if (c != null && !c.isClosed())
             c.close();
         if (db != null)
             db.close();

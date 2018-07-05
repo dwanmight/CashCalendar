@@ -1,10 +1,10 @@
 package com.might.dwan.cashcalendar.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 
 import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.ui.activities.DetailPayActivity;
@@ -51,9 +51,9 @@ public class IntentUtils {
     private static void startActivity(Context c, Intent intent, int requestCode) {
         try {
             if (requestCode == -1) {
-                ((AppCompatActivity) c).startActivity(intent);
+                c.startActivity(intent);
             } else {
-                ((AppCompatActivity) c).startActivityForResult(intent, requestCode);
+                ((Activity) c).startActivityForResult(intent, requestCode);
             }
         } catch (Exception e) {e.printStackTrace();}
     }

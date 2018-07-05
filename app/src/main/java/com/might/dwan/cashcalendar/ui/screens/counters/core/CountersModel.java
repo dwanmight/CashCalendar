@@ -6,6 +6,7 @@ import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
 import com.might.dwan.cashcalendar.ui.screens.detail_item.core.DetailCostPresenter;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
@@ -16,12 +17,12 @@ import io.reactivex.Observable;
 
 public class CountersModel {
 
-    private CountersFragment fragment;
+    private WeakReference<CountersFragment> fragment;
     private PayCounterDB payDb;
     private DBHelper db;
 
     public CountersModel(CountersFragment fragment, PayCounterDB payDb, DBHelper db) {
-        this.fragment = fragment;
+        this.fragment = new WeakReference<>(fragment);
         this.payDb = payDb;
         this.db = db;
     }
@@ -32,10 +33,16 @@ public class CountersModel {
     }
 
     public void goCreateNote() {
-        fragment.goCreateNote(DetailCostPresenter.MODE_NEW, null);
+        if (!isValidRoute()) return;
+        fragment.get().goCreateNote(DetailCostPresenter.MODE_NEW, null);
     }
 
     public void goUpdateNote(CostItem item) {
-        fragment.goCreateNote(DetailCostPresenter.MODE_DETAIL, item);
+        if (!isValidRoute()) return;
+        fragment.get().goCreateNote(DetailCostPresenter.MODE_DETAIL, item);
+    }
+
+    private boolean isValidRoute() {
+        return (fragment != null && fragment.get() != null);
     }
 }

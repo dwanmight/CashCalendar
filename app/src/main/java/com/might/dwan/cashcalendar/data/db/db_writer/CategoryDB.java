@@ -27,6 +27,8 @@ public class CategoryDB extends BaseDB {
                 , null
                 , null
                 , null);
+
+        // TODO: 05.07.2018 need refactor
         if (c.getCount() > 0) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {

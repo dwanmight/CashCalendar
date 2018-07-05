@@ -13,6 +13,10 @@ public class BuildUtils {
         return getCurrentApi() >= LOLLIPOP;
     }
 
+    public static boolean isPostNougat() {
+        return getCurrentApi() >= NOUGAT;
+    }
+
     private static int getCurrentApi() {
         return Build.VERSION.SDK_INT;
     }

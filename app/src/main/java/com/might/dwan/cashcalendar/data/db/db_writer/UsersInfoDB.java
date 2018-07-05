@@ -14,7 +14,7 @@ import com.might.dwan.cashcalendar.data.models.UserModel;
 
 public class UsersInfoDB extends BaseDB {
 
-    public void addUser(SQLiteDatabase db, String nickname, String name, String surname) throws Exception {
+    public void addUser(SQLiteDatabase db, String nickname, String name, String surname) {
         if (db == null) return;
 
         Cursor c = db.query(DBHelper.TABLE_USERS_INFO
@@ -24,19 +24,27 @@ public class UsersInfoDB extends BaseDB {
                 , null
                 , null
                 , null);
-        ContentValues cv = new ContentValues();
-        cv.put(DBHelper.COLUMN_USERS_INFO_NICKNAME, nickname);
-        cv.put(DBHelper.COLUMN_USERS_INFO_NAME, name);
-        cv.put(DBHelper.COLUMN_USERS_INFO_SURNAME, surname);
+
+        ContentValues cv = getCVForUser(nickname, name, surname);
+
         if (c.getCount() <= 0) {
             db.insert(DBHelper.TABLE_USERS_INFO, null, cv);
         } else {
             db.update(DBHelper.TABLE_USERS_INFO, cv, "user_id = ?", new String[]{nickname});
         }
         release(c, db);
+
     }
 
-    public UserModel getUser(SQLiteDatabase db, String nickname) throws Exception {
+    private ContentValues getCVForUser(String nickname, String name, String surname) {
+        ContentValues cv = new ContentValues();
+        cv.put(DBHelper.COLUMN_USERS_INFO_NICKNAME, nickname);
+        cv.put(DBHelper.COLUMN_USERS_INFO_NAME, name);
+        cv.put(DBHelper.COLUMN_USERS_INFO_SURNAME, surname);
+        return cv;
+    }
+
+    public UserModel getUser(SQLiteDatabase db, String nickname) {
         Log.i("TAGTAG", "getUser: " + nickname);
         UserModel user = new UserModel("", "", "");
         if (nickname == null || nickname.equals("")) return user;

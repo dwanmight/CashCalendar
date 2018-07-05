@@ -19,7 +19,7 @@ public class FileUtils {
     private WeakReference<Context> mWeakContext;
 
     public FileUtils(Context context) {
-        mWeakContext = new WeakReference<Context>(context);
+        mWeakContext = new WeakReference<>(context);
     }
 
     public String createCameraFile() {
@@ -30,11 +30,11 @@ public class FileUtils {
 
         String name_postfix = String.valueOf(System.currentTimeMillis());
         String name_prefix = "camera_";
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(name_prefix).append(name_postfix);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(name_prefix).append(name_postfix);
         File cameraFile = null;
         try {
-            cameraFile = File.createTempFile(stringBuffer.toString(), ".jpg", file);
+            cameraFile = File.createTempFile(stringBuilder.toString(), ".jpg", file);
             ContentValues cv = new ContentValues();
             cv.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
             cv.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
@@ -48,10 +48,9 @@ public class FileUtils {
 
     public String getFilePath(File file) {
         String res;
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
+        if (BuildUtils.isPostNougat()) {
             Uri photoURI = FileProvider.getUriForFile(mWeakContext.get(),
-                    "com.might.dwan.cashcalendar.fileprovider",
-                    file);
+                    "com.might.dwan.cashcalendar.fileprovider", file);
             res = photoURI.toString();
         } else {
             res = String.valueOf(Uri.fromFile(file));

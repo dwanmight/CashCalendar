@@ -9,19 +9,23 @@ import com.might.dwan.cashcalendar.data.preferences.Preferences;
  */
 
 public class PreferencesManager {
-    private static PreferencesManager sPreferenceManager;
+    private static volatile PreferencesManager sPreferenceManager;
     private Context mContext;
     private Preferences mPreferences;
 
     public static PreferencesManager get(Context context) {
         if (sPreferenceManager == null)
-            sPreferenceManager = new PreferencesManager(context.getApplicationContext());
+            synchronized (PreferencesManager.class) {
+                if (sPreferenceManager == null) {
+                    sPreferenceManager = new PreferencesManager(context.getApplicationContext());
+                }
+            }
         return sPreferenceManager;
     }
 
     private PreferencesManager(Context context) {
         mContext = context;
-        mPreferences=new Preferences();
+        mPreferences = new Preferences();
     }
 
     public Preferences getPreferences() {

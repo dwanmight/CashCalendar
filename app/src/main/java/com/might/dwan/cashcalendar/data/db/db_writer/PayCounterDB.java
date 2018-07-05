@@ -7,10 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.might.dwan.cashcalendar.data.db.CostItemCursorWrapper;
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.models.CostItem;
 import com.might.dwan.cashcalendar.utils.ConstantManager;
 import com.might.dwan.cashcalendar.utils.DateUtils;
+import com.might.dwan.cashcalendar.utils.ValidUtils;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,8 @@ public class PayCounterDB extends BaseDB {
                 , null
                 , null
                 , null);
+
+        // TODO: 05.07.2018 need refactor
         if (c.getCount() > 0) {
             c.moveToFirst();
             CostItem model = new CostItem();
@@ -97,7 +101,7 @@ public class PayCounterDB extends BaseDB {
         ArrayList<CostItem> dataList = new ArrayList<>();
         Cursor c = null;
         try {
-            if (timestamp == null || timestamp.equals("")) {
+            if (!ValidUtils.isTextValid(timestamp)) {
                 c = getCursorFromFirst(db, limit);
             } else {
                 c = getCursorFromLast(db, timestamp, limit);
@@ -105,13 +109,10 @@ public class PayCounterDB extends BaseDB {
 
             Log.i(ConstantManager.TAG, "load: " + DatabaseUtils.dumpCursorToString(c));
 
-            if (c.getCount() > 0) {
-                c.moveToFirst();
-                for (int i = 0; i < c.getCount(); i++) {
-                    dataList.add(createItem(c));
-                    c.moveToNext();
-                }
-            }
+            CostItemCursorWrapper cursorWrapper = new CostItemCursorWrapper(c);
+            dataList.addAll(cursorWrapper.getItems());
+            cursorWrapper.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -138,22 +139,6 @@ public class PayCounterDB extends BaseDB {
             release(c, db);
         }
         return list;
-    }
-
-    public static CostItem createItem(Cursor c) {
-        CostItem item = new CostItem();
-        item.setPayItemId(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_ITEM_ID)));
-        item.setCategory(c.getInt(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_CATEGORY)));
-        item.setCategoryText(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_CATEGORY_TEXT)));
-        item.setSubcategory(c.getInt(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_SUBCATEGORY)));
-        item.setSubcategoryText(c.getString(c.getColumnIndex(DBHelper
-                .COLUMN_USER_PAY_SUBCATEGORY_TEXT)));
-        item.setDescription(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_DESCRIPTION)));
-        item.setTimestamp(
-                String.valueOf(c.getInt(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_DATE)) * 1000L));
-        item.setUserId(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_USER_ID)));
-        item.setCountPay(c.getString(c.getColumnIndex(DBHelper.COLUMN_USER_PAY_COUNT_PAY)));
-        return item;
     }
 
     private Cursor getCursorFromFirst(SQLiteDatabase db, int limit) throws Exception {

@@ -27,6 +27,7 @@ public class SubcategoryDB extends BaseDB {
                 , null
                 , null
                 , null);
+
         if (c.getCount() > 0) {
             c.moveToFirst();
             for (int i = 0; i < c.getCount(); i++) {

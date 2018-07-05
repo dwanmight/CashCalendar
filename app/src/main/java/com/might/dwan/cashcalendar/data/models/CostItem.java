@@ -18,7 +18,8 @@ public class CostItem implements Serializable {
     private String timestamp;
     private String pay_item_id;
 
-    public CostItem(String user_id, int category, String category_text, int subcategory, String subcategory_text, String description, String count_pay, String timestamp) {
+    public CostItem(String user_id, int category, String category_text, int subcategory,
+                    String subcategory_text, String description, String count_pay, String timestamp) {
         this.user_id = user_id;
         this.category = category;
         this.category_text = category_text;
