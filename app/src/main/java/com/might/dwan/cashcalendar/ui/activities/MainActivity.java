@@ -17,6 +17,7 @@ import android.view.View;
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.ui.screens.counters.CountersFragment;
 import com.might.dwan.cashcalendar.ui.screens.statistics.StatisticsFragment;
+import com.might.dwan.cashcalendar.ui.screens.sync_accounts.SyncAccountsFragment;
 import com.might.dwan.cashcalendar.utils.IntentUtils;
 
 import java.util.List;
@@ -109,6 +110,8 @@ public class MainActivity extends BaseFragmentActivity
             startFragment(new CountersFragment(), "History");
         } else if (id == R.id.nav_statistics) {
             startFragment(new StatisticsFragment(), "Statistics");
+        } else if (id == R.id.nav_sync_accounts) {
+            startFragment(new SyncAccountsFragment(), "Sync");
         } else if (id == R.id.nav_settings) {
             IntentUtils.startSettings(this);
         } else if (id == R.id.nav_share) {
