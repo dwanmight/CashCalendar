@@ -5,6 +5,7 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.might.dwan.cashcalendar.data.db.CostItemCursorWrapper;
 import com.might.dwan.cashcalendar.data.db.DBDateUtils;
 import com.might.dwan.cashcalendar.data.db.DBHelper;
 import com.might.dwan.cashcalendar.data.models.CostItem;
@@ -43,14 +44,9 @@ public class StatisticsDB extends BaseDB {
         Log.i(ConstantManager.TAG, "getMax: " + DatabaseUtils.dumpCursorToString(c));
         Log.i(ConstantManager.TAG, "getMax: " + c.getCount());
 
-        if (c.getCount() > 0) {
-            c.moveToFirst();
-            for (int i = 0; i < c.getCount(); i++) {
-                CostItem item = PayCounterDB.createItem(c);
-                data.add(item);
-                c.moveToNext();
-            }
-        }
+        CostItemCursorWrapper cursorWrapper = new CostItemCursorWrapper(c);
+        data.addAll(cursorWrapper.getItems());
+        cursorWrapper.close();
         release(c, db);
         return data;
     }
@@ -77,14 +73,9 @@ public class StatisticsDB extends BaseDB {
                 , null);
         Log.i(ConstantManager.TAG, "getMin: " + DatabaseUtils.dumpCursorToString(c));
 
-        if (c.getCount() > 0) {
-            c.moveToFirst();
-            for (int i = 0; i < c.getCount(); i++) {
-                CostItem item = PayCounterDB.createItem(c);
-                data.add(item);
-                c.moveToNext();
-            }
-        }
+        CostItemCursorWrapper cursorWrapper = new CostItemCursorWrapper(c);
+        data.addAll(cursorWrapper.getItems());
+        cursorWrapper.close();
         release(c, db);
         return data;
     }
@@ -146,13 +137,9 @@ public class StatisticsDB extends BaseDB {
                 , null);
 
         Log.i(ConstantManager.TAG, "getMonthly: " + DatabaseUtils.dumpCursorToString(c));
-        if (c.getCount() > 0) {
-            c.moveToFirst();
-            c.moveToPrevious();
-            while (c.moveToNext()) {
-                items.add(PayCounterDB.createItem(c));
-            }
-        }
+        CostItemCursorWrapper cursorWrapper = new CostItemCursorWrapper(c);
+        items.addAll(cursorWrapper.getItems());
+        cursorWrapper.close();
         release(c, db);
 
         Log.i(ConstantManager.TAG, "getMonth: " + Arrays.toString(items.toArray()));
