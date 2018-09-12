@@ -2,7 +2,9 @@ package com.might.dwan.cashcalendar.apps.modules;
 
 import android.content.Context;
 
+import com.might.dwan.cashcalendar.apps.AppContext;
 import com.might.dwan.cashcalendar.apps.AppScope;
+import com.might.dwan.cashcalendar.apps.BaseContext;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,14 +15,23 @@ import dagger.Provides;
 
 @Module
 public class ContextModule {
-   private Context mContext;
+    private Context mContext;
 
-    public ContextModule(Context mContext) {
-        this.mContext = mContext;
+    public ContextModule(Context context) {
+        this.mContext = context;
     }
 
+    @BaseContext
     @AppScope
-    @Provides Context provideContext() {
+    @Provides
+    Context provideContext() {
         return mContext;
+    }
+
+    @AppContext
+    @AppScope
+    @Provides
+    Context provideAppContext() {
+        return mContext.getApplicationContext();
     }
 }

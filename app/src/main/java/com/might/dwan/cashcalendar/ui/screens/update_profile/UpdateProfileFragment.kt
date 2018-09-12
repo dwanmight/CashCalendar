@@ -1,4 +1,4 @@
-package com.might.dwan.cashcalendar.ui.screens
+package com.might.dwan.cashcalendar.ui.screens.update_profile
 
 import android.app.Activity
 import android.content.Intent
@@ -7,21 +7,31 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import com.might.dwan.cashcalendar.R
+import com.might.dwan.cashcalendar.apps.App
 import com.might.dwan.cashcalendar.data.db.DBManager
 import com.might.dwan.cashcalendar.data.db.db_writer.UsersInfoDB
-import com.might.dwan.cashcalendar.data.manager.PreferencesManager
+import com.might.dwan.cashcalendar.data.preferences.Preferences
 import com.might.dwan.cashcalendar.ui.dialogs.PhotoDialog
+import com.might.dwan.cashcalendar.ui.screens.BaseFragment
+import com.might.dwan.cashcalendar.ui.screens.update_profile.dagger.DaggerUpdateProfileComponent
+import com.might.dwan.cashcalendar.ui.screens.update_profile.dagger.UpdateProfileComponent
 import com.might.dwan.cashcalendar.utils.BitmapUtils
 import com.might.dwan.cashcalendar.utils.ConstantManager
 import com.might.dwan.cashcalendar.utils.EditTextUtils
 import com.might.dwan.cashcalendar.utils.ValidUtils
 import kotlinx.android.synthetic.main.fragment_update_profile.*
+import javax.inject.Inject
 
 /**
  * Created by Might on 19.09.2017.
  */
 
 class UpdateProfileFragment : BaseFragment(), View.OnClickListener {
+
+    @Inject
+    lateinit var preferences: Preferences
+
+    private lateinit var component: UpdateProfileComponent
 
     override fun getLayoutId() = R.layout.fragment_update_profile
 
@@ -32,7 +42,13 @@ class UpdateProfileFragment : BaseFragment(), View.OnClickListener {
 
     override fun setupData(state: Bundle?) {
         try {
-            val nickName = PreferencesManager.get(activity).preferences.nickname
+            component = DaggerUpdateProfileComponent.builder()
+                    .appComponent(App.getAppComponent())
+                    .build()
+
+            component.inject(this)
+
+            val nickName = preferences.nickname
             val usersInfoDB = UsersInfoDB()
             val user = usersInfoDB.getUser(DBManager.get(activity).writableDatabase, nickName)
 
@@ -77,7 +93,7 @@ class UpdateProfileFragment : BaseFragment(), View.OnClickListener {
     private fun checkFields(): Boolean {
         if (!EditTextUtils.isValid(update_nickname_et)) {
             showToast(getString(R.string.profile_enter_nickname))
-             return false
+            return false
         }
         if (!EditTextUtils.isValid(update_name_et)) {
             showToast(getString(R.string.profile_enter_name))
@@ -98,7 +114,7 @@ class UpdateProfileFragment : BaseFragment(), View.OnClickListener {
                     EditTextUtils.getText(update_nickname_et),
                     EditTextUtils.getText(update_name_et),
                     EditTextUtils.getText(update_surname_et))
-            PreferencesManager.get(activity).preferences.saveNickname(EditTextUtils.getText(update_nickname_et))
+            preferences.saveNickname(EditTextUtils.getText(update_nickname_et))
             activity?.finish()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -108,9 +124,9 @@ class UpdateProfileFragment : BaseFragment(), View.OnClickListener {
 
     private fun openPhotoDialog() {
         val dialog = PhotoDialog()
+        component.inject(dialog)
         dialog.show(fragmentManager, dialog.javaClass.simpleName)
     }
-
 
 
     //Activity result region
@@ -132,7 +148,7 @@ class UpdateProfileFragment : BaseFragment(), View.OnClickListener {
 
     private fun getResultCamera(result: Boolean, data: Intent?) {
         if (data == null || !result) return
-        setPhoto(PreferencesManager.get(activity).preferences.photoPath)
+        setPhoto(preferences.photoPath)
     }
 
     private fun setPhoto(photoPath: String?) {

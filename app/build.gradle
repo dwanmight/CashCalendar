@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion="28.0.1"
+    buildToolsVersion = "28.0.1"
     defaultConfig {
         applicationId "com.might.dwan.cashcalendar"
         minSdkVersion 16
@@ -42,11 +42,9 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
 
-
     //Dagger
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
-
 
     //RX
     implementation "io.reactivex.rxjava2:rxjava:2.1.14"
@@ -54,4 +52,14 @@ dependencies {
 
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    //Facebook login
+    implementation 'com.facebook.android:facebook-login:4.31.0'
+
+    compileOnly project(":custom_annotations")
+
 }

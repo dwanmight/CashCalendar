@@ -51,4 +51,7 @@
 
     <!--Settings-->
     <string name="title_notifications">Уведомления</string>
+
+    <string name="facebook_app_id">418386075324945</string>
+    <string name="fb_login_protocol_scheme">fb418386075324945</string>
 </resources>

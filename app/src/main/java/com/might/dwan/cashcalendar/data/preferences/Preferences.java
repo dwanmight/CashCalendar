@@ -3,7 +3,8 @@ package com.might.dwan.cashcalendar.data.preferences;
 import android.content.SharedPreferences;
 
 import com.might.dwan.cashcalendar.utils.ConstantManager;
-import com.might.dwan.cashcalendar.apps.App;
+
+import javax.inject.Inject;
 
 /**
  * Created by Might on 24.08.2017.
@@ -12,8 +13,9 @@ import com.might.dwan.cashcalendar.apps.App;
 public class Preferences {
     private SharedPreferences mPreferences;
 
-    public Preferences() {
-        this.mPreferences = App.getSharedPreferences();
+    @Inject
+    public Preferences(SharedPreferences preferences) {
+        this.mPreferences = preferences;
     }
 
     public void saveNickname(String nickname) {

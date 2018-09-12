@@ -10,10 +10,12 @@ import android.widget.Toast;
 
 import com.might.dwan.cashcalendar.R;
 import com.might.dwan.cashcalendar.data.manager.PermissionManager;
-import com.might.dwan.cashcalendar.data.manager.PreferencesManager;
+import com.might.dwan.cashcalendar.data.preferences.Preferences;
 import com.might.dwan.cashcalendar.utils.ConstantManager;
 import com.might.dwan.cashcalendar.utils.FileUtils;
 import com.might.dwan.cashcalendar.utils.IntentUtils;
+
+import javax.inject.Inject;
 
 /**
  * Created by Might on 19.09.2017.
@@ -23,6 +25,9 @@ public class PhotoDialog extends DialogFragment implements Dialog.OnClickListene
     public static final int CAMERA = 0;
     public static final int GALLERY = 1;
     public static final int CANCEL = 2;
+
+    @Inject
+    Preferences preferences;
 
     @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -60,7 +65,7 @@ public class PhotoDialog extends DialogFragment implements Dialog.OnClickListene
             String path = fileUtils.createCameraFile();
             if (path != null) {
                 Log.i(ConstantManager.TAG, "capture: " + path);
-                PreferencesManager.get(getActivity()).getPreferences().savePhotoPath(path);
+                preferences.savePhotoPath(path);
                 IntentUtils.goCapture(getActivity(), path);
             } else {
                 Toast.makeText(getActivity(), "Error on create file for camera", Toast.LENGTH_SHORT).show();
