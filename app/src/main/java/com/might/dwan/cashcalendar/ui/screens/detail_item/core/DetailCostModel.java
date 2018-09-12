@@ -60,7 +60,6 @@ public class DetailCostModel {
     }
 
 
-
     //window region
     void goBack(boolean result) {
         fragment.get().goBack(result);
